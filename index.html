@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aurora — Inspiration</title>
+<style>
+:root{
+  --black:#08090A;
+  --raise:#0E0F11;
+  --raise-2:#131418;
+  --rule:#1E2024;
+  --rule-2:#2A2D33;
+  --bone:#EDEBE5;
+  --grey:#8B8981;
+  --grey-2:#5C5B56;
+  --lo:#7FD9C0;
+  --hi:#A78BE0;
+
+  --serif:'Hoefler Text','Iowan Old Style',Charter,'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  --sans:'Avenir Next',Avenir,'Nunito Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+
+  /* nothing overshoots. glide decelerates into place; soft handles the small stuff */
+  --glide:cubic-bezier(.32,.72,0,1);
+  --soft:cubic-bezier(.4,0,.2,1);
+  --out:cubic-bezier(.25,1,.5,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--black);color:var(--bone);font-family:var(--sans);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased}
+::selection{background:var(--lo);color:var(--black)}
+:focus-visible{outline:1px solid var(--lo);outline-offset:4px}
+.label{font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--grey-2)}
+
+/* ---------------- page ---------------- */
+.wrap{max-width:1160px;margin:0 auto;padding:52px 30px 110px}
+.masthead{display:flex;align-items:center;gap:20px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+.mark{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.42em;
+  animation:track 1.6s var(--out) both}
+@keyframes track{from{letter-spacing:.9em;opacity:0}to{letter-spacing:.42em;opacity:1}}
+.masthead .grow{flex:1}
+/* right-aligned tracked labels: pull back the trailing letter-space so the glyphs hit the edge */
+.masthead .label,.quiet .rest .label{margin-right:-.22em}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:80px;align-items:start;padding-top:68px}
+
+/* ---------------- argument ---------------- */
+.thesis{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4.1vw,47px);line-height:1.16;
+  letter-spacing:-.012em;max-width:16ch}
+.standfirst{margin-top:26px;max-width:50ch;color:#9C9A93;font-size:16.5px;line-height:1.66}
+.note{max-width:54ch;margin-top:52px;display:grid;grid-template-columns:88px 1fr;gap:26px;
+  opacity:0;transform:translateY(12px);transition:opacity .9s var(--out),transform .9s var(--out)}
+.note.in{opacity:1;transform:none}
+.note > .label{padding-top:7px;line-height:1.6}
+.note > .label::before{content:'';display:block;width:0;height:1px;background:var(--rule-2);
+  margin-bottom:11px;transition:width 1s .2s var(--out)}
+.note.in > .label::before{width:26px}
+.note h3{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.32;letter-spacing:-.005em;
+  margin-bottom:12px}
+.note p{color:#96948D;font-size:15.5px;line-height:1.7;margin-bottom:13px}
+.note p:last-child{margin-bottom:0}
+.note b{color:var(--bone);font-weight:600}
+.quote{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--bone);padding:16px 0;margin:18px 0;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.quote .label{display:block;margin-top:10px}
+.list{list-style:none}
+.list li{padding:11px 0;border-bottom:1px solid var(--rule);color:#96948D;font-size:15px;line-height:1.6}
+.list li:first-child{border-top:1px solid var(--rule)}
+.list b{color:var(--bone);font-weight:600}
+.tally{display:flex;gap:26px;margin:18px 0 0}
+.tally div{border-top:1px solid var(--rule-2);padding-top:9px;min-width:74px}
+.tally .n{font-family:var(--serif);font-size:27px;line-height:1;color:var(--grey)}
+.tally .k{margin-top:7px}
+.tally.ours{margin:14px 0 6px}
+.tally.ours div{border-top:0;position:relative;padding-top:10px}
+.tally.ours div::before{content:'';position:absolute;top:0;left:0;width:74px;height:1px;
+  background:linear-gradient(90deg,var(--lo),var(--hi))}
+.tally.ours .n{color:var(--bone)}
+.foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--rule)}
+
+/* ---------------- device ---------------- */
+.stage{position:sticky;top:36px}
+.switch{position:relative;display:flex;border:1px solid var(--rule);margin-bottom:18px}
+.switch .ind{position:absolute;top:0;bottom:0;left:0;width:50%;background:var(--bone);
+  transition:transform .58s var(--glide)}
+.switch button{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;
+  min-height:36px;padding:0 6px;background:none;border:0;cursor:pointer;
+  color:var(--grey-2);font-family:var(--sans);font-size:9.5px;font-weight:600;line-height:1;
+  letter-spacing:.2em;text-transform:uppercase;transition:color .5s var(--soft)}
+/* tracking puts a trailing space after the last glyph — pull it back so the run centres true */
+.switch .lab{position:relative;top:.04em;margin-right:-.2em;line-height:1}
+.switch button:hover{color:var(--grey)}
+.switch button[aria-pressed=true]{color:var(--black)}
+
+.phone{width:372px;height:790px;background:var(--black);border:1px solid var(--rule);
+  border-radius:38px;overflow:hidden;position:relative}
+.phone::after{content:'';position:absolute;left:50%;bottom:10px;width:118px;height:3px;border-radius:2px;
+  background:#2C2F35;transform:translateX(-50%);z-index:6}
+.screen{height:100%;overflow-y:auto;padding:38px 0 96px;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 46px);
+  mask-image:linear-gradient(180deg,transparent 0,#000 46px);
+  transition:opacity .34s var(--soft)}
+.screen::-webkit-scrollbar{display:none}
+.statusbar{position:absolute;top:0;left:0;right:0;z-index:4;display:flex;justify-content:space-between;
+  align-items:baseline;padding:17px 26px 14px;color:var(--grey-2);font-size:11px;font-weight:600;
+  letter-spacing:.03em;background:linear-gradient(180deg,var(--black) 62%,transparent)}
+.statusbar .compact{position:absolute;left:0;right:0;text-align:center;font-size:9.5px;font-weight:600;
+  letter-spacing:.2em;text-indent:.2em;text-transform:uppercase;color:var(--grey-2);opacity:0;
+  transform:translateY(5px);
+  transition:opacity .45s var(--soft),transform .45s var(--glide);pointer-events:none}
+.statusbar.tight .compact{opacity:1;transform:none}
+
+.notice{padding:30px 26px 26px;transform-origin:left top;will-change:opacity,transform}
+.notice .label{display:block;margin-bottom:15px}
+.notice h2{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.34;letter-spacing:-.008em}
+
+/* ---------------- the programme ---------------- */
+.prog{padding:0 26px}
+.row{display:grid;grid-template-columns:50px 1fr;gap:16px;position:relative;border-top:1px solid var(--rule)}
+.row .t{padding:15px 0 0;font-size:11px;font-weight:600;color:var(--grey-2);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:.06em}
+.entry{padding:14px 0 16px}
+.entry .title{font-size:14.5px;color:#9C9A93;letter-spacing:-.004em}
+.entry .where{font-size:11.5px;color:var(--grey-2);margin-top:4px}
+.row.past .t,.row.past .entry .title,.row.past .entry .where{color:#4A4945}
+.now{display:block;margin-top:5px;font-size:8.5px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--bone);opacity:.55}
+.row.present .entry .title{color:var(--bone)}
+
+/* SIGNATURE — the rule breaks where the day is open, and light fills the break */
+.row.open{border-top:0}
+.row.open::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,var(--rule) 0 50px,rgba(127,217,192,.62) 50px,rgba(167,139,224,.5));
+  animation:rule-open 1.3s var(--out) both;transition:opacity .6s var(--soft)}
+@keyframes rule-open{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.beam{position:absolute;left:57px;top:2px;bottom:16px;width:1px;
+  background:linear-gradient(180deg,var(--lo),var(--hi),var(--lo));background-size:100% 260%;
+  opacity:.4;transform-origin:top;
+  animation:strike 1.4s .3s var(--out) both, drift 12s 1.7s linear infinite;
+  transition:opacity .6s var(--soft)}
+@keyframes strike{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes drift{from{background-position:0 0}to{background-position:0 260%}}
+.row.open:hover .beam{opacity:.72}
+.row.charging .beam{opacity:1;animation-duration:1.4s,2.6s}   /* the light charges while you hold */
+.row.working .beam{opacity:.9}
+.open .t{color:var(--grey);padding-top:16px}
+.open .span{display:block;margin-top:5px;font-size:9px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--grey-2);transition:opacity .3s var(--soft)}
+
+/* the suggestion — push it aside, or open it */
+.slot{position:relative;margin:14px 0 18px}
+.behind{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;
+  padding-right:calc(20px - .2em);   /* discount the trailing letter-space on a right edge */
+  font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--grey);opacity:0;pointer-events:none;transition:opacity .3s var(--soft)}
+.card{display:block;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;
+  position:relative;background:var(--raise);border:1px solid var(--rule);border-radius:5px;
+  padding:18px 19px 17px;touch-action:pan-y;
+  transition:border-color .5s var(--soft),background .5s var(--soft),transform .58s var(--glide)}
+.card.dragging{transition:border-color .5s var(--soft),background .5s var(--soft)}
+.card:hover{border-color:var(--rule-2);background:var(--raise-2)}
+.card:active{transform:scale(.995);transition-duration:.5s,.5s,.22s}
+.card .because{font-family:var(--serif);font-size:14px;line-height:1.55;color:#8B8981;
+  padding-bottom:13px;margin-bottom:14px;border-bottom:1px solid var(--rule)}
+.card .what{font-family:var(--serif);font-size:20.5px;line-height:1.3;letter-spacing:-.008em;color:var(--bone)}
+.card .detail{font-size:13px;color:var(--grey-2);margin-top:8px;line-height:1.5}
+
+/* the reasoning trace — measured height, so the glide is exact */
+.trace{height:0;overflow:hidden;transition:height .6s var(--glide)}
+.trace .inner{margin-top:17px;border-top:1px solid var(--rule)}
+.sig{display:grid;grid-template-columns:70px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);
+  align-items:baseline;opacity:0}
+.card.open-card .sig{animation:sig-in .5s var(--out) both}
+.card.open-card .sig:nth-child(1){animation-delay:.06s}
+.card.open-card .sig:nth-child(2){animation-delay:.12s}
+.card.open-card .sig:nth-child(3){animation-delay:.18s}
+.card.open-card .sig:nth-child(4){animation-delay:.24s}
+@keyframes sig-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.sig dt{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-2)}
+.sig dd{font-size:12.5px;color:#8B8981;line-height:1.5}
+.acts{display:flex;align-items:stretch;gap:8px;margin-top:17px;opacity:0}
+.card.open-card .acts{animation:sig-in .5s .3s var(--out) both}
+
+/* one control metric: both sit on the same 46px box, both centre the same way */
+.hold,.no{display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 10px;
+  border-radius:4px;font-family:var(--sans);font-size:12.5px;line-height:1;white-space:nowrap;
+  cursor:pointer}
+
+/* HOLD TO CONFIRM — commitment made physical, and unhurried */
+.hold{position:relative;flex:1;min-width:min-content;   /* the label can never be clipped by a wider fallback face */
+  overflow:hidden;background:var(--raise-2);border:1px solid var(--rule-2);
+  user-select:none;-webkit-user-select:none;
+  transition:transform .45s var(--glide),border-color .4s var(--soft)}
+.hold:active{transform:scale(.99)}
+.hold .fill{position:absolute;inset:0;background:var(--bone);transform:scaleX(0);transform-origin:left;
+  transition:transform .42s var(--glide)}
+.hold.charging .fill{transform:scaleX(1);transition:transform .84s linear}
+/* both labels are centred on the cap band, not on their own ink — so they share one baseline
+   even though "Not today" has a descender and "Hold to confirm" doesn't */
+.hold .lab,.no .lab{position:relative;line-height:1;top:.04em}
+.hold .lab{z-index:1;font-weight:600;color:var(--bone);mix-blend-mode:difference}
+.hold.done{border-color:var(--bone)}
+.hold.done .fill{transform:scaleX(1);transition:none}
+.no{background:none;border:1px solid var(--rule);color:var(--grey-2);font-weight:500;
+  transition:color .4s var(--soft),border-color .4s var(--soft),transform .45s var(--glide)}
+.no:hover{color:var(--bone);border-color:var(--rule-2)}
+.no:active{transform:scale(.985)}
+
+/* the cell morphs — its height glides while its contents cross-dissolve */
+.cell{position:relative}
+
+/* EXECUTION — the light becomes the track Aurora works down */
+.exec{padding:18px 0 22px}
+.exec .step{position:relative;padding:7px 0;font-size:13px;line-height:1.5;color:var(--grey);
+  opacity:0;animation:step-in .6s var(--out) forwards;animation-delay:var(--d)}
+.exec .step i{position:absolute;left:-11px;top:14px;width:5px;height:5px;border-radius:50%;font-style:normal;
+  background:linear-gradient(180deg,var(--lo),var(--hi));transform:scale(0);
+  animation:dot-in .5s var(--out) forwards;animation-delay:var(--d)}
+@keyframes step-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes dot-in{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* Aurora declines to fill this one */
+.held{padding:18px 0 22px}
+.held .line{font-family:var(--serif);font-size:19px;color:var(--bone);line-height:1.35}
+.held .why{font-size:12.5px;color:var(--grey-2);margin-top:9px;line-height:1.6;max-width:34ch}
+
+/* accepted — the light withdraws, and you watch the rule close across the break */
+.row.settled{border-top:1px solid var(--rule)}
+.row.settled::before{opacity:0}
+.row.settled .beam{animation:none;opacity:0;transform:scaleY(0);
+  transition:opacity .7s var(--soft),transform .7s var(--glide)}
+.row.settled::after{content:'';position:absolute;top:0;left:50px;right:0;height:1px;transform-origin:left;
+  background:linear-gradient(90deg,var(--lo),var(--hi));animation:close-wipe 1.05s var(--glide) forwards}
+@keyframes close-wipe{0%{transform:scaleX(0);opacity:1}58%{transform:scaleX(1);opacity:1}
+  100%{transform:scaleX(1);opacity:0}}
+.settled .entry .title{color:var(--bone)}
+.settled .entry .where{color:var(--grey)}
+
+/* the quiet day */
+.quiet{padding:34px 26px 0}
+.quiet h2{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.34;margin-top:15px}
+.quiet .rest{margin-top:300px;text-align:right;padding-bottom:40px}
+.quiet .rest .label{display:block;margin-bottom:9px}
+.quiet .rest .line{font-family:var(--serif);font-size:15px;color:var(--grey)}
+.quiet .rest::after{content:'';display:block;margin-left:auto;margin-top:14px;height:1px;width:0;
+  background:var(--rule-2);animation:hold-rule 1.6s 1.2s var(--glide) forwards}
+@keyframes hold-rule{to{width:132px}}
+
+/* the quiet way back to conversation */
+.ask{position:absolute;left:26px;right:26px;bottom:28px;z-index:5;display:flex;align-items:center;gap:11px;
+  background:var(--raise);border:1px solid var(--rule);border-radius:100px;padding:13px 19px;
+  font-family:var(--sans);font-size:13px;color:var(--grey-2);cursor:pointer;overflow:hidden;
+  transition:border-color .4s var(--soft),color .4s var(--soft)}
+.ask:hover{border-color:var(--rule-2);color:var(--grey)}
+.ask i{width:5px;height:5px;border-radius:50%;background:var(--lo);flex:none;opacity:.85;font-style:normal;
+  transition:opacity .5s var(--soft)}
+.ask.busy i{animation:breathe 2.6s var(--soft) infinite}
+@keyframes breathe{0%,100%{opacity:.3}50%{opacity:1}}
+.ask .lab{display:block;transition:transform .34s var(--glide),opacity .34s var(--soft)}
+.ask.out .lab{transform:translateY(-10px);opacity:0}
+.ask.in .lab{transform:translateY(10px);opacity:0;transition:none}
+
+.cap{margin-top:16px;color:var(--grey-2);font-size:12px;line-height:1.6;max-width:34ch}
+.rise{opacity:0;transform:translateY(10px);animation:rise .9s var(--out) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+@media (max-width:1000px){
+  .split{grid-template-columns:1fr;gap:60px;padding-top:46px}
+  .stage{position:static;max-width:372px}
+  .wrap{padding:32px 20px 80px}
+  .note{grid-template-columns:1fr;gap:10px}
+  .phone{width:100%;max-width:372px;height:min(790px,84vh)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rise,.note{opacity:1;transform:none}
+  .sig,.acts{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead rise">
+    <div class="mark">Aurora</div>
+    <div class="grow"></div>
+    <div class="label">Inspiration · Concept · Izaias</div>
+  </header>
+
+  <div class="split">
+    <main>
+      <h1 class="thesis rise" style="animation-delay:.06s">
+        Inspiration isn't a place you browse. It's where Aurora shows its work.
+      </h1>
+      <p class="standfirst rise" style="animation-delay:.13s">
+        A brief that asks for an "inspiration page" is asking for a feed. Aurora can't ship a feed — it would
+        argue against the product it lives in. So this isn't a page of things you might want. It's your day,
+        with the open space made valuable.
+      </p>
+
+      <section class="note">
+        <div class="label">The tension</div>
+        <div>
+          <h3>The brief's own words point away from a feed</h3>
+          <div class="quote">
+            "Prompting is for losers… The real breakthrough will be the elimination of the question altogether."
+            <span class="label">Alex Macdonald, Aurora</span>
+          </div>
+          <p>
+            And from the co-founder's launch essay: a product that <b>"pulls you toward real experiences rather
+            than keeping you stuck comparing options on a screen."</b> A grid of beautiful cards is a screen
+            you compare options on.
+          </p>
+          <p>
+            The fix isn't a prettier feed. It's changing what the surface <b>is</b>. Chat serves "I know what I
+            want." Inspiration serves "I didn't know to ask" — and its real job is to make the autopilot
+            legible, so a member can trust something they never requested.
+          </p>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">Structure</div>
+        <div>
+          <h3>The unit of the interface is the gap</h3>
+          <p>
+            Every experience members describe as magic has the same shape: it was fitted into a hole in a day
+            that already existed. Recovery <b>between meetings</b>. A track session <b>between conference
+            sessions</b>. A reroute to catch an old friend. None of it was a wishlist. All of it was
+            interstitial.
+          </p>
+          <p>
+            So the page is the day. Committed time is printed grey and the hairline rules hold it together.
+            Where the day opens, <b>the rule breaks and light fills the break</b> — and Aurora writes into it.
+            The gaps are finite, so this surface cannot become infinite. It ends where your day ends.
+          </p>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">The moment</div>
+        <div>
+          <h3>One tap, against an industry that needs twenty</h3>
+          <div class="tally">
+            <div><div class="n">21</div><div class="k label">Booking.com</div></div>
+            <div><div class="n">16</div><div class="k label">Airbnb</div></div>
+            <div><div class="n">15</div><div class="k label">Zomato</div></div>
+          </div>
+          <div class="tally ours">
+            <div><div class="n">1</div><div class="k label">Aurora</div></div>
+          </div>
+          <p>
+            Screens to reserve one thing. Everyone else ends on a green tick after a price breakdown, a payment
+            sheet and a page of terms.
+          </p>
+          <p>
+            So confirming had to be worth the gesture. <b>You hold, rather than tap</b> — and the light charges
+            while you do. Let go early and it glides back with nothing spent. Hold it through and the card
+            doesn't disappear and get replaced: <b>the block morphs</b>. Its height glides while the reasoning
+            dissolves into the work Aurora is doing, struck as points down the beam. Then the light withdraws,
+            the rule closes across the break, and the entry settles into your day.
+          </p>
+          <p>
+            Nothing here jumps, and nothing bounces. Every move is one continuous shape changing into another,
+            which is what makes it read as execution rather than confirmation.
+          </p>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">Rules</div>
+        <div>
+          <h3>What it holds itself to</h3>
+          <ul class="list">
+            <li><b>Two or three items. Never a catalogue.</b> Volume is the tell of a system that hasn't decided.</li>
+            <li><b>The reason before the thing.</b> Every card opens with why this, why now, why you.</li>
+            <li><b>Real windows, not urgency theatre.</b> A counter released two seats; you're in London until Sunday.</li>
+            <li><b>One gesture to done.</b> A form here would make this a marketplace.</li>
+            <li><b>Restraint made visible.</b> Aurora leaves gaps open on purpose. A host who fills every silence isn't attentive.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">Craft</div>
+        <div>
+          <h3>No photography anywhere. That's the risk, and it's the argument</h3>
+          <p>
+            Every reference in this category is a photo-driven catalogue. Images exist to help you choose
+            between options; Aurora has already chosen, so imagery would reintroduce exactly the comparison
+            this surface removes.
+          </p>
+          <p>
+            What's left has to carry it: an old-style serif for anything Aurora says in its own voice, a
+            humanist sans for the machinery, times set with points rather than colons, tabular figures,
+            hairlines instead of shadows, and no monospace anywhere. Motion is a single decelerating curve
+            used everywhere, never a spring — this product should feel unhurried, not playful.
+            <b>The aurora is never a text colour</b> — it exists only as light in open time, drifting slowly,
+            brightening when you attend to it, charging when you commit.
+          </p>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">Retention</div>
+        <div>
+          <h3>Why this earns a daily open with no feed mechanics</h3>
+          <p>
+            No infinite scroll, no streaks, no badges, no trending. The return isn't habit, it's
+            <b>consequence</b>. The day changes overnight — you land somewhere, a counter opens, sleep debt
+            compounds — so the surface is genuinely different each morning and the windows close whether you
+            look or not. You open it for the same reason you check the weather.
+          </p>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">The hard one</div>
+        <div>
+          <h3>Some days there's nothing worth moving</h3>
+          <p>
+            A feed can never be empty; the business model forbids it. Aurora's can — and should. The quiet day
+            is the strongest available proof that the system has taste, so it's built as a first-class screen
+            rather than an edge case, and it still tells you what Aurora is holding.
+          </p>
+        </div>
+      </section>
+
+      <section class="note">
+        <div class="label">Scope</div>
+        <div>
+          <p>
+            Read as the in-app discovery surface of the existing mobile product, not a marketing page.
+            Multi-device and multiplayer are acknowledged roadmap and deliberately out of scope. Aurora's real
+            product screens weren't publicly available, so the visual language is drawn from the brand's own
+            ground — black, and light arriving in it.
+          </p>
+        </div>
+      </section>
+
+      <div class="foot label">Prototype is live — open a suggestion, then hold to confirm</div>
+    </main>
+
+    <div class="stage rise" style="animation-delay:.22s">
+      <div class="switch" role="group" aria-label="Prototype states">
+        <div class="ind" id="ind"></div>
+        <button type="button" data-state="day" aria-pressed="true"><span class="lab">Thursday</span></button>
+        <button type="button" data-state="quiet" aria-pressed="false"><span class="lab">A quiet day</span></button>
+      </div>
+      <div class="phone">
+        <div class="statusbar" id="bar">
+          <span>9.41</span><span class="compact" id="compact">Thursday 30 July</span><span>London</span>
+        </div>
+        <div class="screen" id="screen"></div>
+        <button class="ask" type="button" id="ask"><i></i><span class="lab" id="askLabel">Aurora is watching the week</span></button>
+      </div>
+      <p class="cap">Open a suggestion, then hold to confirm — the light charges as you hold, and the block morphs rather than swapping. Push a card left to leave the hour open.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const HOLD_MS = 840;
+
+const DAY = [
+  {k:'row', t:'06.40', title:'Landed — BA 286 from San Francisco', where:'Heathrow, Terminal 5', past:true},
+  {k:'row', t:'09.30', title:'Board meeting', where:'Berkeley Square', present:true},
+  {k:'open', t:'11.00', span:'Three hours',
+   because:'Your third red-eye this month, and nothing needs you until two.',
+   what:'Contrast and lymphatic recovery, 75 minutes.',
+   detail:'Surrenne, Knightsbridge — nine minutes from Berkeley Square.',
+   signals:[['Calendar','Clear 11.00–14.00, no travel either side'],
+            ['Health','Recovery 31%, three nights under five hours'],
+            ['Pattern','You book recovery after long-hauls, eight times in nine'],
+            ['Access','Held for you until 10.30']],
+   steps:['Slot held','Car at 11.10','Board meeting told you leave at 11'],
+   done:{title:'Recovery — Surrenne', where:'Booked · car at 11.10'}},
+  {k:'row', t:'14.00', title:'Fund review', where:'Call, 90 minutes'},
+  {k:'held', t:'16.00', span:'Open', line:'Left open.',
+   why:'You have been on calls before seven four mornings running. Aurora found two things worth doing here and judged neither worth this afternoon.'},
+  {k:'open', t:'19.30', span:'Evening',
+   because:'Sarah lands from Milan at six. You have not had dinner together since the third.',
+   what:'Two seats at Tanaka\'s counter, eight o\'clock.',
+   detail:'Released twenty minutes ago. He has cooked for you both before.',
+   signals:[['Calendar','Sarah — Linate to City, lands 18.05, evening clear'],
+            ['History','Last dinner together 3 March — twenty-seven days'],
+            ['Access','Counter cancellation, two seats, unlisted'],
+            ['Judgement','Not a Michelin night. A reconnection one.']],
+   steps:['Counter held for two','Car at 19.40','Sarah sent the time'],
+   done:{title:'Dinner with Sarah — Tanaka', where:'Booked · car at 19.40'}}
+];
+
+const screen = document.getElementById('screen'), ask = document.getElementById('ask'),
+      askLabel = document.getElementById('askLabel'), ind = document.getElementById('ind'),
+      bar = document.getElementById('bar'), compact = document.getElementById('compact');
+let state = 'day';
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------------------------------------------------------------
+   morph — the one motion primitive everything else is built from.
+   The box keeps its place and glides to its new height while the
+   old contents dissolve into the new ones. Nothing is ever swapped.
+----------------------------------------------------------------*/
+function morph(cell, html, done){
+  if (REDUCED){ cell.innerHTML = html; done && done(); return; }
+
+  const h0 = cell.offsetHeight;
+  const outgoing = document.createElement('div');
+  while (cell.firstChild) outgoing.appendChild(cell.firstChild);
+  const incoming = document.createElement('div');
+  incoming.innerHTML = html;
+
+  Object.assign(cell.style, {height:h0+'px', overflow:'hidden', position:'relative'});
+  Object.assign(outgoing.style, {position:'absolute', left:0, right:0, top:0, willChange:'opacity'});
+  Object.assign(incoming.style, {position:'absolute', left:0, right:0, top:0, opacity:0});
+  cell.append(outgoing, incoming);
+
+  const h1 = incoming.offsetHeight;
+
+  requestAnimationFrame(()=>{
+    cell.style.transition  = 'height .66s var(--glide)';
+    cell.style.height      = h1 + 'px';
+    outgoing.style.transition = 'opacity .3s var(--soft)';
+    outgoing.style.opacity = 0;
+    incoming.style.transition = 'opacity .46s .14s var(--soft)';
+    incoming.style.opacity = 1;
+  });
+
+  setTimeout(()=>{
+    outgoing.remove();
+    incoming.style.position = 'static';
+    incoming.style.transition = '';
+    cell.style.cssText = 'position:relative';
+    done && done();
+  }, 700);
+}
+
+function say(text, busy){
+  if (REDUCED){ askLabel.textContent = text; ask.classList.toggle('busy', !!busy); return; }
+  ask.classList.add('out');
+  setTimeout(()=>{
+    askLabel.textContent = text; ask.classList.toggle('busy', !!busy);
+    ask.classList.remove('out'); ask.classList.add('in');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>ask.classList.remove('in')));
+  }, 340);
+}
+
+function markup(){
+  if (state === 'quiet') return `
+    <div class="quiet">
+      <span class="label">London · Tuesday 4 August</span>
+      <h2>Nothing worth moving today. Your day is already what it should be.</h2>
+      <div class="rest"><span class="label">Aurora is holding</span><div class="line">Two things for Saturday</div></div>
+    </div>`;
+
+  return `<div class="notice" id="notice">
+      <span class="label">London · Thursday 30 July</span>
+      <h2>You landed at six. There are three hours at eleven, and the evening is yours.</h2>
+    </div>
+    <div class="prog">` + DAY.map((s,i)=>{
+      const time = `<div class="t">${esc(s.t)}${s.present?'<span class="now">now</span>':''}` +
+                   `${s.span?`<span class="span">${esc(s.span)}</span>`:''}</div>`;
+
+      if (s.k === 'row') return `<div class="row${s.past?' past':''}${s.present?' present':''}">${time}
+        <div class="entry"><div class="title">${esc(s.title)}</div><div class="where">${esc(s.where)}</div></div></div>`;
+
+      if (s.k === 'held') return `<div class="row open" id="r-${i}"><div class="beam"></div>${time}
+        <div class="cell"><div class="held"><div class="line">${esc(s.line)}</div>
+          <div class="why">${esc(s.why)}</div></div></div></div>`;
+
+      return `<div class="row open" id="r-${i}"><div class="beam"></div>${time}
+        <div class="cell"><div class="slot">
+          <div class="behind">Leave it open</div>
+          <button class="card" type="button" aria-expanded="false" data-i="${i}">
+            <div class="because">${esc(s.because)}</div>
+            <div class="what">${esc(s.what)}</div>
+            <div class="detail">${esc(s.detail)}</div>
+            <div class="trace"><div class="inner">
+              <dl>${s.signals.map(([k,v])=>`<div class="sig"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+              <div class="acts">
+                <span class="hold" role="button" tabindex="0" data-hold="${i}">
+                  <span class="fill"></span><span class="lab">Hold to confirm</span>
+                </span>
+                <span class="no" role="button" tabindex="0" data-no="${i}"><span class="lab">Not today</span></span>
+              </div>
+            </div></div>
+          </button>
+        </div></div></div>`;
+    }).join('') + '</div>';
+}
+
+function render(animate){
+  const paint = ()=>{ screen.innerHTML = markup(); screen.scrollTop = 0; bar.classList.remove('tight');
+                      compact.textContent = state==='quiet' ? 'Tuesday 4 August' : 'Thursday 30 July'; };
+  if (!animate || REDUCED){ paint(); return; }
+  screen.style.opacity = '0';
+  setTimeout(()=>{ paint(); screen.style.opacity = '1'; }, 340);
+}
+
+function toggleCard(card){
+  const t = card.querySelector('.trace'), open = !card.classList.contains('open-card');
+  if (open){ card.classList.add('open-card'); t.style.height = t.scrollHeight + 'px'; }
+  else { t.style.height = t.scrollHeight + 'px';
+         requestAnimationFrame(()=>{ t.style.height = '0px'; card.classList.remove('open-card'); }); }
+  card.setAttribute('aria-expanded', String(open));
+}
+
+function settle(row, i){
+  const d = DAY[i].done, span = row.querySelector('.span');
+  if (span){ span.style.opacity = 0; setTimeout(()=>span.remove(), 320); }
+  morph(row.querySelector('.cell'),
+    `<div class="entry"><div class="title">${esc(d.title)}</div><div class="where">${esc(d.where)}</div></div>`);
+  row.classList.remove('working','charging');
+  row.classList.add('settled');
+  say('Aurora is handling it');
+}
+
+function accept(i){
+  const row = document.getElementById('r-'+i); if(!row) return;
+  const s = DAY[i];
+  if (REDUCED){ settle(row, i); return; }
+
+  row.classList.remove('charging'); row.classList.add('working');
+  say('Arranging', true);
+
+  morph(row.querySelector('.cell'), `<div class="exec">` + s.steps.map((t,k)=>
+    `<div class="step" style="--d:${(k*.46+.30).toFixed(2)}s"><i></i>${esc(t)}</div>`).join('') + `</div>`);
+
+  setTimeout(()=>settle(row, i), s.steps.length * 460 + 1100);
+}
+
+function decline(i){
+  const row = document.getElementById('r-'+i); if(!row) return;
+  morph(row.querySelector('.cell'), `<div class="held"><div class="line">Left open.</div>
+    <div class="why">Not today. Aurora won't raise this one again.</div></div>`);
+}
+
+/* ---- hold to confirm ---- */
+let holdTimer = null, holdEl = null;
+function holdStart(el){
+  if (holdEl) return;
+  holdEl = el; el.classList.add('charging');
+  el.closest('.row').classList.add('charging');
+  el.querySelector('.lab').textContent = 'Keep holding';
+  holdTimer = setTimeout(()=>{
+    el.classList.remove('charging'); el.classList.add('done');
+    el.querySelector('.lab').textContent = 'Confirmed';
+    holdEl = null; holdTimer = null;
+    setTimeout(()=>accept(+el.dataset.hold), 280);
+  }, REDUCED ? 380 : HOLD_MS);   /* the hold is a safeguard, not decoration */
+}
+function holdEnd(){
+  if (!holdEl) return;
+  clearTimeout(holdTimer); holdTimer = null;
+  holdEl.classList.remove('charging');
+  holdEl.closest('.row')?.classList.remove('charging');
+  holdEl.querySelector('.lab').textContent = 'Hold to confirm';
+  holdEl = null;
+}
+
+/* ---- push the card aside to leave the hour open ---- */
+let drag = null, swiped = false;
+screen.addEventListener('pointerdown', e => {
+  const hold = e.target.closest('[data-hold]');
+  if (hold){ e.preventDefault(); hold.setPointerCapture?.(e.pointerId); holdStart(hold); return; }
+  const card = e.target.closest('.card');
+  if (!card || e.target.closest('[data-no]')) return;
+  drag = {card, x:e.clientX, dx:0, moved:false, i:+card.dataset.i};
+});
+screen.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  if (!drag.moved && Math.abs(dx) < 7) return;
+  if (!drag.moved){ drag.moved = true; drag.card.classList.add('dragging'); }
+  drag.dx = Math.max(-150, Math.min(0, dx * .86));
+  drag.card.style.transform = `translateX(${drag.dx}px)`;
+  const b = drag.card.closest('.slot').querySelector('.behind');
+  b.style.transition = 'none';
+  b.style.opacity = Math.min(1, Math.abs(drag.dx) / 88);
+});
+function dragEnd(){
+  if (!drag) return;
+  const {card, dx, moved, i} = drag; drag = null;
+  card.classList.remove('dragging');
+  const b = card.closest('.slot')?.querySelector('.behind');
+  if (b) b.style.transition = '';
+  if (moved){ swiped = true; setTimeout(()=>swiped = false, 80); }
+  if (moved && dx < -84){
+    card.style.transform = 'translateX(-118%)';
+    if (b) b.style.opacity = 0;
+    setTimeout(()=>decline(i), 170);
+  } else {
+    card.style.transform = '';
+    if (b) b.style.opacity = 0;
+  }
+}
+screen.addEventListener('pointerup', ()=>{ holdEnd(); dragEnd(); });
+screen.addEventListener('pointercancel', ()=>{ holdEnd(); dragEnd(); });
+screen.addEventListener('pointerleave', ()=>{ holdEnd(); dragEnd(); });
+
+screen.addEventListener('click', e => {
+  if (e.target.closest('[data-hold]')) { e.stopPropagation(); return; }
+  const n = e.target.closest('[data-no]'); if(n){ e.stopPropagation(); decline(+n.dataset.no); return; }
+  const card = e.target.closest('.card'); if(!card || swiped) return;
+  toggleCard(card);
+});
+screen.addEventListener('keydown', e => {
+  const h = e.target.closest('[data-hold]');
+  if (h && (e.key==='Enter' || e.key===' ')){ e.preventDefault(); e.stopPropagation();
+    if(!e.repeat) holdStart(h); return; }
+  const n = e.target.closest('[data-no]');
+  if (n && (e.key==='Enter' || e.key===' ')){ e.preventDefault(); e.stopPropagation(); decline(+n.dataset.no); }
+});
+screen.addEventListener('keyup', e => { if (e.target.closest('[data-hold]')) holdEnd(); });
+
+/* the greeting is spent exactly as it leaves, and hands off to the bar */
+let ticking = false;
+screen.addEventListener('scroll', ()=>{
+  if (ticking) return; ticking = true;
+  requestAnimationFrame(()=>{
+    ticking = false;
+    const n = document.getElementById('notice'); if(!n) return;
+    const p = Math.min(1, screen.scrollTop / Math.max(60, n.offsetHeight - 46));
+    n.style.opacity = String(1 - p);
+    n.style.transform = `translateY(${-16 * p}px) scale(${1 - .035 * p})`;
+    bar.classList.toggle('tight', p > .5);
+  });
+});
+
+document.querySelectorAll('.switch button').forEach((b,idx)=>{
+  b.addEventListener('click',()=>{
+    if (state === b.dataset.state) return;
+    state = b.dataset.state;
+    ind.style.transform = `translateX(${idx*100}%)`;
+    document.querySelectorAll('.switch button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+    say('Aurora is watching the week');
+    render(true);
+  });
+});
+ask.addEventListener('click',()=>say('Aurora — how can I help?'));
+
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in');
+  io.unobserve(e.target);} }), {threshold:.15});
+document.querySelectorAll('.note').forEach(n=>io.observe(n));
+setTimeout(()=>document.querySelectorAll('.note:not(.in)').forEach(n=>n.classList.add('in')), 1500);
+
+render(false);
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
