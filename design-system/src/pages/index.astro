@@ -1,4 +1,5 @@
 ---
+import Credit from '../components/docs/Credit.astro';
 import Base from '../layouts/Base.astro';
 import TopBar from '../components/docs/TopBar.astro';
 import Sidebar from '../components/docs/Sidebar.astro';
@@ -198,7 +199,7 @@ const thumbFor: Record<string, string> = {
     <footer class="h-footer">
       <div class="h-wrap h-footer__row">
         <span>Aurora Design System · v0.1 · <a href={REPO}>Source</a> · <a href={url('/resources/figma')}>Figma</a></span>
-        <span>Built from the <a href="https://izaias.xyz/aurora">Aurora inspiration concept</a> by Izaias Cavalcanti</span>
+        <Credit />
       </div>
       <div class="h-wordmark" aria-hidden="true">Aurora</div>
     </footer>
