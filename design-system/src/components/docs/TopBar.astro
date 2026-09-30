@@ -1,6 +1,6 @@
 ---
 import SearchPalette from './SearchPalette';
-import { flatNav } from '../../lib/nav';
+import { flatNav, url } from '../../lib/nav';
 interface Props { path: string }
 const { path } = Astro.props;
 const section = (p: string) => path.startsWith(p);
@@ -16,16 +16,16 @@ const links = [
   <button class="d-menu" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle>
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 4h12M1 10h12" stroke="currentColor" stroke-width="1.2"/></svg>
   </button>
-  <a class="d-mark" href="/" aria-label="Aurora Design System, home">
+  <a class="d-mark" href={url('/')} aria-label="Aurora Design System, home">
     <span class="d-mark__word">Aurora</span>
     <span class="d-mark__sep" aria-hidden="true"></span>
     <span class="d-mark__sub">Design System</span>
   </a>
   <div class="d-top__grow"></div>
   <nav class="d-top__links" aria-label="Sections">
-    {links.map((l) => <a class="d-top__link" href={l.href} aria-current={section(l.match) ? 'page' : undefined}>{l.title}</a>)}
+    {links.map((l) => <a class="d-top__link" href={url(l.href)} aria-current={section(l.match) ? 'page' : undefined}>{l.title}</a>)}
   </nav>
-  <SearchPalette client:idle pages={flatNav.map(({ title, href, summary, group }) => ({ title, href, summary, group }))} />
+  <SearchPalette client:idle pages={flatNav.map(({ title, href, summary, group }) => ({ title, href: url(href), summary, group }))} />
   <span class="d-version">v0.1</span>
 </header>
 <script>

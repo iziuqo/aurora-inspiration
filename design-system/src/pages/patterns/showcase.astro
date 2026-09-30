@@ -1,6 +1,7 @@
 ---
 import Doc from '../../layouts/Doc.astro';
 import DayPrototype from '../../components/demos/DayPrototype';
+import { url } from '../../lib/nav';
 const used = [
   ['Timeline', '/components/timeline'], ['Gap', '/components/gap'], ['Suggestion card', '/components/suggestion-card'], ['Reasoning trace', '/components/reasoning-trace'],
   ['Hold button', '/components/hold-button'], ['Button', '/components/button'], ['Execution steps', '/components/execution-steps'], ['Ask bar', '/components/ask-bar'],
@@ -17,7 +18,7 @@ const used = [
     <div class="d-show__stage"><DayPrototype client:load /></div>
     <aside class="d-show__side">
       <span class="au-label">Built from</span>
-      <ul>{used.map(([n, h]) => <li><a href={h}>{n}</a></li>)}</ul>
+      <ul>{used.map(([n, h]) => <li><a href={url(h)}>{n}</a></li>)}</ul>
       <p>Every pixel on the screen comes from a component on this site and a token in the source. No one-off styles.</p>
       <span class="au-label" style="margin-top:32px;display:block">Try</span>
       <ul class="d-show__try">

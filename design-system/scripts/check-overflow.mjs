@@ -4,7 +4,7 @@ const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-119
 const p = await b.newPage({ viewport: { width: 390, height: 844 } });
 const pages = ['/', '/principles', '/getting-started', '/foundations/color', '/foundations/typography', '/foundations/spacing', '/foundations/hairlines', '/foundations/motion', '/foundations/light', '/foundations/voice', '/foundations/accessibility', '/components/button', '/components/hold-button', '/components/segmented-control', '/components/label', '/components/rule', '/components/timeline', '/components/gap', '/components/suggestion-card', '/components/reasoning-trace', '/components/execution-steps', '/components/ask-bar', '/components/tally', '/components/quote', '/components/quiet-state', '/patterns/hold-to-confirm', '/patterns/morph', '/patterns/leave-it-open', '/patterns/quiet-day', '/patterns/showcase', '/resources/tokens', '/resources/figma', '/resources/case-study', '/resources/changelog'];
 for (const u of pages) {
-  await p.goto('http://localhost:4321' + u); await p.waitForTimeout(400);
+  await p.goto('http://localhost:4321/aurora/design' + (u === '/' ? '' : u)); await p.waitForTimeout(400);
   const r = await p.evaluate(() => {
     const W = document.documentElement.clientWidth;
     const out = [];

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm ci --prefix design-system",
+  "buildCommand": "sh design-system/scripts/vercel-build.sh",
+  "outputDirectory": "out",
+  "rewrites": [
+    { "source": "/aurora", "destination": "/index.html" },
+    { "source": "/design", "destination": "/aurora/design" },
+    { "source": "/design/:path*", "destination": "/aurora/design/:path*" }
+  ]
+}

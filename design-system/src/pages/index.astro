@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import TopBar from '../components/docs/TopBar.astro';
 import Thumb from '../components/thumbs/Thumbs.astro';
 import DayPrototype from '../components/demos/DayPrototype';
-import { nav, REPO } from '../lib/nav';
+import { nav, REPO, url } from '../lib/nav';
 import { tokenList } from '../lib/tokens';
 import '../styles/home.css';
 
@@ -34,8 +34,8 @@ const thumbFor: Record<string, string> = {
           and light that appears only where something deserves your attention.
         </p>
         <div class="h-ctas">
-          <a class="au-button" data-variant="primary" data-size="md" href="/principles"><span class="au-button__label">Read the principles</span></a>
-          <a class="au-button" data-variant="quiet" data-size="md" href="/components/button"><span class="au-button__label">Browse components</span></a>
+          <a class="au-button" data-variant="primary" data-size="md" href={url('/principles')}><span class="au-button__label">Read the principles</span></a>
+          <a class="au-button" data-variant="quiet" data-size="md" href={url('/components/button')}><span class="au-button__label">Browse components</span></a>
         </div>
         <dl class="h-note">
           <div><dt class="h-note__n">{tokenList.length}</dt><dd class="h-note__k au-label">Tokens</dd></div>
@@ -80,7 +80,7 @@ const thumbFor: Record<string, string> = {
       </header>
       <div class="h-grid">
         {foundations.map((f) => (
-          <a class="d-card" href={f.href}>
+          <a class="d-card" href={url(f.href)}>
             <div class="d-card__thumb"><Thumb name={thumbFor[f.href]} /></div>
             <div class="d-card__body">
               <div class="d-card__title">{f.title}</div>
@@ -101,7 +101,7 @@ const thumbFor: Record<string, string> = {
       </header>
       <div class="h-grid">
         {components.map((c) => (
-          <a class="d-card" href={c.href}>
+          <a class="d-card" href={url(c.href)}>
             <div class="d-card__thumb"><Thumb name={c.href.split('/').pop()!} /></div>
             <div class="d-card__body">
               <div class="d-card__title">{c.title}</div>
@@ -145,8 +145,8 @@ const thumbFor: Record<string, string> = {
     <section class="h-close">
       <h2 class="h-close__title">Start with the principles. The rest follows from them.</h2>
       <div class="h-ctas" style="margin-top:0">
-        <a class="au-button" data-variant="primary" data-size="md" href="/getting-started"><span class="au-button__label">Get started</span></a>
-        <a class="au-button" data-variant="quiet" data-size="md" href="/resources/case-study"><span class="au-button__label">Read the case study</span></a>
+        <a class="au-button" data-variant="primary" data-size="md" href={url('/getting-started')}><span class="au-button__label">Get started</span></a>
+        <a class="au-button" data-variant="quiet" data-size="md" href={url('/resources/case-study')}><span class="au-button__label">Read the case study</span></a>
       </div>
     </section>
     <footer class="h-footer">

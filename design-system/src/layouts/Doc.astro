@@ -5,6 +5,7 @@ import Sidebar from '../components/docs/Sidebar.astro';
 import Toc from '../components/docs/Toc.astro';
 import Pager from '../components/docs/Pager.astro';
 import PageHeader from '../components/docs/PageHeader.astro';
+import { route } from '../lib/nav';
 
 interface Props {
   title: string;
@@ -17,7 +18,7 @@ interface Props {
   header?: boolean;
 }
 const { title, lead, eyebrow, description, toc = true, meta, header = true } = Astro.props;
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const path = route(Astro.url.pathname);
 ---
 <Base title={title} description={description ?? lead}>
   <TopBar path={path} />

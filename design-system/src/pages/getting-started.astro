@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/nav';
 import Doc from '../layouts/Doc.astro';
 import Section from '../components/docs/Section.astro';
 import CodeBlock from '../components/docs/CodeBlock.astro';
@@ -9,17 +10,17 @@ import CodeBlock from '../components/docs/CodeBlock.astro';
   lead="Aurora ships as tokens, React components, and a Figma library, all generated from one source. Pick the entry point that matches how you work."
 >
   <Section id="designers" n="01" title="For designers">
-    <p>Open the <a href="/resources/figma">Figma library</a> and enable it for your team. Variables and text styles match the code names exactly, so a colour called <code>text/secondary</code> in Figma is <code>--au-text-secondary</code> in CSS.</p>
-    <p>Start from the <a href="/principles">principles</a>. Every component page then follows the same order, so once you have read one you know where everything is on the rest.</p>
+    <p>Open the <a href={url('/resources/figma')}>Figma library</a> and enable it for your team. Variables and text styles match the code names exactly, so a colour called <code>text/secondary</code> in Figma is <code>--au-text-secondary</code> in CSS.</p>
+    <p>Start from the <a href={url('/principles')}>principles</a>. Every component page then follows the same order, so once you have read one you know where everything is on the rest.</p>
   </Section>
 
   <Section id="tokens" n="02" title="Tokens only">
     <p>If you only want the look, use the generated stylesheet. It defines every token as a CSS custom property on <code>:root</code>, plus a class for each type style.</p>
-    <CodeBlock lang="html" label="HTML" code={`<link rel="stylesheet" href="https://aurora-design-system.vercel.app/tokens/aurora.css" />
+    <CodeBlock lang="html" label="HTML" code={`<link rel="stylesheet" href="https://izaias.xyz/aurora/design/tokens/aurora.css" />
 
 <p class="au-type-title">You landed at six.</p>
 <p style="color: var(--au-text-secondary)">There are three hours at eleven.</p>`} />
-    <p>The same values are available as <a href="/tokens/aurora.tokens.json">W3C design tokens JSON</a> for your own pipeline, and as <a href="/tokens/figma-variables.json">Figma variables JSON</a>.</p>
+    <p>The same values are available as <a href={url('/tokens/aurora.tokens.json')}>W3C design tokens JSON</a> for your own pipeline, and as <a href={url('/tokens/figma-variables.json')}>Figma variables JSON</a>.</p>
   </Section>
 
   <Section id="react" n="03" title="React components">

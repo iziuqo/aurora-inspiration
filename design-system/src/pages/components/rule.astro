@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/nav';
 import Doc from '../../layouts/Doc.astro';
 import Section from '../../components/docs/Section.astro';
 import Stage from '../../components/docs/Stage.astro';
@@ -32,7 +33,7 @@ import { componentMeta } from '../../lib/nav';
         <tbody>
           <tr><td class="d-mono">hairline</td><td>Between rows, under headers, around cards. The default for everything.</td></tr>
           <tr><td class="d-mono">strong</td><td>Separating groups, the top of a table, hover edges.</td></tr>
-          <tr><td class="d-mono">light</td><td>Open time only. See <a href="/components/gap">Gap</a>.</td></tr>
+          <tr><td class="d-mono">light</td><td>Open time only. See <a href={url('/components/gap')}>Gap</a>.</td></tr>
         </tbody>
       </table>
     </div>

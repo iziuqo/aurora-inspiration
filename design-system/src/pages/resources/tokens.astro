@@ -4,6 +4,7 @@ import Section from '../../components/docs/Section.astro';
 import TokenTable from '../../components/docs/TokenTable.astro';
 import CodeBlock from '../../components/docs/CodeBlock.astro';
 import { tokenList } from '../../lib/tokens';
+import { url } from '../../lib/nav';
 
 const paths = (test: (p: string) => boolean) => tokenList.filter((t) => test(t.path)).map((t) => t.path);
 const groups = [
@@ -29,7 +30,7 @@ const downloads = [
     <ul class="r-files d-wide">
       {downloads.map((d) => (
         <li>
-          <a href={d.href} download>
+          <a href={url(d.href)} download>
             <code>{d.file}</code>
             <span>{d.what}</span>
             <i aria-hidden="true">↓</i>
@@ -37,7 +38,7 @@ const downloads = [
         </li>
       ))}
     </ul>
-    <CodeBlock lang="css" label="CSS" code={`@import url('https://aurora-design-system.vercel.app/tokens/aurora.css');
+    <CodeBlock lang="css" label="CSS" code={`@import url('https://izaias.xyz/aurora/design/tokens/aurora.css');
 
 .card {
   background: var(--au-bg-raised);
