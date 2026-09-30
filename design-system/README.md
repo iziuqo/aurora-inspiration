@@ -37,6 +37,14 @@ Semantic tokens point at primitives, and components read only semantic tokens. T
 - `scripts/check-tokens.mjs` fails if any readable ink drops below WCAG AA (4.5:1) on any of the four surfaces, or if component CSS contains a raw hex value.
 - `scripts/check-overflow.mjs` reports any page that scrolls horizontally at 390px.
 
+## Use it
+
+The system is not published to npm yet. To use it in your own project, copy what you need:
+
+- **Just the look:** `public/tokens/aurora.css` defines every token as a CSS custom property, plus a class for each type style.
+- **Components:** each one in `src/components/aurora/` is a `.tsx` file paired with a `.css` file. Copy the pair along with `src/styles/tokens.css`. The only runtime dependency is React.
+- **Design tools:** `public/tokens/aurora.tokens.json` is W3C DTCG, and `public/tokens/figma-variables.json` imports as Figma variables. The [Figma library](https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System) has every component built on those variables.
+
 ## Develop
 
 ```bash
@@ -65,3 +73,7 @@ design-system/
 ├─ src/components/demos/    live demos and the day prototype
 └─ src/pages/               foundations, components, patterns, resources
 ```
+
+## License
+
+[MIT](../LICENSE). The fonts are Newsreader, Nunito Sans and JetBrains Mono, which are licensed separately under the SIL Open Font License.
