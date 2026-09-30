@@ -1,11 +1,15 @@
-# Aurora — Inspiration
+# Aurora
 
-A design concept for Aurora's in-app inspiration surface, plus the written rationale
-behind it, on a single self-contained page.
+A design concept for Aurora's in-app inspiration surface, and the open-source design system extracted from it.
 
-**Live:** [izaias.xyz/aurora](https://izaias.xyz/aurora)
+| | |
+|---|---|
+| **Design system docs** | [izaias.xyz/aurora/design](https://izaias.xyz/aurora/design) |
+| **Figma library** | [Aurora Design System](https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System) |
+| **Concept** | [izaias.xyz/aurora](https://izaias.xyz/aurora) |
+| **License** | [MIT](LICENSE) |
 
-**Design system:** the concept, extracted into tokens, components, documentation and a Figma library, lives in [`design-system/`](design-system/).
+The design system (tokens, 14 React components, patterns and the docs site) lives in [`design-system/`](design-system/). Its README covers how to run it and how the pieces fit. The rest of this page is about the concept that started it.
 
 ## The idea
 
@@ -39,3 +43,7 @@ Open `index.html` in a browser, or serve the directory:
 ```bash
 python3 -m http.server 4488
 ```
+
+## License
+
+[MIT](LICENSE). Use the code, the tokens and the components in your own work, commercial or not. Keep the copyright notice.
