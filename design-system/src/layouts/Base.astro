@@ -37,6 +37,16 @@ const image = new URL(url(card), Astro.site).href;
     <meta name="twitter:title" content={full} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
+    <script is:inline>
+      // Intro choreography waits for the display serif, so the headline never swaps font mid-motion.
+      (function () {
+        var d = document.documentElement, go = function () { d.classList.add('is-ready'); };
+        if (document.fonts && document.fonts.load) {
+          Promise.race([document.fonts.load('400 64px "Newsreader Variable"'), new Promise(function (r) { setTimeout(r, 900); })]).then(go, go);
+        } else go();
+      })();
+    </script>
+    <noscript><style>.h-in, .h-sky { opacity: 1 !important; transform: none !important; }</style></noscript>
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
   </head>
   <body>

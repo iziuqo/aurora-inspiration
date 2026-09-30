@@ -42,31 +42,32 @@ const thumbFor: Record<string, string> = {
       </div>
       <div class="h-wrap h-hero__inner">
         <div class="h-hero__copy">
-          <a class="h-pill" href={url('/resources/figma')}>
-            <span class="h-pill__dot" aria-hidden="true"></span>
-            <span class="h-pill__text">v0.1 · Now with a Figma library</span>
-            <span class="h-pill__arrow" aria-hidden="true">→</span>
-          </a>
+          <p class="h-eyebrow h-in" style="--i:0">
+            <span class="h-eyebrow__rule" aria-hidden="true"></span>
+            <span class="au-label">Design system</span>
+            <span class="h-eyebrow__dot" aria-hidden="true"></span>
+            <span class="au-label">Version 0.1</span>
+          </p>
           <h1 class="h-title">
-            <span class="h-title__line"><span>Interfaces that</span></span>
-            <span class="h-title__line"><span>know when to</span></span>
-            <span class="h-title__line"><span>stay <em>quiet.</em></span></span>
+            <span class="h-title__line h-in" style="--i:1">Interfaces that</span>
+            <span class="h-title__line h-in" style="--i:2">know when to</span>
+            <span class="h-title__line h-in" style="--i:3">stay <em>quiet.</em></span>
           </h1>
-          <p class="h-lead">
+          <p class="h-lead h-in" style="--i:5">
             Aurora is a design system for calm, high-trust products. A black ground, structure drawn in hairlines,
             and light that appears only where something deserves your attention.
           </p>
-          <div class="h-ctas">
+          <div class="h-ctas h-in" style="--i:6">
             <a class="au-button" data-variant="primary" data-size="md" href={url('/principles')}><span class="au-button__label">Read the principles</span></a>
             <a class="au-button" data-variant="quiet" data-size="md" href={url('/components/button')}><span class="au-button__label">Browse components</span></a>
           </div>
-          <dl class="h-note">
+          <dl class="h-note h-in" style="--i:7">
             <div><dt class="h-note__n">{tokenList.length}</dt><dd class="h-note__k au-label">Tokens</dd></div>
             <div><dt class="h-note__n">{components.length}</dt><dd class="h-note__k au-label">Components</dd></div>
             <div><dt class="h-note__n">1</dt><dd class="h-note__k au-label">Source of truth</dd></div>
           </dl>
         </div>
-        <div class="h-stage">
+        <div class="h-stage h-in" style="--i:3" data-slow>
           <div class="h-stage__tag"><span class="h-stage__live" aria-hidden="true"></span><span class="au-label">Live prototype</span></div>
           <div class="h-stage__device"><DayPrototype client:load /></div>
           <p class="h-stage__cap">Built only from Aurora components. Open a suggestion, then hold to confirm. Push a card left to leave the hour open.</p>
