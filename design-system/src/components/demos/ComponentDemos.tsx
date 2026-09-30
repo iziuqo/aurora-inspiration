@@ -18,7 +18,7 @@ export function HoldDemo() {
   const [n, setN] = useState(0);
   const [msg, setMsg] = useState('Press and hold. Let go early to cancel.');
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, width: 280 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, width: 280, maxWidth: '100%', textAlign: 'center', textWrap: 'balance' }}>
       <HoldButton
         key={n}
         block

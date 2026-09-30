@@ -1,9 +1,9 @@
 ---
 import { nav, url } from '../../lib/nav';
-interface Props { path: string }
-const { path } = Astro.props;
+interface Props { path: string; drawer?: boolean }
+const { path, drawer = false } = Astro.props;
 ---
-<nav class="d-side" aria-label="Documentation">
+<nav class="d-side" aria-label="Documentation" data-drawer={drawer ? '' : undefined}>
   {nav.map((group) => (
     <div class="d-side__group">
       <span class="d-side__label au-label">{group.title}</span>

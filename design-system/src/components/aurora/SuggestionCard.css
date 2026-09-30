@@ -68,7 +68,8 @@
 /* the trace opens to a measured height, so the glide lands exactly */
 .au-card__drawer { height: 0; overflow: hidden; transition: height var(--au-dur-glide) var(--au-ease-glide); }
 .au-card__drawer-inner { padding: 0 19px 17px; }
-.au-card__actions { display: flex; align-items: stretch; gap: var(--au-space-2); margin-top: 17px; }
+.au-card__actions { display: flex; flex-wrap: wrap; align-items: stretch; gap: var(--au-space-2); margin-top: 17px; }
+.au-card__actions > * { flex: 1 1 auto; }
 .au-card__actions > .au-hold { flex: 1; }
 .au-card[data-open='true'] .au-card__actions { animation: au-trace-in 500ms 300ms var(--au-ease-out) both; }
 @keyframes au-trace-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }

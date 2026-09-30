@@ -47,7 +47,20 @@ const config = JSON.stringify({ pins, specs, scale });
     svg.append(l);
   };
   const draw = (root: HTMLElement) => {
-    const { pins = [], specs = [], scale = 1 } = JSON.parse(root.dataset.anatomy || '{}');
+    const cfg = JSON.parse(root.dataset.anatomy || '{}');
+    const { pins = [], specs = [] } = cfg;
+    // Fit: on narrow screens the specimen shrinks (never grows) so it and its side pins stay inside the stage.
+    const specimen = root.querySelector<HTMLElement>('.d-anatomy__specimen')!;
+    const canvas = root.closest<HTMLElement>('.d-stage__canvas')!;
+    const narrow = canvas.clientWidth < 560;
+    if (!canvas.dataset.pad) canvas.dataset.pad = canvas.style.padding;
+    canvas.style.padding = narrow ? '64px 20px' : canvas.dataset.pad;
+    specimen.style.zoom = String(cfg.scale ?? 1);
+    const side = Math.max(0, ...pins.filter((p: { side?: string }) => p.side === 'left' || p.side === 'right').map((p: { dist?: number }) => (p.dist ?? 40) + 14));
+    const avail = canvas.clientWidth - parseFloat(getComputedStyle(canvas).paddingLeft) * 2 - side * 2;
+    const natural = specimen.getBoundingClientRect().width;
+    const scale = (cfg.scale ?? 1) * (natural > avail && avail > 0 ? avail / natural : 1);
+    specimen.style.zoom = String(scale);
     const svg = root.querySelector<SVGSVGElement>('.d-anatomy__svg')!;
     root.querySelectorAll('.d-pin, .d-spec__tag').forEach((n) => n.remove());
     svg.innerHTML = '';

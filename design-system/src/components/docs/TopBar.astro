@@ -14,7 +14,7 @@ const links = [
 ---
 <header class="d-top">
   <button class="d-menu" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle>
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 4h12M1 10h12" stroke="currentColor" stroke-width="1.2"/></svg>
+    <span class="d-menu__icon" aria-hidden="true"><i></i><i></i></span>
   </button>
   <a class="d-mark" href={url('/')} aria-label="Aurora Design System, home">
     <span class="d-mark__word">Aurora</span>
@@ -25,14 +25,20 @@ const links = [
   <nav class="d-top__links" aria-label="Sections">
     {links.map((l) => <a class="d-top__link" href={url(l.href)} aria-current={section(l.match) ? 'page' : undefined}>{l.title}</a>)}
   </nav>
-  <SearchPalette client:idle pages={flatNav.map(({ title, href, summary, group }) => ({ title, href: url(href), summary, group }))} />
+  <SearchPalette client:load pages={flatNav.map(({ title, href, summary, group }) => ({ title, href: url(href), summary, group }))} />
   <span class="d-version">v0.1</span>
 </header>
 <script>
+  // Mobile navigation: the sidebar becomes a drawer. Closes on Escape, on choosing a link,
+  // and when the window grows past the drawer breakpoint.
   const btn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-  btn?.addEventListener('click', () => {
-    const open = document.body.dataset.menu !== 'open';
+  const setMenu = (open: boolean) => {
     document.body.dataset.menu = open ? 'open' : '';
-    btn.setAttribute('aria-expanded', String(open));
-  });
+    btn?.setAttribute('aria-expanded', String(open));
+    btn?.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  };
+  btn?.addEventListener('click', () => setMenu(document.body.dataset.menu !== 'open'));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.dataset.menu === 'open') { setMenu(false); btn?.focus(); } });
+  document.querySelectorAll('.d-side a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  matchMedia('(min-width: 901px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
 </script>
