@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import TopBar from '../components/docs/TopBar.astro';
+import Sidebar from '../components/docs/Sidebar.astro';
 import Thumb from '../components/thumbs/Thumbs.astro';
 import DayPrototype from '../components/demos/DayPrototype';
 import { nav, REPO, url } from '../lib/nav';
@@ -32,6 +33,7 @@ const thumbFor: Record<string, string> = {
 ---
 <Base title="Aurora">
   <TopBar path="/" />
+  <Sidebar path="/" drawer />
   <main id="main">
     <section class="h-hero">
       <div class="h-sky" aria-hidden="true">
