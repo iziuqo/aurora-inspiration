@@ -3,3 +3,4 @@ dist
 .astro
 .vercel
 shots
+dist-preview
