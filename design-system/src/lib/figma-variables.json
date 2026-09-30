@@ -1,0 +1,903 @@
+{
+  "collections": [
+    {
+      "name": "Primitives",
+      "variables": [
+        {
+          "name": "night/600",
+          "type": "COLOR",
+          "value": {
+            "r": 0.22745098039215686,
+            "g": 0.23921568627450981,
+            "b": 0.26666666666666666,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Scrollbars and inactive handles."
+        },
+        {
+          "name": "night/700",
+          "type": "COLOR",
+          "value": {
+            "r": 0.16470588235294117,
+            "g": 0.17647058823529413,
+            "b": 0.2,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Strong hairline, hover borders."
+        },
+        {
+          "name": "night/750",
+          "type": "COLOR",
+          "value": {
+            "r": 0.11764705882352941,
+            "g": 0.12549019607843137,
+            "b": 0.1411764705882353,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Hairline."
+        },
+        {
+          "name": "night/800",
+          "type": "COLOR",
+          "value": {
+            "r": 0.09411764705882353,
+            "g": 0.10196078431372549,
+            "b": 0.11764705882352941,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Third raise: docs panels and code."
+        },
+        {
+          "name": "night/850",
+          "type": "COLOR",
+          "value": {
+            "r": 0.07450980392156863,
+            "g": 0.0784313725490196,
+            "b": 0.09411764705882353,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Second raise: hover and pressed surfaces."
+        },
+        {
+          "name": "night/900",
+          "type": "COLOR",
+          "value": {
+            "r": 0.054901960784313725,
+            "g": 0.058823529411764705,
+            "b": 0.06666666666666667,
+            "a": 1
+          },
+          "alias": null,
+          "description": "First raise: cards, controls at rest."
+        },
+        {
+          "name": "night/950",
+          "type": "COLOR",
+          "value": {
+            "r": 0.03137254901960784,
+            "g": 0.03529411764705882,
+            "b": 0.0392156862745098,
+            "a": 1
+          },
+          "alias": null,
+          "description": "The ground. Every Aurora surface starts here."
+        },
+        {
+          "name": "stone/50",
+          "type": "COLOR",
+          "value": {
+            "r": 0.9294117647058824,
+            "g": 0.9215686274509803,
+            "b": 0.8980392156862745,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Bone. Primary ink, warm rather than white."
+        },
+        {
+          "name": "stone/200",
+          "type": "COLOR",
+          "value": {
+            "r": 0.788235294117647,
+            "g": 0.7764705882352941,
+            "b": 0.7450980392156863,
+            "a": 1
+          },
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "stone/300",
+          "type": "COLOR",
+          "value": {
+            "r": 0.611764705882353,
+            "g": 0.6039215686274509,
+            "b": 0.5764705882352941,
+            "a": 1
+          },
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "stone/400",
+          "type": "COLOR",
+          "value": {
+            "r": 0.5450980392156862,
+            "g": 0.5372549019607843,
+            "b": 0.5058823529411764,
+            "a": 1
+          },
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "stone/500",
+          "type": "COLOR",
+          "value": {
+            "r": 0.5254901960784314,
+            "g": 0.5176470588235295,
+            "b": 0.49019607843137253,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Retuned from the concept's #5C5B56 so labels pass WCAG AA on every surface."
+        },
+        {
+          "name": "stone/600",
+          "type": "COLOR",
+          "value": {
+            "r": 0.3607843137254902,
+            "g": 0.3568627450980392,
+            "b": 0.33725490196078434,
+            "a": 1
+          },
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "stone/700",
+          "type": "COLOR",
+          "value": {
+            "r": 0.2901960784313726,
+            "g": 0.28627450980392155,
+            "b": 0.27058823529411763,
+            "a": 1
+          },
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "aurora/mint",
+          "type": "COLOR",
+          "value": {
+            "r": 0.4980392156862745,
+            "g": 0.8509803921568627,
+            "b": 0.7529411764705882,
+            "a": 1
+          },
+          "alias": null,
+          "description": "Low aurora. Where light starts."
+        },
+        {
+          "name": "aurora/violet",
+          "type": "COLOR",
+          "value": {
+            "r": 0.6549019607843137,
+            "g": 0.5450980392156862,
+            "b": 0.8784313725490196,
+            "a": 1
+          },
+          "alias": null,
+          "description": "High aurora. Where light ends."
+        },
+        {
+          "name": "ember/400",
+          "type": "COLOR",
+          "value": {
+            "r": 0.8980392156862745,
+            "g": 0.5607843137254902,
+            "b": 0.5019607843137255,
+            "a": 1
+          },
+          "alias": null,
+          "description": "The one warm signal. Destructive and error only."
+        },
+        {
+          "name": "font/weight/regular",
+          "type": "FLOAT",
+          "value": 400,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "FONT_WEIGHT"
+          ]
+        },
+        {
+          "name": "font/weight/medium",
+          "type": "FLOAT",
+          "value": 500,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "FONT_WEIGHT"
+          ]
+        },
+        {
+          "name": "font/weight/semibold",
+          "type": "FLOAT",
+          "value": 600,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "FONT_WEIGHT"
+          ]
+        },
+        {
+          "name": "space/0",
+          "type": "FLOAT",
+          "value": 0,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/1",
+          "type": "FLOAT",
+          "value": 4,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/2",
+          "type": "FLOAT",
+          "value": 8,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/3",
+          "type": "FLOAT",
+          "value": 12,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/4",
+          "type": "FLOAT",
+          "value": 16,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/5",
+          "type": "FLOAT",
+          "value": 20,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/6",
+          "type": "FLOAT",
+          "value": 24,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/8",
+          "type": "FLOAT",
+          "value": 32,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/10",
+          "type": "FLOAT",
+          "value": 40,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/12",
+          "type": "FLOAT",
+          "value": 48,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/16",
+          "type": "FLOAT",
+          "value": 64,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/20",
+          "type": "FLOAT",
+          "value": 80,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/24",
+          "type": "FLOAT",
+          "value": 96,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/32",
+          "type": "FLOAT",
+          "value": 128,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/px",
+          "type": "FLOAT",
+          "value": 1,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "space/0.5",
+          "type": "FLOAT",
+          "value": 2,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "GAP",
+            "WIDTH_HEIGHT"
+          ]
+        },
+        {
+          "name": "radius/none",
+          "type": "FLOAT",
+          "value": 0,
+          "alias": null,
+          "description": "",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        {
+          "name": "radius/sm",
+          "type": "FLOAT",
+          "value": 4,
+          "alias": null,
+          "description": "Controls: buttons, inputs.",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        {
+          "name": "radius/md",
+          "type": "FLOAT",
+          "value": 6,
+          "alias": null,
+          "description": "Containers: cards, panels.",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        {
+          "name": "radius/lg",
+          "type": "FLOAT",
+          "value": 12,
+          "alias": null,
+          "description": "Stages and large media.",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        {
+          "name": "radius/device",
+          "type": "FLOAT",
+          "value": 38,
+          "alias": null,
+          "description": "Device frames only.",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        {
+          "name": "radius/pill",
+          "type": "FLOAT",
+          "value": 999,
+          "alias": null,
+          "description": "The ask bar and nothing else.",
+          "scopes": [
+            "CORNER_RADIUS"
+          ]
+        },
+        {
+          "name": "stroke/hairline",
+          "type": "FLOAT",
+          "value": 1,
+          "alias": null,
+          "description": "The only stroke weight in the system.",
+          "scopes": [
+            "STROKE_FLOAT"
+          ]
+        },
+        {
+          "name": "duration/instant",
+          "type": "FLOAT",
+          "value": 120,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/quick",
+          "type": "FLOAT",
+          "value": 220,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/base",
+          "type": "FLOAT",
+          "value": 340,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/moderate",
+          "type": "FLOAT",
+          "value": 460,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/glide",
+          "type": "FLOAT",
+          "value": 600,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/slow",
+          "type": "FLOAT",
+          "value": 900,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/reveal",
+          "type": "FLOAT",
+          "value": 1400,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "duration/hold",
+          "type": "FLOAT",
+          "value": 840,
+          "alias": null,
+          "description": "How long a hold to confirm takes. A safeguard, not decoration."
+        },
+        {
+          "name": "duration/drift",
+          "type": "FLOAT",
+          "value": 12000,
+          "alias": null,
+          "description": "One slow cycle of ambient light."
+        }
+      ]
+    },
+    {
+      "name": "Semantic",
+      "variables": [
+        {
+          "name": "bg/ground",
+          "type": "COLOR",
+          "value": {
+            "r": 0.03137254901960784,
+            "g": 0.03529411764705882,
+            "b": 0.0392156862745098,
+            "a": 1
+          },
+          "alias": "night/950",
+          "description": "Page background."
+        },
+        {
+          "name": "bg/raised",
+          "type": "COLOR",
+          "value": {
+            "r": 0.054901960784313725,
+            "g": 0.058823529411764705,
+            "b": 0.06666666666666667,
+            "a": 1
+          },
+          "alias": "night/900",
+          "description": "Cards and controls at rest."
+        },
+        {
+          "name": "bg/raised-hover",
+          "type": "COLOR",
+          "value": {
+            "r": 0.07450980392156863,
+            "g": 0.0784313725490196,
+            "b": 0.09411764705882353,
+            "a": 1
+          },
+          "alias": "night/850",
+          "description": "Raised surfaces under a pointer."
+        },
+        {
+          "name": "bg/sunken",
+          "type": "COLOR",
+          "value": {
+            "r": 0.09411764705882353,
+            "g": 0.10196078431372549,
+            "b": 0.11764705882352941,
+            "a": 1
+          },
+          "alias": "night/800",
+          "description": "Code, wells, docs panels."
+        },
+        {
+          "name": "bg/inverse",
+          "type": "COLOR",
+          "value": {
+            "r": 0.9294117647058824,
+            "g": 0.9215686274509803,
+            "b": 0.8980392156862745,
+            "a": 1
+          },
+          "alias": "stone/50",
+          "description": "Fills that have been committed, like a held button."
+        },
+        {
+          "name": "bg/inverse-hover",
+          "type": "COLOR",
+          "value": {
+            "r": 0.788235294117647,
+            "g": 0.7764705882352941,
+            "b": 0.7450980392156863,
+            "a": 1
+          },
+          "alias": "stone/200",
+          "description": "Inverse fills under a pointer."
+        },
+        {
+          "name": "border/hairline",
+          "type": "COLOR",
+          "value": {
+            "r": 0.11764705882352941,
+            "g": 0.12549019607843137,
+            "b": 0.1411764705882353,
+            "a": 1
+          },
+          "alias": "night/750",
+          "description": "Default 1px structure."
+        },
+        {
+          "name": "border/strong",
+          "type": "COLOR",
+          "value": {
+            "r": 0.16470588235294117,
+            "g": 0.17647058823529413,
+            "b": 0.2,
+            "a": 1
+          },
+          "alias": "night/700",
+          "description": "Hover, and controls that need a visible edge."
+        },
+        {
+          "name": "border/inverse",
+          "type": "COLOR",
+          "value": {
+            "r": 0.9294117647058824,
+            "g": 0.9215686274509803,
+            "b": 0.8980392156862745,
+            "a": 1
+          },
+          "alias": "stone/50",
+          "description": ""
+        },
+        {
+          "name": "text/primary",
+          "type": "COLOR",
+          "value": {
+            "r": 0.9294117647058824,
+            "g": 0.9215686274509803,
+            "b": 0.8980392156862745,
+            "a": 1
+          },
+          "alias": "stone/50",
+          "description": "What Aurora says. 16.7:1 on ground."
+        },
+        {
+          "name": "text/secondary",
+          "type": "COLOR",
+          "value": {
+            "r": 0.611764705882353,
+            "g": 0.6039215686274509,
+            "b": 0.5764705882352941,
+            "a": 1
+          },
+          "alias": "stone/300",
+          "description": "Supporting prose. 7.1:1."
+        },
+        {
+          "name": "text/tertiary",
+          "type": "COLOR",
+          "value": {
+            "r": 0.5450980392156862,
+            "g": 0.5372549019607843,
+            "b": 0.5058823529411764,
+            "a": 1
+          },
+          "alias": "stone/400",
+          "description": "Details and metadata. 5.7:1."
+        },
+        {
+          "name": "text/label",
+          "type": "COLOR",
+          "value": {
+            "r": 0.5254901960784314,
+            "g": 0.5176470588235295,
+            "b": 0.49019607843137253,
+            "a": 1
+          },
+          "alias": "stone/500",
+          "description": "Uppercase labels. 5.3:1."
+        },
+        {
+          "name": "text/faint",
+          "type": "COLOR",
+          "value": {
+            "r": 0.3607843137254902,
+            "g": 0.3568627450980392,
+            "b": 0.33725490196078434,
+            "a": 1
+          },
+          "alias": "stone/600",
+          "description": "Past or inactive content. Decorative, never the only carrier of meaning."
+        },
+        {
+          "name": "text/disabled",
+          "type": "COLOR",
+          "value": {
+            "r": 0.2901960784313726,
+            "g": 0.28627450980392155,
+            "b": 0.27058823529411763,
+            "a": 1
+          },
+          "alias": "stone/700",
+          "description": ""
+        },
+        {
+          "name": "text/inverse",
+          "type": "COLOR",
+          "value": {
+            "r": 0.03137254901960784,
+            "g": 0.03529411764705882,
+            "b": 0.0392156862745098,
+            "a": 1
+          },
+          "alias": "night/950",
+          "description": ""
+        },
+        {
+          "name": "text/critical",
+          "type": "COLOR",
+          "value": {
+            "r": 0.8980392156862745,
+            "g": 0.5607843137254902,
+            "b": 0.5019607843137255,
+            "a": 1
+          },
+          "alias": "ember/400",
+          "description": ""
+        },
+        {
+          "name": "light/lo",
+          "type": "COLOR",
+          "value": {
+            "r": 0.4980392156862745,
+            "g": 0.8509803921568627,
+            "b": 0.7529411764705882,
+            "a": 1
+          },
+          "alias": "aurora/mint",
+          "description": "Start of the aurora."
+        },
+        {
+          "name": "light/hi",
+          "type": "COLOR",
+          "value": {
+            "r": 0.6549019607843137,
+            "g": 0.5450980392156862,
+            "b": 0.8784313725490196,
+            "a": 1
+          },
+          "alias": "aurora/violet",
+          "description": "End of the aurora."
+        },
+        {
+          "name": "light/focus",
+          "type": "COLOR",
+          "value": {
+            "r": 0.4980392156862745,
+            "g": 0.8509803921568627,
+            "b": 0.7529411764705882,
+            "a": 1
+          },
+          "alias": "aurora/mint",
+          "description": "Focus rings and selection."
+        }
+      ]
+    }
+  ],
+  "textStyles": [
+    {
+      "name": "display",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "56px",
+      "lineHeight": 1.08,
+      "letterSpacing": "-0.02em"
+    },
+    {
+      "name": "headline",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "40px",
+      "lineHeight": 1.15,
+      "letterSpacing": "-0.014em"
+    },
+    {
+      "name": "title-l",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "28px",
+      "lineHeight": 1.25,
+      "letterSpacing": "-0.01em"
+    },
+    {
+      "name": "title",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "24px",
+      "lineHeight": 1.33,
+      "letterSpacing": "-0.008em"
+    },
+    {
+      "name": "title-s",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "20px",
+      "lineHeight": 1.3,
+      "letterSpacing": "-0.006em"
+    },
+    {
+      "name": "voice",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "18px",
+      "lineHeight": 1.5,
+      "letterSpacing": "0em"
+    },
+    {
+      "name": "voice-s",
+      "fontFamily": "Newsreader",
+      "fontWeight": 400,
+      "fontSize": "14px",
+      "lineHeight": 1.55,
+      "letterSpacing": "0em"
+    },
+    {
+      "name": "body-l",
+      "fontFamily": "Nunito Sans",
+      "fontWeight": 400,
+      "fontSize": "17px",
+      "lineHeight": 1.65,
+      "letterSpacing": "0em"
+    },
+    {
+      "name": "body",
+      "fontFamily": "Nunito Sans",
+      "fontWeight": 400,
+      "fontSize": "15px",
+      "lineHeight": 1.65,
+      "letterSpacing": "0em"
+    },
+    {
+      "name": "body-s",
+      "fontFamily": "Nunito Sans",
+      "fontWeight": 400,
+      "fontSize": "13px",
+      "lineHeight": 1.5,
+      "letterSpacing": "0em"
+    },
+    {
+      "name": "caption",
+      "fontFamily": "Nunito Sans",
+      "fontWeight": 400,
+      "fontSize": "12px",
+      "lineHeight": 1.45,
+      "letterSpacing": "0em"
+    },
+    {
+      "name": "figure",
+      "fontFamily": "Nunito Sans",
+      "fontWeight": 600,
+      "fontSize": "11px",
+      "lineHeight": 1.4,
+      "letterSpacing": "0.06em"
+    },
+    {
+      "name": "label",
+      "fontFamily": "Nunito Sans",
+      "fontWeight": 600,
+      "fontSize": "10px",
+      "lineHeight": 1.4,
+      "letterSpacing": "0.2em"
+    }
+  ]
+}

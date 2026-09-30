@@ -5,6 +5,8 @@ behind it, on a single self-contained page.
 
 **Live:** [izaias.xyz/aurora](https://izaias.xyz/aurora)
 
+**Design system:** the concept, extracted into tokens, components, documentation and a Figma library, lives in [`design-system/`](design-system/).
+
 ## The idea
 
 The brief asks for an "inspiration page". Aurora's own writing argues against feeds —

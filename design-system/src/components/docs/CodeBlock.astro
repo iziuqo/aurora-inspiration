@@ -1,0 +1,58 @@
+---
+import { Code } from 'astro:components';
+import { auroraTheme } from '../../lib/shiki-theme';
+
+interface Tab { label: string; code: string; lang: string }
+interface Props { tabs?: Tab[]; code?: string; lang?: string; label?: string; class?: string }
+const { code, lang = 'tsx', label, class: cls } = Astro.props;
+const tabs: Tab[] = Astro.props.tabs ?? [{ label: label ?? lang.toUpperCase(), code: code ?? '', lang }];
+const uid = `code-${Math.abs([...tabs.map((t) => t.code).join('')].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7)).toString(36)}`;
+---
+<div class:list={['d-code d-wide', cls]} data-code>
+  <div class="d-code__bar">
+    <div class="d-code__tabs" role="tablist">
+      {tabs.map((t, i) => (
+        <button class="d-code__tab" type="button" role="tab" id={`${uid}-t${i}`} aria-controls={`${uid}-p${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab={i}>{t.label}</button>
+      ))}
+    </div>
+    <button class="d-copy" type="button" data-copy aria-label="Copy code">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.2" stroke="currentColor"/><path d="M8.5 1.5h-6a1 1 0 0 0-1 1v6" stroke="currentColor"/></svg>
+      <span data-copy-label>Copy</span>
+    </button>
+  </div>
+  {tabs.map((t, i) => (
+    <div class="d-code__panel" role="tabpanel" id={`${uid}-p${i}`} aria-labelledby={`${uid}-t${i}`} hidden={i !== 0} data-panel={i} data-raw={t.code}>
+      <Code code={t.code.trim()} lang={t.lang as any} theme={auroraTheme as any} />
+    </div>
+  ))}
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-code]').forEach((block) => {
+    if (block.dataset.ready) return;
+    block.dataset.ready = '1';
+    const tabs = [...block.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const panels = [...block.querySelectorAll<HTMLElement>('[data-panel]')];
+    const select = (i: number) => {
+      tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach((p, k) => (p.hidden = k !== i));
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        const n = (i + d + tabs.length) % tabs.length;
+        select(n); tabs[n].focus();
+      });
+    });
+    const copy = block.querySelector<HTMLButtonElement>('[data-copy]');
+    const label = block.querySelector<HTMLElement>('[data-copy-label]');
+    copy?.addEventListener('click', async () => {
+      const panel = panels.find((p) => !p.hidden);
+      await navigator.clipboard?.writeText((panel?.dataset.raw ?? '').trim());
+      copy.dataset.copied = 'true';
+      if (label) label.textContent = 'Copied';
+      setTimeout(() => { copy.dataset.copied = ''; if (label) label.textContent = 'Copy'; }, 1600);
+    });
+  });
+</script>

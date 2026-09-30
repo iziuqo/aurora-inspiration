@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+import '../styles/docs.css';
+import '../styles/thumbs.css';
+
+interface Props { title: string; description?: string }
+const { title, description = 'Aurora is a design system for calm, high-trust interfaces: black ground, hairline structure, and light only where something deserves attention.' } = Astro.props;
+const full = title === 'Aurora' ? 'Aurora Design System' : `${title} · Aurora Design System`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{full}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#08090A" />
+    <meta property="og:title" content={full} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL("/og.png", Astro.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,23 @@
+---
+import { token, hex, contrast } from '../../lib/color';
+interface Props { paths: string[]; on?: string; tall?: boolean; names?: Record<string, string> }
+const { paths, on = '#08090A', tall = false, names = {} } = Astro.props;
+---
+<div class="d-ramp d-wide" data-tall={tall ? 'true' : undefined}>
+  {paths.map((p) => {
+    const v = hex(p);
+    const t = token(p);
+    const r = contrast(v, on);
+    const light = contrast(v, '#08090A') > 7;
+    return (
+      <div class="d-ramp__tile">
+        <div class="d-ramp__chip" style={`background:${v}`} data-ink={light ? 'dark' : 'light'}>
+          <span class="d-ramp__ratio">{r.toFixed(1)}</span>
+        </div>
+        <div class="d-ramp__name">{names[p] ?? p.split('.').slice(-1)[0]}</div>
+        <div class="d-ramp__hex">{v}</div>
+        <div class="d-ramp__var">{t.cssVar}</div>
+      </div>
+    );
+  })}
+</div>

@@ -1,0 +1,14 @@
+.el { width: 100%; }
+.el__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.el__plot { width: 100%; max-width: 150px; }
+.el__track { position: relative; height: 12px; margin: 20px 0 16px; border-bottom: 1px solid var(--au-border-hairline); }
+.el__dot { position: absolute; left: 0; bottom: -3px; width: 6px; height: 6px; border-radius: 50%; background: var(--au-text-primary); animation-name: el-move; animation-fill-mode: both; }
+@keyframes el-move { from { left: 0; } to { left: calc(100% - 6px); } }
+.el__name code { font-family: var(--au-font-mono); font-size: 12.5px; color: var(--au-text-primary); }
+.el__v { margin-top: 2px; font-family: var(--au-font-mono); font-size: 11px; color: var(--au-text-label); }
+.el__use { margin-top: 8px; font-size: 12.5px; line-height: 1.5; color: var(--au-text-tertiary); }
+.el__bar { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--au-border-hairline); }
+.el__durs { display: flex; gap: 4px; }
+.el__durs button { height: 30px; padding: 0 10px; border: 1px solid transparent; border-radius: 4px; background: none; cursor: pointer; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--au-text-label); }
+.el__durs button[aria-checked='true'] { border-color: var(--au-border-strong); color: var(--au-text-primary); }
+@media (max-width: 900px) { .el__grid { grid-template-columns: 1fr 1fr; } }

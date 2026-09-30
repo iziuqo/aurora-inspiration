@@ -1,0 +1,42 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import DayPrototype from '../../components/demos/DayPrototype';
+const used = [
+  ['Timeline', '/components/timeline'], ['Gap', '/components/gap'], ['Suggestion card', '/components/suggestion-card'], ['Reasoning trace', '/components/reasoning-trace'],
+  ['Hold button', '/components/hold-button'], ['Button', '/components/button'], ['Execution steps', '/components/execution-steps'], ['Ask bar', '/components/ask-bar'],
+  ['Segmented control', '/components/segmented-control'], ['Label', '/components/label'], ['Quiet state', '/components/quiet-state'], ['Morph', '/patterns/morph'],
+];
+---
+<Doc
+  title="Showcase"
+  eyebrow="Patterns"
+  lead="The Aurora inspiration surface, rebuilt with nothing but the system. Your day as a timeline, the open time lit, and two proposals written into the gaps."
+  toc={false}
+>
+  <section class="d-show d-wide">
+    <div class="d-show__stage"><DayPrototype client:load /></div>
+    <aside class="d-show__side">
+      <span class="au-label">Built from</span>
+      <ul>{used.map(([n, h]) => <li><a href={h}>{n}</a></li>)}</ul>
+      <p>Every pixel on the screen comes from a component on this site and a token in the source. No one-off styles.</p>
+      <span class="au-label" style="margin-top:32px;display:block">Try</span>
+      <ul class="d-show__try">
+        <li>Open the eleven o’clock suggestion.</li>
+        <li>Hold to confirm, and watch it morph.</li>
+        <li>Push the evening card left.</li>
+        <li>Switch to a quiet day.</li>
+      </ul>
+    </aside>
+  </section>
+</Doc>
+<style>
+  .d-show { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 64px; margin-top: 48px; align-items: start; }
+  .d-show__stage { padding: 40px; border: 1px solid var(--au-border-hairline); border-radius: var(--au-radius-lg); background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--au-night-700) 60%, transparent) 1px, transparent 0); background-size: 16px 16px; }
+  .d-show__side ul { list-style: none; margin-top: 12px; border-top: 1px solid var(--au-border-hairline); }
+  .d-show__side li { padding: 9px 0; border-bottom: 1px solid var(--au-border-hairline); font-size: 14px; color: var(--au-text-secondary); }
+  .d-show__side a { color: var(--au-text-primary); text-decoration: none; }
+  .d-show__side a:hover { color: var(--au-light-lo); }
+  .d-show__side p { margin-top: 20px; font-size: 13.5px; line-height: 1.6; color: var(--au-text-tertiary); }
+  @media (max-width: 1100px) { .d-show { grid-template-columns: minmax(0, 1fr); } .d-show__stage { padding: 20px; } }
+  @media (max-width: 560px) { .d-show__stage { padding: 0; border: 0; background: none; } }
+</style>

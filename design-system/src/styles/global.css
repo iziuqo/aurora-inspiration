@@ -1,0 +1,51 @@
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+@import '@fontsource-variable/nunito-sans/opsz.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
+@import './tokens.css';
+@import '../components/aurora/Label.css';
+@import '../components/aurora/Button.css';
+
+/* ---------------------------------------------------------------------------
+   Base. The docs site is built on the same tokens it documents.
+--------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html {
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+  scroll-padding-top: 88px;
+  background: var(--au-bg-ground);
+}
+body {
+  min-height: 100vh;
+  background: var(--au-bg-ground);
+  color: var(--au-text-primary);
+  font-family: var(--au-font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+}
+img, svg, video { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+a { color: inherit; }
+::selection { background: var(--au-light-lo); color: var(--au-text-inverse); }
+:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 3px; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--au-night-750); border: 3px solid var(--au-bg-ground); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--au-night-600); }
+* { scrollbar-width: thin; scrollbar-color: var(--au-night-750) transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

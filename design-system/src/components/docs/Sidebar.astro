@@ -1,0 +1,22 @@
+---
+import { nav } from '../../lib/nav';
+interface Props { path: string }
+const { path } = Astro.props;
+---
+<nav class="d-side" aria-label="Documentation">
+  {nav.map((group) => (
+    <div class="d-side__group">
+      <span class="d-side__label au-label">{group.title}</span>
+      <ul class="d-side__list">
+        {group.items.map((item) => (
+          <li>
+            <a class="d-side__link" href={item.href} aria-current={item.href === path ? 'page' : undefined}>
+              <span>{item.title}</span>
+              {item.status === 'new' && <span class="d-badge">New</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</nav>

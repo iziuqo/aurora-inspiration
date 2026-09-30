@@ -1,0 +1,47 @@
+---
+---
+<aside class="d-toc" aria-label="On this page">
+  <span class="d-toc__label au-label">On this page</span>
+  <ul class="d-toc__list" data-toc-list>
+    <span class="d-toc__light" data-toc-light aria-hidden="true"></span>
+  </ul>
+</aside>
+<script>
+  // Built from the page's own sections, so it can never drift from the content.
+  const list = document.querySelector<HTMLUListElement>('[data-toc-list]');
+  const light = document.querySelector<HTMLSpanElement>('[data-toc-light]');
+  const sections = [...document.querySelectorAll<HTMLElement>('section.d-section[id]')];
+  if (list && light && sections.length) {
+    const links = sections.map((s) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.className = 'd-toc__link';
+      a.href = `#${s.id}`;
+      a.textContent = s.dataset.title ?? s.id;
+      li.append(a);
+      list.append(li);
+      return a;
+    });
+    const setActive = (i: number) => {
+      links.forEach((a, k) => (a.dataset.active = String(k === i)));
+      const a = links[i];
+      if (!a) return;
+      light.style.opacity = '1';
+      light.style.transform = `translateY(${a.offsetTop + 4}px)`;
+      light.style.height = `${a.offsetHeight - 8}px`;
+    };
+    const update = () => {
+      let i = 0;
+      for (let k = 0; k < sections.length; k++) if (sections[k].getBoundingClientRect().top < window.innerHeight * 0.35) i = k;
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) i = sections.length - 1;
+      setActive(i);
+    };
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { ticking = false; update(); });
+    }, { passive: true });
+    update();
+  }
+</script>

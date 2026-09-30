@@ -1,0 +1,20 @@
+---
+interface Row { name: string; type: string; default?: string; description: string; required?: boolean }
+interface Props { rows: Row[] }
+const { rows } = Astro.props;
+---
+<div class="d-table-wrap">
+  <table class="d-table">
+    <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td class="d-mono">{r.name}{r.required && <span style="color:var(--au-light-lo)">*</span>}</td>
+          <td class="d-mono-dim">{r.type}</td>
+          <td class="d-mono-dim">{r.default ?? '—'}</td>
+          <td>{r.description}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,72 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { QuietState } from '../../components/aurora/QuietState';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Quiet state"
+  eyebrow="Components"
+  lead="A first-class empty state. Some days there is nothing worth moving, and Aurora says so plainly, then says what it is holding for later, so the quiet reads as judgement rather than emptiness."
+  meta={componentMeta('QuietState')}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="The quiet day, in a device frame">
+      <div class="d-phone" style="height:560px">
+        <div style="height:100%;padding-top:24px">
+          <QuietState context="London · Tuesday 4 August" title="Nothing worth moving today. Your day is already what it should be." holding={{ line: 'Two things for Saturday' }} />
+        </div>
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="why" n="02" title="Why it matters">
+    <p>A feed can never be empty; the business model forbids it. Aurora’s can, and should. The quiet day is the strongest proof the system has taste, so it is designed as a screen rather than handled as an edge case. The rule under “Aurora is holding” draws in slowly after a pause, so the screen settles instead of snapping.</p>
+    <Callout label="Rule">
+      <p>Never apologise for having nothing. Say it’s the right answer, and say what you’re keeping.</p>
+    </Callout>
+  </Section>
+
+  <Section id="usage" n="03" title="Usage">
+    <DoDont
+      doText="State the judgement in Aurora’s voice and name what is being held."
+      dontText="Don’t fill the space with an illustration and a call to action. It turns a decision into a failure."
+    >
+      <div slot="do" style="width:260px">
+        <span class="au-label">Tuesday 4 August</span>
+        <div style="margin-top:10px;font-family:var(--au-font-serif);font-size:20px;line-height:1.3;color:var(--au-text-primary)">Nothing worth moving today.</div>
+      </div>
+      <div slot="dont" style="width:260px;text-align:center">
+        <div style="font-size:34px">🌤️</div>
+        <div style="margin-top:6px;font-size:15px;font-weight:700;color:var(--au-text-primary)">No suggestions yet!</div>
+        <div style="margin-top:12px;display:inline-block;padding:8px 14px;border-radius:999px;background:var(--au-light);color:var(--au-text-inverse);font-size:12px;font-weight:700">Explore trending</div>
+      </div>
+    </DoDont>
+  </Section>
+
+  <Section id="props" n="04" title="Props">
+    <PropsTable rows={[
+      { name: 'context', type: 'string', required: true, description: 'Where and when.' },
+      { name: 'title', type: 'ReactNode', required: true, description: 'The judgement, in Aurora’s voice.' },
+      { name: 'holding', type: '{ label?: string; line: string }', description: 'What Aurora is keeping for later.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['type.title', 'type.label', 'color.text.tertiary', 'color.border.strong', 'easing.glide']} />
+  </Section>
+
+  <Section id="code" n="06" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<QuietState
+  context="London · Tuesday 4 August"
+  title="Nothing worth moving today. Your day is already what it should be."
+  holding={{ line: 'Two things for Saturday' }}
+/>`} />
+  </Section>
+</Doc>

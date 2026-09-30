@@ -1,0 +1,43 @@
+---
+import Doc from '../layouts/Doc.astro';
+import Section from '../components/docs/Section.astro';
+import Callout from '../components/docs/Callout.astro';
+---
+<Doc
+  title="Principles"
+  eyebrow="Start"
+  lead="Six rules, each read out of the original concept and made strict enough to settle a disagreement. When a decision is unclear, find the principle it touches and let that decide."
+>
+  <Section id="light" n="01" title="Light is earned">
+    <p>The aurora, a gradient from mint to violet, is the most valuable thing in the system, so it is spent carefully. It appears in exactly four places: <strong>open time</strong>, <strong>focus</strong>, <strong>a commitment in progress</strong>, and <strong>the one figure that is ours</strong>. It is never a text colour, never a background, never a border for its own sake.</p>
+    <p>If light is everywhere, it stops meaning anything. Because it is rare, a person learns within one screen that light means “look here”.</p>
+    <Callout label="In practice">
+      <p>Before adding light, name which of the four jobs it is doing. If you can’t, use a hairline.</p>
+    </Callout>
+  </Section>
+
+  <Section id="hairlines" n="02" title="Hairlines, not shadows">
+    <p>Aurora has no drop shadows. Structure is made of 1px rules and four surfaces that step up from the ground: <code>ground</code>, <code>raised</code>, <code>raised-hover</code> and <code>sunken</code>. Depth is a change of surface, never a blur beneath one.</p>
+    <p>Shadows on a black ground are either invisible or muddy. Hairlines stay crisp at every density and read the same on every screen.</p>
+  </Section>
+
+  <Section id="voices" n="03" title="Two voices">
+    <p>Aurora speaks in a <em>serif</em> and works in a sans. Anything the product says in its own words, a greeting, a reason, a proposal, is set in Newsreader. Times, places, controls and data are set in Nunito Sans. Uppercase tracked labels carry metadata and nothing else.</p>
+    <p>The split lets a reader tell, at a glance, the difference between what the system thinks and what the system is.</p>
+  </Section>
+
+  <Section id="motion" n="04" title="Nothing overshoots">
+    <p>All movement uses one family of decelerating curves. There are no springs and no bounces. When content changes, the box it lives in changes shape and its contents cross-dissolve. Things are never swapped out or replaced with a flash.</p>
+    <p>This product should feel unhurried and certain. Overshoot reads as playful, and playful is the wrong promise for something that books your evening.</p>
+  </Section>
+
+  <Section id="reason" n="05" title="The reason before the thing">
+    <p>Any component that proposes an action shows its reasoning first, in the serif, before it shows the proposal. The suggestion card opens with <em>why this, why now, why you</em>, and the full reasoning trace is one tap away.</p>
+    <p>People trust a system they can follow. Legible reasoning earns more trust than any amount of visual polish.</p>
+  </Section>
+
+  <Section id="restraint" n="06" title="Restraint is a feature">
+    <p>Two or three items, never a catalogue. Empty is a designed state, not an edge case, and the system is allowed to decide that nothing is worth showing. When it does, it says so plainly and says what it is keeping for later.</p>
+    <p>Volume is the tell of a system that hasn’t decided. Showing less, on purpose, is the strongest proof of taste a product can give.</p>
+  </Section>
+</Doc>

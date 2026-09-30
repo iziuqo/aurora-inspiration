@@ -1,0 +1,75 @@
+.au-suggestion { position: relative; margin: 14px 0 18px; }
+
+/* revealed as the card is pushed aside */
+.au-suggestion__behind {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: calc(var(--au-space-5) - 0.2em);
+  font-size: 9.5px;
+  font-weight: var(--au-weight-semibold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--au-text-tertiary);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--au-dur-base) var(--au-ease-soft);
+}
+
+.au-card {
+  position: relative;
+  background: var(--au-bg-raised);
+  border: var(--au-stroke-hairline) solid var(--au-border-hairline);
+  border-radius: var(--au-radius-md);
+  touch-action: pan-y;
+  transition:
+    border-color var(--au-dur-moderate) var(--au-ease-soft),
+    background-color var(--au-dur-moderate) var(--au-ease-soft),
+    transform 580ms var(--au-ease-glide);
+}
+.au-card[data-dragging='true'] { transition: border-color var(--au-dur-moderate) var(--au-ease-soft), background-color var(--au-dur-moderate) var(--au-ease-soft); }
+.au-card:hover { border-color: var(--au-border-strong); background: var(--au-bg-raised-hover); }
+.au-card:has(.au-card__summary:active) { transform: scale(0.995); }
+
+.au-card__summary {
+  display: block;
+  width: 100%;
+  padding: 18px 19px 17px;
+  background: none;
+  border: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-radius: inherit;
+}
+.au-card__summary:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 3px; }
+
+.au-card__because {
+  font-family: var(--au-type-voice-s-family);
+  font-size: var(--au-type-voice-s-size);
+  line-height: var(--au-type-voice-s-leading);
+  color: var(--au-text-tertiary);
+  padding-bottom: 13px;
+  margin-bottom: 14px;
+  border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline);
+}
+.au-card__what {
+  font-family: var(--au-type-title-s-family);
+  font-size: var(--au-type-title-s-size);
+  line-height: var(--au-type-title-s-leading);
+  letter-spacing: var(--au-type-title-s-tracking);
+  color: var(--au-text-primary);
+}
+.au-card__detail { margin-top: var(--au-space-2); font-size: 13px; line-height: 1.5; color: var(--au-text-label); }
+
+/* the trace opens to a measured height, so the glide lands exactly */
+.au-card__drawer { height: 0; overflow: hidden; transition: height var(--au-dur-glide) var(--au-ease-glide); }
+.au-card__drawer-inner { padding: 0 19px 17px; }
+.au-card__actions { display: flex; align-items: stretch; gap: var(--au-space-2); margin-top: 17px; }
+.au-card__actions > .au-hold { flex: 1; }
+.au-card[data-open='true'] .au-card__actions { animation: au-trace-in 500ms 300ms var(--au-ease-out) both; }
+@keyframes au-trace-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .au-card[data-open='true'] .au-card__actions { animation: none; } }

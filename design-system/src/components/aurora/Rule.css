@@ -1,0 +1,15 @@
+.au-rule {
+  display: block;
+  height: var(--au-stroke-hairline);
+  border: 0;
+  margin: 0;
+  background: var(--au-border-hairline);
+}
+.au-rule[data-variant='strong'] { background: var(--au-border-strong); }
+/* the only place a rule may carry light: where time is open */
+.au-rule[data-variant='light'] {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--au-light-lo) 62%, transparent), color-mix(in srgb, var(--au-light-hi) 50%, transparent));
+}
+.au-rule[data-animate='true'] { animation: au-rule-open var(--au-dur-reveal) var(--au-ease-out) both; }
+@keyframes au-rule-open { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { .au-rule[data-animate='true'] { animation: none; } }

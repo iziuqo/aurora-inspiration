@@ -1,0 +1,29 @@
+---
+import { tokenList } from '../../lib/tokens';
+interface Props { paths: string[]; usage?: Record<string, string> }
+const { paths, usage = {} } = Astro.props;
+const rows = paths.map((p) => tokenList.find((t) => t.path === p)).filter(Boolean) as (typeof tokenList)[number][];
+const isColor = (v: unknown) => typeof v === 'string' && /^#/.test(v);
+const resolve = (t: (typeof tokenList)[number]): string => {
+  let cur: any = t;
+  while (cur?.alias) cur = tokenList.find((x) => x.path === cur.alias);
+  return typeof cur?.value === 'string' ? cur.value : '';
+};
+---
+<div class="d-table-wrap">
+  <table class="d-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Used for</th></tr></thead>
+    <tbody>
+      {rows.map((t) => {
+        const v = resolve(t);
+        return (
+          <tr>
+            <td class="d-mono">{isColor(v) && <span class="d-swatch" style={`background:${v}`} />}{t.cssVar}</td>
+            <td class="d-mono-dim">{t.alias ? `→ ${t.alias.replace('color.', '')}` : v}{t.alias && isColor(v) ? ` · ${v}` : ''}</td>
+            <td>{usage[t.path] ?? t.description ?? ''}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

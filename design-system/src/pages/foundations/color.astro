@@ -1,0 +1,141 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import ColorRamp from '../../components/docs/ColorRamp.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import Callout from '../../components/docs/Callout.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { hex, contrast, grade } from '../../lib/color';
+
+const surfaces = ['bg.ground', 'bg.raised', 'bg.raised-hover', 'bg.sunken'];
+const inks = ['text.primary', 'text.secondary', 'text.tertiary', 'text.label', 'text.critical'];
+---
+<Doc
+  title="Color"
+  eyebrow="Foundations"
+  lead="A four-step night ramp for surfaces, a warm bone ink that steps down in four readable greys, and two colours of light that are spent only where they mean something."
+  meta={[{ label: 'Primitives', value: '18' }, { label: 'Semantic', value: '22' }, { label: 'Contrast', value: 'AA on every surface', dot: 'stable' }]}
+>
+  <Section id="night" n="01" title="Night">
+    <p>Every surface is a step on one ramp, from <code>night-950</code>, the ground, up to the hairlines. The steps are small on purpose: in a dark interface, a 2% change in lightness reads as a new layer, and anything larger reads as a hole.</p>
+    <ColorRamp tall paths={['color.night.950', 'color.night.900', 'color.night.850', 'color.night.800', 'color.night.750', 'color.night.700', 'color.night.600']} on="#EDEBE5" />
+    <p>The number on each chip is its contrast against bone ink. Surfaces are chosen so that primary text stays above 15:1 on all of them.</p>
+  </Section>
+
+  <Section id="stone" n="02" title="Stone">
+    <p>Ink is bone, <code>#EDEBE5</code>, not white. Pure white on near-black vibrates; bone sits on the page like print. Below it, stone steps down through four greys, each with a job.</p>
+    <ColorRamp paths={['color.stone.50', 'color.stone.200', 'color.stone.300', 'color.stone.400', 'color.stone.500', 'color.stone.600', 'color.stone.700']} />
+    <p>Numbers here are contrast against the ground. Everything from <code>stone-500</code> up passes WCAG AA for body text. <code>stone-600</code> and <code>700</code> are for content that is already over, like a flight you landed on, and never carry meaning alone.</p>
+    <Callout label="Changed">
+      <p>The concept used <code>#5C5B56</code> for labels, which is 2.9:1. The system retunes it to <code>#86847D</code>, 5.3:1, and keeps the old value as <code>text-faint</code> for past content only.</p>
+    </Callout>
+  </Section>
+
+  <Section id="light" n="03" title="Light">
+    <p>Two colours, never used apart: mint where the light starts and violet where it ends. Together they are the aurora. They are covered in full on the <a href="/foundations/light">Light</a> page, because where they may appear is a rule, not a preference.</p>
+    <div class="d-wide" style="display:grid;grid-template-columns:1fr 1fr 2fr;gap:8px;margin-top:24px">
+      <ColorRamp paths={['color.aurora.mint']} names={{ 'color.aurora.mint': 'Mint · lo' }} />
+      <ColorRamp paths={['color.aurora.violet']} names={{ 'color.aurora.violet': 'Violet · hi' }} />
+      <div>
+        <div style="height:120px;border-radius:6px;background:var(--au-light);margin-top:24px"></div>
+        <div class="d-ramp__name">The aurora</div>
+        <div class="d-ramp__var">--au-light</div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="semantic" n="04" title="Semantic tokens">
+    <p>Components never use a primitive directly. They use a semantic token named for the job, which points at a primitive. To retune the system, change the pointer, not every component.</p>
+    <h3 class="d-h3">Surfaces</h3>
+    <TokenTable paths={['color.bg.ground', 'color.bg.raised', 'color.bg.raised-hover', 'color.bg.sunken', 'color.bg.inverse', 'color.bg.inverse-hover']} />
+    <h3 class="d-h3">Borders</h3>
+    <TokenTable paths={['color.border.hairline', 'color.border.strong', 'color.border.inverse']} />
+    <h3 class="d-h3">Text</h3>
+    <TokenTable paths={['color.text.primary', 'color.text.secondary', 'color.text.tertiary', 'color.text.label', 'color.text.faint', 'color.text.disabled', 'color.text.inverse', 'color.text.critical']} />
+    <h3 class="d-h3">Light</h3>
+    <TokenTable paths={['color.light.lo', 'color.light.hi', 'color.light.focus']} />
+  </Section>
+
+  <Section id="contrast" n="05" title="Contrast">
+    <p>Every readable ink against every surface. The build checks this table on every change and fails if a pair drops under 4.5:1.</p>
+    <div class="d-table-wrap">
+      <table class="d-table d-contrast">
+        <thead><tr><th>Ink</th>{surfaces.map((s) => <th>{s.replace('bg.', '')}</th>)}</tr></thead>
+        <tbody>
+          {inks.map((i) => (
+            <tr>
+              <td class="d-mono"><span class="d-swatch" style={`background:${hex('color.' + i)}`} />{i.replace('text.', '')}</td>
+              {surfaces.map((s) => {
+                const r = contrast(hex('color.' + i), hex('color.' + s));
+                return <td><span class="d-cell" style={`background:${hex('color.' + s)};color:${hex('color.' + i)}`}>{r.toFixed(1)}</span> <span class="d-grade">{grade(r)}</span></td>;
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="usage" n="06" title="Usage">
+    <DoDont
+      doText="Step surfaces up from the ground and separate them with a hairline. The layer reads without any shadow."
+      dontText="Don’t put light in text or use it to decorate. A gradient headline spends the one signal the system has."
+    >
+      <div slot="do" style="width:240px;padding:18px;border:1px solid var(--au-border-hairline);border-radius:6px;background:var(--au-bg-raised)">
+        <div style="font-family:var(--au-font-serif);font-size:18px;color:var(--au-text-primary)">Recovery, 75 minutes.</div>
+        <div style="margin-top:6px;font-size:12.5px;color:var(--au-text-label)">Nine minutes away</div>
+      </div>
+      <div slot="dont" style="width:240px;padding:18px;border-radius:6px;background:var(--au-bg-raised);box-shadow:0 12px 32px rgb(0 0 0 / 0.8)">
+        <div style="font-family:var(--au-font-serif);font-size:18px;background:var(--au-light);-webkit-background-clip:text;background-clip:text;color:transparent">Recovery, 75 minutes.</div>
+        <div style="margin-top:6px;font-size:12.5px;color:var(--au-text-faint)">Nine minutes away</div>
+      </div>
+    </DoDont>
+    <DoDont
+      doText="Use bone for anything Aurora says, and step down through secondary and tertiary for supporting detail."
+      dontText="Don’t use faint or disabled greys for anything a person needs to read. They are for content that is already over."
+    >
+      <div slot="do" style="width:240px">
+        <div style="font-size:14.5px;color:var(--au-text-primary)">Board meeting</div>
+        <div style="font-size:12px;color:var(--au-text-label);margin-top:4px">Berkeley Square</div>
+      </div>
+      <div slot="dont" style="width:240px">
+        <div style="font-size:14.5px;color:var(--au-text-faint)">Board meeting</div>
+        <div style="font-size:12px;color:var(--au-text-disabled);margin-top:4px">Berkeley Square</div>
+      </div>
+    </DoDont>
+  </Section>
+
+  <Section id="code" n="07" title="In code">
+    <CodeBlock tabs={[
+      { label: 'CSS', lang: 'css', code: `.card {
+  background: var(--au-bg-raised);
+  border: 1px solid var(--au-border-hairline);
+  color: var(--au-text-primary);
+}
+.card:hover {
+  background: var(--au-bg-raised-hover);
+  border-color: var(--au-border-strong);
+}` },
+      { label: 'TypeScript', lang: 'ts', code: `import { tokens } from './lib/tokens';
+
+tokens.color.text.secondary.cssVar; // '--au-text-secondary'
+tokens.color.text.secondary.value;  // 'var(--au-stone-300)'` },
+      { label: 'Source', lang: 'json', code: `{
+  "color": {
+    "text": {
+      "secondary": {
+        "$value": "{color.stone.300}",
+        "$description": "Supporting prose. 7.1:1."
+      }
+    }
+  }
+}` },
+    ]} />
+  </Section>
+</Doc>
+<style>
+  .d-contrast td { white-space: nowrap; }
+  .d-cell { display: inline-block; min-width: 46px; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--au-border-hairline); font-size: 12.5px; font-weight: 650; font-variant-numeric: tabular-nums; text-align: center; }
+  .d-grade { margin-left: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--au-text-label); }
+</style>

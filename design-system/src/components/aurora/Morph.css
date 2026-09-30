@@ -1,0 +1,4 @@
+.au-morph__out { animation: au-morph-out 300ms var(--au-ease-soft) forwards; }
+.au-morph__in { opacity: 0; animation: au-morph-in 460ms 140ms var(--au-ease-soft) forwards; }
+@keyframes au-morph-out { to { opacity: 0; } }
+@keyframes au-morph-in { to { opacity: 1; } }

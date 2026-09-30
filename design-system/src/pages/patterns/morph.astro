@@ -1,0 +1,57 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Callout from '../../components/docs/Callout.astro';
+import Choreo from '../../components/docs/Choreo.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import MorphDemo from '../../components/demos/MorphDemo';
+---
+<Doc
+  title="Morph"
+  eyebrow="Patterns"
+  lead="The motion primitive everything else is built from. When content changes, the box keeps its place and glides to its new height while the old contents dissolve into the new ones. Nothing is ever swapped."
+>
+  <Section id="demo" n="01" title="See it">
+    <Stage caption="Toggle between the proposal and the work"><MorphDemo client:visible /></Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="How it works">
+    <ol class="d-list">
+      <li><strong>Pin the height.</strong> Measure the box and fix its height, so nothing around it moves yet.</li>
+      <li><strong>Layer both.</strong> Put the old and new contents on top of each other, absolutely positioned, and measure the new one.</li>
+      <li><strong>Glide and cross-dissolve.</strong> Animate the height to the new value over 660ms on the glide curve. Fade the old out over 300ms; fade the new in over 460ms, starting 140ms in, so there is never a blank frame.</li>
+      <li><strong>Release.</strong> After 700ms, drop the old layer and let the height go back to auto.</li>
+    </ol>
+    <Choreo total={800} step={100} tracks={[
+      { name: 'Height', curve: 'glide', start: 0, end: 660 },
+      { name: 'Old contents out', curve: 'soft', start: 0, end: 300 },
+      { name: 'New contents in', curve: 'soft', start: 140, end: 600 },
+    ]} />
+  </Section>
+
+  <Section id="when" n="03" title="When to morph">
+    <DoDont
+      doText="Morph when one thing becomes another in the same place: a proposal into the work, the work into the result."
+      dontText="Don’t morph between unrelated content, like changing pages or tabs. That is navigation, and a cross-fade of the whole view is enough."
+    >
+      <div slot="do" style="font-family:var(--au-font-serif);font-size:17px;color:var(--au-text-primary);text-align:center">Proposal → Work → Entry</div>
+      <div slot="dont" style="font-family:var(--au-font-serif);font-size:17px;color:var(--au-text-tertiary);text-align:center">Day view → Settings</div>
+    </DoDont>
+    <Callout label="Rule">
+      <p>If the user would ask “where did it go?”, it should have morphed.</p>
+    </Callout>
+  </Section>
+
+  <Section id="code" n="04" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`import { Morph } from './aurora';
+
+// Change contentKey and the box morphs to whatever the children are now.
+<Morph contentKey={phase}>
+  {phase === 'offer' && <SuggestionCard {...s} onConfirm={() => setPhase('working')} />}
+  {phase === 'working' && <ExecutionSteps steps={s.steps} />}
+  {phase === 'settled' && <Entry {...s.done} />}
+</Morph>`} />
+  </Section>
+</Doc>

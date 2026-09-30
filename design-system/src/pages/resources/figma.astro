@@ -1,0 +1,58 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { FIGMA } from '../../lib/nav';
+import figma from '../../lib/figma-variables.json';
+const [prim, sem] = figma.collections;
+const pages = [
+  { name: 'Cover', what: 'The library at a glance, and how to use it.' },
+  { name: 'Foundations', what: 'Colour ramps, type specimens, spacing, radius and the light, each drawn from variables.' },
+  { name: 'Components', what: 'Every component with its variants and text properties, grouped into three sections: actions and structure, timeline and suggestion, content and states. Each has a description that shows up in the Assets panel.' },
+  { name: 'Patterns', what: 'The five-frame hold to confirm storyboard, leave it open, and the quiet day, all built from instances.' },
+  { name: 'Showcase', what: 'The full day screen, assembled only from library instances.' },
+];
+---
+<Doc
+  title="Figma library"
+  eyebrow="Resources"
+  lead="The same system, for design tools. Variables, text styles and components are generated from the token source, so the names you see in Figma are the names developers write in code."
+  meta={FIGMA ? [{ label: 'File', value: 'Open in Figma', href: FIGMA }] : undefined}
+>
+  <Section id="open" n="01" title="Open the file">
+    {FIGMA ? (
+      <p><a href={FIGMA}>Open the Aurora library in Figma</a>. Duplicate it to your drafts, or publish it as a team library and enable it from the Assets panel.</p>
+    ) : (
+      <p>The Figma library is being built from the same token source. This page will link to it once it’s published.</p>
+    )}
+  </Section>
+
+  <Section id="variables" n="02" title="Variables">
+    <p>Two collections, mirroring the two token layers. Semantic variables alias primitives, exactly as the CSS does, so changing a primitive updates everything that uses it.</p>
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Collection</th><th>Variables</th><th>Holds</th></tr></thead>
+        <tbody>
+          <tr><td>Primitives</td><td class="d-mono">{prim.variables.length}</td><td>Night and stone ramps, the two lights, ember, space, radius, stroke, durations and weights.</td></tr>
+          <tr><td>Semantic</td><td class="d-mono">{sem.variables.length}</td><td>Surfaces, borders, inks and light, each an alias of a primitive.</td></tr>
+          <tr><td>Text styles</td><td class="d-mono">{figma.textStyles.length + 9}</td><td>{figma.textStyles.length} type styles, from display down to label, plus 9 component styles such as button labels, trace keys and the held line.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <Callout label="Naming">A variable called <code>bg/raised</code> in Figma is <code>--au-bg-raised</code> in CSS and <code>tokens.color.bg.raised</code> in TypeScript. Same path, three spellings.</Callout>
+  </Section>
+
+  <Section id="pages" n="03" title="What’s in the file">
+    <ul class="d-list">
+      {pages.map((p) => <li><b>{p.name}.</b> {p.what}</li>)}
+    </ul>
+  </Section>
+
+  <Section id="rules" n="04" title="Working in the library">
+    <ul class="d-list">
+      <li><b>Use semantic variables.</b> Primitives are scoped out of the fill and stroke pickers, so the semantic name is always the one you reach.</li>
+      <li><b>Detach nothing.</b> If a component doesn’t do what you need, that is feedback for the system, not a one-off.</li>
+      <li><b>Change tokens in code.</b> The JSON is the source of truth. Edits made only in Figma get overwritten on the next sync.</li>
+    </ul>
+  </Section>
+</Doc>

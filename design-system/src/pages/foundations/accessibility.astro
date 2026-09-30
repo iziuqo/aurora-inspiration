@@ -1,0 +1,51 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Callout from '../../components/docs/Callout.astro';
+const keys = [
+  ['Button', 'Enter, Space', 'Activates.'],
+  ['Hold button', 'Hold Enter or Space', 'Charges while held; confirms after 840ms; releasing early cancels.'],
+  ['Segmented control', 'Arrow keys', 'Moves selection and focus together. One tab stop for the group.'],
+  ['Suggestion card', 'Enter, Space', 'Opens and closes the reasoning trace. Actions inside are reachable only when open.'],
+  ['Suggestion card', 'Not today button', 'The keyboard alternative to pushing the card aside.'],
+  ['Search', '⌘K, Ctrl K or /', 'Opens search. Arrows move, Enter opens, Escape closes.'],
+];
+---
+<Doc
+  title="Accessibility"
+  eyebrow="Foundations"
+  lead="A calm interface has to be calm for everyone. Every readable colour passes WCAG AA on every surface, every gesture has a keyboard path, and every animation has a reduced-motion fallback."
+  meta={[{ label: 'Target', value: 'WCAG 2.2 AA', dot: 'stable' }, { label: 'Checked', value: 'On every build' }]}
+>
+  <Section id="contrast" n="01" title="Contrast">
+    <p>The build fails if any readable ink drops under 4.5:1 on any surface. Primary text is 16.7:1 on the ground. The lowest readable ink, the label grey, is 5.3:1, which is why the concept’s original label grey was retuned. See the full matrix on <a href="/foundations/color#contrast">Color</a>.</p>
+    <p>The two faint greys are exempt only because they never carry meaning alone: they mark time that has already passed, next to a time and title that say so.</p>
+  </Section>
+
+  <Section id="keyboard" n="02" title="Keyboard">
+    <p>Gestures are shortcuts, never the only path. Swiping a card aside has a “Not today” button beside the hold; holding with a pointer has a held key.</p>
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Component</th><th>Keys</th><th>Behaviour</th></tr></thead>
+        <tbody>{keys.map(([c, k, b]) => <tr><td>{c}</td><td class="d-mono">{k}</td><td>{b}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <p>Focus is always visible: a 1px mint ring, offset 3px, on every interactive element. It is one of the four places light is allowed.</p>
+  </Section>
+
+  <Section id="motion" n="03" title="Reduced motion">
+    <p>With <code>prefers-reduced-motion</code> set, rules appear drawn, beams stop drifting, morphs become instant, and staggered lists arrive together. The hold still needs a hold, shortened to 380ms, because it protects against accidental bookings.</p>
+  </Section>
+
+  <Section id="sr" n="04" title="Screen readers">
+    <ul class="d-list">
+      <li><strong>The day is a list.</strong> Timeline rows are list items, with the time in a <code>time</code> element.</li>
+      <li><strong>The trace is a description list.</strong> Each signal is announced as a term and its value.</li>
+      <li><strong>State changes are announced.</strong> The hold button, execution steps and ask bar use polite live regions, so “Confirmed” and “Car at 11.10” are heard as they happen.</li>
+      <li><strong>Decoration is hidden.</strong> Beams, rules and dots are <code>aria-hidden</code>.</li>
+    </ul>
+    <Callout label="Rule">
+      <p>If a state is only visible as light, it isn’t accessible yet. Every lit state also has words.</p>
+    </Callout>
+  </Section>
+</Doc>

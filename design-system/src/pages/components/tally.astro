@@ -1,0 +1,69 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { Tally } from '../../components/aurora/Tally';
+import { componentMeta } from '../../lib/nav';
+const items = [{ value: 21, label: 'Booking.com' }, { value: 16, label: 'Airbnb' }, { value: 15, label: 'Zomato' }, { value: 1, label: 'Aurora', highlight: true }];
+---
+<Doc
+  title="Tally"
+  eyebrow="Components"
+  lead="A few numbers side by side, for comparison. Each sits on a rule with its label beneath; at most one carries light, and that one is ours."
+  meta={componentMeta('Tally', [{ label: 'Highlight', value: 'At most 1' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Screens to reserve one thing"><Tally items={items} /></Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      pins={[
+        { sel: '.au-tally__item:first-child', side: 'top', at: 0.2, dist: 36 },
+        { sel: '.au-tally__item:first-child .au-tally__n', side: 'left', at: 0.5, dist: 36 },
+        { sel: '.au-tally__item:first-child .au-tally__k', side: 'bottom', at: 0.5, dist: 36 },
+        { sel: '.au-tally__item:last-child', side: 'top', at: 0.5, dist: 36 },
+      ]}
+      parts={[
+        { name: 'Rule', description: 'A strong hairline over each figure, at least 74px wide.', token: '--au-border-strong' },
+        { name: 'Figure', description: 'Serif, 27px, lining and tabular so numbers compare cleanly.', token: '--au-font-serif' },
+        { name: 'Label', description: 'What the number counts.', token: '.au-type-label' },
+        { name: 'Highlight', description: 'The one figure that is ours: its rule becomes light and its number bone.', token: '--au-light' },
+      ]}
+    >
+      <Tally items={[items[0], items[3]]} />
+    </Anatomy>
+  </Section>
+
+  <Section id="usage" n="03" title="Usage">
+    <DoDont
+      doText="Compare two to five figures of the same kind, and highlight the one the argument is about."
+      dontText="Don’t highlight more than one. Two lit figures cancel each other out."
+    >
+      <div slot="do"><Tally items={[items[0], items[1], items[3]]} /></div>
+      <div slot="dont"><Tally items={[{ ...items[0], highlight: true }, { ...items[1], highlight: true }, items[3]]} /></div>
+    </DoDont>
+  </Section>
+
+  <Section id="props" n="04" title="Props">
+    <PropsTable rows={[{ name: 'items', type: '{ value: string | number; label: string; highlight?: boolean }[]', required: true, description: 'Two to five figures.' }]} />
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['color.border.strong', 'color.text.tertiary', 'color.text.primary', 'color.light.lo', 'color.light.hi']} />
+  </Section>
+
+  <Section id="code" n="06" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<Tally items={[
+  { value: 21, label: 'Booking.com' },
+  { value: 16, label: 'Airbnb' },
+  { value: 1, label: 'Aurora', highlight: true },
+]} />`} />
+  </Section>
+</Doc>

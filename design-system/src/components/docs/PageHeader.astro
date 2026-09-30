@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  lead?: string;
+  eyebrow?: string;
+  meta?: { label: string; value: string; href?: string; dot?: 'stable' | 'beta' }[];
+}
+const { title, lead, eyebrow, meta } = Astro.props;
+---
+<header class="d-head">
+  {eyebrow && <div class="d-head__eyebrow"><span class="au-label">{eyebrow}</span></div>}
+  <h1 class="d-head__title">{title}</h1>
+  {lead && <p class="d-head__lead">{lead}</p>}
+  {meta && meta.length > 0 && (
+    <dl class="d-meta">
+      {meta.map((m) => (
+        <div class="d-meta__item">
+          <dt class="au-label">{m.label}</dt>
+          <dd class="d-meta__value">
+            {m.dot && <i class="d-dot" data-tone={m.dot} aria-hidden="true" />}
+            {m.href ? <a href={m.href}>{m.value} ↗</a> : m.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</header>

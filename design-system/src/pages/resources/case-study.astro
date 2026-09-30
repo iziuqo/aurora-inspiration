@@ -1,0 +1,116 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { tokenList } from '../../lib/tokens';
+import { nav } from '../../lib/nav';
+const components = nav.find((g) => g.title === 'Components')!.items.length;
+const patterns = nav.find((g) => g.title === 'Patterns')!.items.length;
+const types = tokenList.filter((t) => t.type === 'typography').length;
+---
+<Doc
+  title="Case study"
+  eyebrow="Resources"
+  lead="How a single concept page became a design system: what was measured, what was decided, and what was deliberately left out."
+>
+  <div class="r-facts d-wide">
+    <div><b>1</b><span>Source page, 752 lines</span></div>
+    <div><b>{tokenList.length}</b><span>Tokens</span></div>
+    <div><b>{components}</b><span>Components</span></div>
+    <div><b>{patterns}</b><span>Patterns</span></div>
+  </div>
+
+  <Section id="brief" n="01" title="The starting point">
+    <p>
+      Aurora began as <a href="https://izaias.xyz/aurora">one concept page</a> by Izaias Cavalcanti: an assistant that looks at your day,
+      finds the open time, and proposes one thing to do with it. It had a strong point of view, a black ground, serif voice, and light
+      used only where time was free. What it didn’t have was a system. Every value was written inline, once, for one screen.
+    </p>
+    <p>The goal was to make that point of view repeatable, so a second team could build a second screen and it would feel like the same product.</p>
+  </Section>
+
+  <Section id="audit" n="02" title="Reading the page like a spec">
+    <p>The first pass was an inventory, not a redesign. Every raw value on the page was pulled out and counted.</p>
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Found</th><th>Count</th><th>Became</th></tr></thead>
+        <tbody>
+          <tr><td>Hex colours</td><td class="d-mono">15</td><td>Two ramps (night, stone), two lights, one warning ink, then semantic names on top</td></tr>
+          <tr><td>Font sizes</td><td class="d-mono">19</td><td>{types} named type styles across two families</td></tr>
+          <tr><td>Durations</td><td class="d-mono">31</td><td>9 durations, each named for what it’s for</td></tr>
+          <tr><td>Easing curves</td><td class="d-mono">3</td><td>Kept exactly: glide, soft and out. None of them overshoot, and that became a principle</td></tr>
+          <tr><td>Recurring shapes</td><td class="d-mono">14</td><td>{components} components and {patterns} patterns</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The page’s taste was consistent even where its values weren’t. Most of the work was finding the rule the designer was already following, then writing it down.</p>
+  </Section>
+
+  <Section id="principles" n="03" title="Principles before pixels">
+    <p>
+      Six principles came out of the audit, and each one is enforceable. “Light is earned” limits the aurora gradient to four uses, and each is listed on the <a href="/foundations/light">Light</a> page. “Nothing overshoots” is why there are no spring curves. “Restraint is a feature” is why the empty day has its own
+      pattern, and why a “No suggestions” message counts as a bug.
+    </p>
+    <Callout label="Why it matters">A principle that can’t settle an argument is a slogan. Every principle here has been used to reject something.</Callout>
+  </Section>
+
+  <Section id="decisions" n="04" title="Decisions worth defending">
+    <ol class="r-decisions">
+      <li>
+        <h3>Retuning the label grey</h3>
+        <p>The original metadata grey measured 2.9:1 on the ground. It looked right but failed WCAG AA. It moved one step up the stone ramp to 5.3:1. The old value was kept as <code>text-faint</code>, for decoration only, never for words. A build check now fails if any readable ink drops below 4.5:1 on any of the four surfaces.</p>
+      </li>
+      <li>
+        <h3>Dark only, on purpose</h3>
+        <p>A light theme was considered and left out. The product’s whole argument is that light is scarce. On a white ground the aurora stops meaning anything. Supporting one theme well beats supporting two where one is a compromise.</p>
+      </li>
+      <li>
+        <h3>Two layers of tokens, one direction of reference</h3>
+        <p>Primitives hold values; semantic tokens hold intent and point at primitives. Components may only read semantic tokens. A build check rejects raw hex in component CSS, so a retune is always a one-line change.</p>
+      </li>
+      <li>
+        <h3>A bug that became a guard</h3>
+        <p>Early on, a primitive and a semantic token both compiled to <code>--au-border-hairline</code>. The second silently overwrote the first, and every border on the site disappeared. The fix was a rename, and the lesson became a rule in the build: two tokens that compile to the same name now stop it with an error.</p>
+      </li>
+      <li>
+        <h3>Confirm by holding</h3>
+        <p>A tap is too cheap for booking something real, and a confirmation dialog is too heavy. An 840ms hold is long enough to be deliberate and short enough not to feel like waiting. Releasing early costs nothing, and the fill gliding back says so without words.</p>
+      </li>
+    </ol>
+  </Section>
+
+  <Section id="docs" n="05" title="Documentation people actually read">
+    <p>
+      Every component page has the same order: what it’s for, a live demo, anatomy, states, usage, writing, accessibility, tokens and code.
+      Once you have read one page, you know where everything is on the others. The anatomy diagrams measure the live component in the browser, so a redline can’t drift from the code.
+    </p>
+    <p>The site is built from the system it documents. If something looks wrong here, it is wrong in the product too, and that keeps the docs honest.</p>
+  </Section>
+
+  <Section id="pipeline" n="06" title="One source, three outputs">
+    <p>
+      Tokens live in W3C-format JSON. One script writes the CSS the browser reads, the TypeScript the components import, and the variables the <a href="/resources/figma">Figma library</a> is built from. Design and code are generated from the same source, so they can’t drift apart.
+    </p>
+  </Section>
+
+  <Section id="next" n="07" title="What comes next">
+    <ul class="d-list">
+      <li><b>Visual regression.</b> Every docs page is already screenshotted during development. The next step is to diff those shots in CI.</li>
+      <li><b>Code Connect.</b> Link each Figma component to its React source, so inspecting a component in Figma shows the real code.</li>
+      <li><b>A native reference.</b> Port the timeline and the hold to SwiftUI to prove the tokens hold up outside the web.</li>
+    </ul>
+  </Section>
+</Doc>
+<style is:global>
+  .r-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: var(--au-space-12); border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-facts div { padding: 24px 0 22px; display: grid; gap: 8px; }
+  .r-facts div + div { padding-left: 24px; border-left: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-facts b { font-family: var(--au-font-serif); font-weight: 400; font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--au-text-primary); font-variant-numeric: lining-nums; }
+  .r-facts span { font-size: 12.5px; color: var(--au-text-tertiary); }
+  .r-decisions { list-style: none; counter-reset: dec; margin-top: var(--au-space-6); border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-decisions li { counter-increment: dec; display: grid; grid-template-columns: 48px minmax(0, 1fr); padding: 22px 0 24px; border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-decisions li::before { content: counter(dec, decimal-leading-zero); font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--au-text-label); padding-top: 6px; font-variant-numeric: tabular-nums; }
+  .r-decisions h3 { grid-column: 2; font-family: var(--au-font-serif); font-weight: 400; font-size: 21px; line-height: 1.3; color: var(--au-text-primary); }
+  .r-decisions p { grid-column: 2; margin-top: 8px !important; max-width: 64ch; font-size: 15px; line-height: 1.65; color: var(--au-text-secondary); }
+  @media (max-width: 700px) { .r-facts { grid-template-columns: 1fr 1fr; } .r-facts div:nth-child(3) { padding-left: 0; border-left: 0; } .r-facts div:nth-child(n+3) { border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); } }
+</style>

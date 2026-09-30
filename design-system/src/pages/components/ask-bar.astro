@@ -1,0 +1,69 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { AskBar } from '../../components/aurora/AskBar';
+import { AskDemo } from '../../components/demos/ComponentDemos';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Ask bar"
+  eyebrow="Components"
+  lead="The quiet way back to conversation. It floats at the bottom of the day, says what Aurora is doing, and opens chat when tapped. It is the only pill-shaped thing in the system."
+  meta={componentMeta('AskBar', [{ label: 'Shape', value: 'Pill' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Status text rolls up and out, then the new text rolls in"><AskDemo client:visible /></Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={300}
+      pins={[
+        { sel: '.au-ask__pulse', side: 'top', at: 0.5, dist: 40 },
+        { sel: '.au-ask__label', side: 'top', at: 0.6, dist: 40 },
+        { sel: '.au-ask', side: 'bottom', at: 0.95, dist: 36 },
+      ]}
+      specs={[{ sel: '.au-ask', dim: 'pad-left', offset: 14 }]}
+      parts={[
+        { name: 'Pulse', description: 'A 5px mint point. It breathes over 2.6s while Aurora is working, and rests otherwise.', token: '--au-light-lo' },
+        { name: 'Status', description: 'What Aurora is doing, in a few words. Changes roll through rather than cut.', token: '13px · --au-text-label' },
+        { name: 'Pill', description: 'The one pill in the system, so the way back to conversation has a shape nothing else shares.', token: '--au-radius-pill' },
+      ]}
+    >
+      <AskBar status="Aurora is watching the week" />
+    </Anatomy>
+  </Section>
+
+  <Section id="usage" n="03" title="Usage">
+    <DoDont
+      doText="Say what Aurora is doing in a few calm words. The bar is a status first and a button second."
+      dontText="Don’t turn it into a prompt box with placeholder questions. Aurora’s point is that you shouldn’t have to ask."
+    >
+      <div slot="do" style="width:260px"><AskBar status="Aurora is handling it" /></div>
+      <div slot="dont" style="width:260px"><AskBar status="Ask me anything! Try “find a spa”…" /></div>
+    </DoDont>
+  </Section>
+
+  <Section id="props" n="04" title="Props">
+    <PropsTable rows={[
+      { name: 'status', type: 'string', required: true, description: 'What Aurora is doing, or an invitation to talk.' },
+      { name: 'busy', type: 'boolean', default: 'false', description: 'Breathe the pulse while working.' },
+      { name: 'onClick', type: '() => void', description: 'Open the conversation.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['radius.pill', 'color.bg.raised', 'color.border.hairline', 'color.light.lo', 'duration.base']} />
+  </Section>
+
+  <Section id="code" n="06" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<AskBar status={busy ? 'Arranging' : 'Aurora is watching the week'} busy={busy} onClick={openChat} />`} />
+  </Section>
+</Doc>

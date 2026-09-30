@@ -1,0 +1,20 @@
+---
+import { tokenList } from '../../lib/tokens';
+interface Props { name: string; sample: string; use: string }
+const { name, sample, use } = Astro.props;
+const t = tokenList.find((x) => x.path === `type.${name}`)!;
+const v = t.value as any;
+const px = parseFloat(v.fontSize);
+const lh = Math.round(px * v.lineHeight);
+const family = v.fontFamily[0].replace(' Variable', '');
+const track = parseFloat(v.letterSpacing) * 100;
+---
+<div class="d-type">
+  <div class="d-type__meta">
+    <div class="d-type__name">{name}</div>
+    <div class="d-type__spec">{family} · {v.fontWeight}</div>
+    <div class="d-type__spec">{px} / {lh}{track ? ` · ${track > 0 ? '+' : ''}${track.toFixed(1)}%` : ''}</div>
+    <div class="d-type__use">{use}</div>
+  </div>
+  <div class={`d-type__sample au-type-${name}`}>{sample}</div>
+</div>

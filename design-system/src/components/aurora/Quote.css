@@ -1,0 +1,8 @@
+.au-quote {
+  margin: 18px 0;
+  padding: var(--au-space-4) 0;
+  border-top: var(--au-stroke-hairline) solid var(--au-border-hairline);
+  border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline);
+}
+.au-quote__text { margin: 0; font-family: var(--au-type-voice-family); font-size: var(--au-type-voice-size); line-height: var(--au-type-voice-leading); color: var(--au-text-primary); }
+.au-quote__cite { display: block; margin-top: 10px; font-style: normal; }

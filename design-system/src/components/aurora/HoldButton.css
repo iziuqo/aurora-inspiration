@@ -1,0 +1,51 @@
+.au-hold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  min-width: min-content;
+  padding: 0 var(--au-space-5);
+  overflow: hidden;
+  border-radius: var(--au-radius-sm);
+  border: var(--au-stroke-hairline) solid var(--au-border-strong);
+  background: var(--au-bg-raised-hover);
+  font-family: var(--au-font-sans);
+  font-size: 13px;
+  font-weight: var(--au-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--au-text-primary);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  transition:
+    transform var(--au-dur-moderate) var(--au-ease-glide),
+    border-color var(--au-dur-base) var(--au-ease-soft);
+}
+.au-hold[data-block='true'] { display: flex; width: 100%; }
+.au-hold:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 3px; }
+.au-hold:active { transform: scale(0.99); }
+
+/* the fill glides home when released early: nothing was spent */
+.au-hold__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--au-bg-inverse);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 420ms var(--au-ease-glide);
+}
+/* while held, the fill tracks time itself, so it is linear */
+.au-hold[data-state='charging'] .au-hold__fill { transform: scaleX(1); transition: transform var(--_hold, var(--au-dur-hold)) linear; }
+.au-hold[data-state='done'] { border-color: var(--au-border-inverse); }
+.au-hold[data-state='done'] .au-hold__fill { transform: scaleX(1); transition: none; }
+
+/* difference blending keeps the label legible as the fill passes under it */
+.au-hold__label { position: relative; z-index: 1; top: 0.04em; mix-blend-mode: difference; }
+
+.au-sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

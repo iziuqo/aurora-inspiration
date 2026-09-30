@@ -1,0 +1,119 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import TypeSpecimen from '../../components/docs/TypeSpecimen.astro';
+import Stage from '../../components/docs/Stage.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import Callout from '../../components/docs/Callout.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+---
+<Doc
+  title="Typography"
+  eyebrow="Foundations"
+  lead="Two families with two different jobs. Newsreader is Aurora’s voice: anything the product says in its own words. Nunito Sans is the machinery: times, places, controls and data."
+  meta={[{ label: 'Serif', value: 'Newsreader' }, { label: 'Sans', value: 'Nunito Sans' }, { label: 'Styles', value: '13' }]}
+>
+  <Section id="voices" n="01" title="Two voices">
+    <p>The split is semantic, not decorative. A reader should be able to tell what the system <em>thinks</em> from what the system <em>is</em> without reading a word. So the serif is reserved for Aurora’s own sentences, and the sans for everything else.</p>
+    <div class="d-wide d-pair">
+      <div class="d-pair__col">
+        <span class="au-label">Voice · Newsreader</span>
+        <div class="d-pair__glyph" style="font-family:var(--au-font-serif)">Ag</div>
+        <p class="d-pair__text" style="font-family:var(--au-font-serif);font-size:19px;color:var(--au-text-primary)">Your third red-eye this month, and nothing needs you until two.</p>
+        <p class="d-pair__note">Greetings, reasons, proposals, quotes, held lines. Optical sizes on, so display and small text each get the right drawing.</p>
+      </div>
+      <div class="d-pair__col">
+        <span class="au-label">Machinery · Nunito Sans</span>
+        <div class="d-pair__glyph" style="font-family:var(--au-font-sans);font-weight:600">Ag</div>
+        <p class="d-pair__text" style="font-size:15px;color:var(--au-text-secondary)">Surrenne, Knightsbridge. Nine minutes from Berkeley Square. Car at 11.10.</p>
+        <p class="d-pair__note">Details, times, controls, labels and data. Humanist and open at small sizes, where most of the machinery lives.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="scale" n="02" title="The scale">
+    <p>Thirteen styles, each with one job. Sizes, line heights and tracking are set per style, so tight display lines and open body text both look intentional. Use the class or the tokens; never set type by hand.</p>
+    <div class="d-types">
+      <TypeSpecimen name="display" sample="Stay quiet." use="The thesis. One per page, at most." />
+      <TypeSpecimen name="headline" sample="The unit of the interface is the gap" use="Page and section titles in long-form pages." />
+      <TypeSpecimen name="title-l" sample="Some days there’s nothing worth moving" use="Section titles." />
+      <TypeSpecimen name="title" sample="You landed at six. The evening is yours." use="What a screen says first." />
+      <TypeSpecimen name="title-s" sample="Two seats at Tanaka’s counter, eight o’clock." use="The thing being proposed." />
+      <TypeSpecimen name="voice" sample="Left open." use="Quotes and held lines." />
+      <TypeSpecimen name="voice-s" sample="Sarah lands from Milan at six. You haven’t had dinner together since the third." use="The reason. Always first." />
+      <TypeSpecimen name="body-l" sample="Committed time is printed grey and held together by hairlines." use="Lead paragraphs." />
+      <TypeSpecimen name="body" sample="Where the day opens, the rule breaks and light fills the break." use="Running text." />
+      <TypeSpecimen name="body-s" sample="Released twenty minutes ago. He has cooked for you both before." use="Details under a title." />
+      <TypeSpecimen name="caption" sample="Heathrow, Terminal 5" use="Places and secondary facts." />
+      <TypeSpecimen name="figure" sample="06.40  09.30  11.00  14.00" use="Times and numbers. Tabular." />
+      <TypeSpecimen name="label" sample="London · Thursday 30 July" use="Metadata. Uppercase, tracked." />
+    </div>
+  </Section>
+
+  <Section id="details" n="03" title="The details">
+    <h3 class="d-h3">Times are set with points</h3>
+    <p>Aurora writes <strong>09.30</strong>, not 9:30. The point sits on the baseline, so a column of times reads as a clean line instead of a row of dots floating at x-height. Figures are tabular and lining, so times align down the day.</p>
+    <Stage caption="Figure style: tabular, lining, +6% tracking">
+      <div style="display:flex;gap:48px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:10px" class="au-type-figure"><span style="color:var(--au-text-label)">06.40</span><span style="color:var(--au-text-label)">09.30</span><span style="color:var(--au-text-label)">11.00</span><span style="color:var(--au-text-label)">14.00</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:11px;font-weight:600;color:var(--au-text-faint);font-variant-numeric:proportional-nums"><span>6:40</span><span>9:30</span><span>11:00</span><span>14:00</span></div>
+      </div>
+    </Stage>
+
+    <h3 class="d-h3">Tracked labels are trimmed</h3>
+    <p>Letter-spacing adds space after the last glyph too, so a right-aligned or centred label sits visibly off its edge. Labels that end on an edge pull that space back with a negative margin equal to their tracking. It is a 2px fix you only notice when it’s missing.</p>
+    <Anatomy
+      width={320}
+      caption="Top: trimmed, the N meets the rule. Bottom: untrimmed, 2px short."
+    >
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px;width:320px;border-right:1px solid var(--au-light-lo)">
+        <span class="au-label" data-trim="true">Aurora is holding</span>
+        <span class="au-label">Aurora is holding</span>
+      </div>
+    </Anatomy>
+
+    <h3 class="d-h3">Labels share a cap band</h3>
+    <p>A button label with a descender, like “Not today”, centres lower than one without, like “Hold to confirm”. Aurora centres every control label on its cap height instead of its ink, so buttons side by side share one baseline.</p>
+    <Callout label="Rule">
+      <p>No monospace anywhere in the product. It appears on this site only for code.</p>
+    </Callout>
+  </Section>
+
+  <Section id="usage" n="04" title="Usage">
+    <DoDont
+      doText="Say it in the serif when Aurora is speaking, and let the sans carry the facts underneath."
+      dontText="Don’t set Aurora’s words in the sans or the facts in the serif. The reader loses the difference between thought and data."
+    >
+      <div slot="do" style="width:250px">
+        <div style="font-family:var(--au-font-serif);font-size:20px;line-height:1.3;color:var(--au-text-primary)">Two seats at Tanaka’s counter.</div>
+        <div style="font-size:13px;color:var(--au-text-label);margin-top:8px">Released twenty minutes ago</div>
+      </div>
+      <div slot="dont" style="width:250px">
+        <div style="font-size:18px;font-weight:600;line-height:1.3;color:var(--au-text-primary)">Two seats at Tanaka’s counter.</div>
+        <div style="font-family:var(--au-font-serif);font-size:14px;color:var(--au-text-label);margin-top:8px">Released twenty minutes ago</div>
+      </div>
+    </DoDont>
+  </Section>
+
+  <Section id="code" n="05" title="In code">
+    <CodeBlock tabs={[
+      { label: 'Class', lang: 'html', code: `<h2 class="au-type-title">You landed at six.</h2>
+<span class="au-type-label">London · Thursday 30 July</span>` },
+      { label: 'Tokens', lang: 'css', code: `.greeting {
+  font-family: var(--au-type-title-family);
+  font-size: var(--au-type-title-size);
+  line-height: var(--au-type-title-leading);
+  letter-spacing: var(--au-type-title-tracking);
+}` },
+    ]} />
+  </Section>
+</Doc>
+<style>
+  .d-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .d-pair__col { padding: 28px; border: 1px solid var(--au-border-hairline); border-radius: var(--au-radius-lg); }
+  .d-pair__glyph { margin: 20px 0 24px; font-size: 112px; line-height: 0.9; color: var(--au-text-primary); letter-spacing: -0.02em; }
+  .d-pair__text { line-height: 1.5; }
+  .d-pair__note { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--au-border-hairline); font-size: 13px !important; line-height: 1.6; color: var(--au-text-tertiary) !important; }
+  @media (max-width: 900px) { .d-pair { grid-template-columns: 1fr; } }
+</style>

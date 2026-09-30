@@ -1,0 +1,63 @@
+---
+import Doc from '../layouts/Doc.astro';
+import Section from '../components/docs/Section.astro';
+import CodeBlock from '../components/docs/CodeBlock.astro';
+---
+<Doc
+  title="Getting started"
+  eyebrow="Start"
+  lead="Aurora ships as tokens, React components, and a Figma library, all generated from one source. Pick the entry point that matches how you work."
+>
+  <Section id="designers" n="01" title="For designers">
+    <p>Open the <a href="/resources/figma">Figma library</a> and enable it for your team. Variables and text styles match the code names exactly, so a colour called <code>text/secondary</code> in Figma is <code>--au-text-secondary</code> in CSS.</p>
+    <p>Start from the <a href="/principles">principles</a>. Every component page then follows the same order, so once you have read one you know where everything is on the rest.</p>
+  </Section>
+
+  <Section id="tokens" n="02" title="Tokens only">
+    <p>If you only want the look, use the generated stylesheet. It defines every token as a CSS custom property on <code>:root</code>, plus a class for each type style.</p>
+    <CodeBlock lang="html" label="HTML" code={`<link rel="stylesheet" href="https://aurora-design-system.vercel.app/tokens/aurora.css" />
+
+<p class="au-type-title">You landed at six.</p>
+<p style="color: var(--au-text-secondary)">There are three hours at eleven.</p>`} />
+    <p>The same values are available as <a href="/tokens/aurora.tokens.json">W3C design tokens JSON</a> for your own pipeline, and as <a href="/tokens/figma-variables.json">Figma variables JSON</a>.</p>
+  </Section>
+
+  <Section id="react" n="03" title="React components">
+    <p>Components are plain React with one CSS file each, in <code>src/components/aurora</code>. They read only semantic tokens, so they follow any change to the source. They are not published to npm yet: copy the folder into your project with the generated <code>tokens.css</code>, or import it directly in a monorepo.</p>
+    <CodeBlock tabs={[
+      { label: 'Usage', lang: 'tsx', code: `import { SuggestionCard, Gap, Timeline } from './aurora';
+import './styles/tokens.css';
+
+export function Afternoon() {
+  return (
+    <Timeline>
+      <Gap time="11.00" span="Three hours">
+        <SuggestionCard
+          because="Nothing needs you until two."
+          what="Contrast and lymphatic recovery, 75 minutes."
+          signals={[{ key: 'Calendar', value: 'Clear 11.00 to 14.00' }]}
+          onConfirm={book}
+        />
+      </Gap>
+    </Timeline>
+  );
+}` },
+      { label: 'Copy', lang: 'bash', code: `git clone https://github.com/iziuqo/aurora-inspiration
+cp -r aurora-inspiration/design-system/src/components/aurora ./src/aurora
+cp aurora-inspiration/design-system/src/styles/tokens.css ./src/styles/` },
+    ]} />
+    <p>Fonts are Newsreader and Nunito Sans, both open licence. Install them from <a href="https://fontsource.org">Fontsource</a> or Google Fonts; the token stacks fall back to system serifs and sans-serifs until they load.</p>
+  </Section>
+
+  <Section id="repo" n="04" title="How the repository is laid out">
+    <CodeBlock lang="bash" label="Tree" code={`design-system/
+├─ tokens/                 # the source of truth (DTCG JSON)
+│  ├─ primitives.json      # raw values: night, stone, aurora, space, easing
+│  └─ semantic.json        # named jobs that point at primitives
+├─ scripts/
+│  ├─ build-tokens.mjs     # writes CSS, TypeScript and Figma variables
+│  └─ check-tokens.mjs     # fails the build on contrast or raw colours
+├─ src/components/aurora/  # the components, one TSX and one CSS each
+└─ src/pages/              # this documentation site`} />
+  </Section>
+</Doc>

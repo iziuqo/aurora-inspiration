@@ -1,0 +1,44 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { Quote } from '../../components/aurora/Quote';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Quote"
+  eyebrow="Components"
+  lead="Someone else’s words, held between two rules. The serif marks it as a voice; the rules mark it as borrowed; the label says whose it is."
+  meta={componentMeta('Quote')}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage>
+      <div style="width:460px"><Quote cite="Alex Macdonald, Aurora">“Prompting is for losers… The real breakthrough will be the elimination of the question altogether.”</Quote></div>
+    </Stage>
+  </Section>
+
+  <Section id="usage" n="02" title="Usage">
+    <ul class="d-list">
+      <li><strong>Only real quotes,</strong> attributed. Aurora’s own words are never styled as a quote.</li>
+      <li><strong>Keep it short.</strong> One or two sentences. Longer passages belong in body text.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="03" title="Props">
+    <PropsTable rows={[
+      { name: 'children', type: 'ReactNode', required: true, description: 'The quoted words, with their quotation marks.' },
+      { name: 'cite', type: 'string', description: 'Who said it, and where.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="04" title="Tokens">
+    <TokenTable paths={['type.voice', 'color.text.primary', 'color.border.hairline', 'type.label']} />
+  </Section>
+
+  <Section id="code" n="05" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<Quote cite="Alex Macdonald, Aurora">\n  “Prompting is for losers.”\n</Quote>`} />
+  </Section>
+</Doc>

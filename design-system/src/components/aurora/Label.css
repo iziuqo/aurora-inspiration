@@ -1,0 +1,14 @@
+.au-label {
+  font-family: var(--au-type-label-family);
+  font-weight: var(--au-type-label-weight);
+  font-size: var(--au-type-label-size);
+  line-height: var(--au-type-label-leading);
+  letter-spacing: var(--au-type-label-tracking);
+  text-transform: uppercase;
+  color: var(--au-text-label);
+}
+.au-label[data-tone='primary'] { color: var(--au-text-primary); }
+.au-label[data-tone='secondary'] { color: var(--au-text-tertiary); }
+.au-label[data-tone='faint'] { color: var(--au-text-faint); }
+/* tracking adds a trailing space after the last glyph; pull it back so the run meets the edge */
+.au-label[data-trim='true'] { margin-right: calc(var(--au-type-label-tracking) * -1); }

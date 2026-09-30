@@ -1,0 +1,28 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Callout from '../../components/docs/Callout.astro';
+import DayPrototype from '../../components/demos/DayPrototype';
+---
+<Doc
+  title="The quiet day"
+  eyebrow="Patterns"
+  lead="Some days there is nothing worth moving. A feed can never be empty, because its business model forbids it. Aurora’s can, and should. The quiet day is the strongest proof the system has taste."
+>
+  <Section id="demo" n="01" title="See both days">
+    <Stage caption="Switch back to Thursday to compare"><DayPrototype client:visible initialView="quiet" /></Stage>
+  </Section>
+
+  <Section id="rules" n="02" title="How to design for nothing">
+    <ul class="d-list">
+      <li><strong>Say it as a judgement.</strong> “Nothing worth moving today” is a decision. “No suggestions” is an error.</li>
+      <li><strong>Say what you’re holding.</strong> “Two things for Saturday” proves the system is still paying attention.</li>
+      <li><strong>Leave the space.</strong> The screen is mostly empty on purpose. The ask bar is still there if the person wants something.</li>
+      <li><strong>Arrive slowly.</strong> The rule under the holding line draws in after 1.2s, so the screen settles rather than snaps.</li>
+    </ul>
+    <Callout label="Rule">
+      <p>Never fill a quiet day to look busy. The day the product shows nothing is the day it earns trust for the day it shows something.</p>
+    </Callout>
+  </Section>
+</Doc>

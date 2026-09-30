@@ -1,0 +1,96 @@
+{
+  "$description": "Aurora primitives. Raw values with no meaning attached. Components never reference these directly; they go through semantic tokens.",
+  "color": {
+    "$type": "color",
+    "night": {
+      "950": { "$value": "#08090A", "$description": "The ground. Every Aurora surface starts here." },
+      "900": { "$value": "#0E0F11", "$description": "First raise: cards, controls at rest." },
+      "850": { "$value": "#131418", "$description": "Second raise: hover and pressed surfaces." },
+      "800": { "$value": "#181A1E", "$description": "Third raise: docs panels and code." },
+      "750": { "$value": "#1E2024", "$description": "Hairline." },
+      "700": { "$value": "#2A2D33", "$description": "Strong hairline, hover borders." },
+      "600": { "$value": "#3A3D44", "$description": "Scrollbars and inactive handles." }
+    },
+    "stone": {
+      "50":  { "$value": "#EDEBE5", "$description": "Bone. Primary ink, warm rather than white." },
+      "200": { "$value": "#C9C6BE" },
+      "300": { "$value": "#9C9A93" },
+      "400": { "$value": "#8B8981" },
+      "500": { "$value": "#86847D", "$description": "Retuned from the concept's #5C5B56 so labels pass WCAG AA on every surface." },
+      "600": { "$value": "#5C5B56" },
+      "700": { "$value": "#4A4945" }
+    },
+    "aurora": {
+      "mint":   { "$value": "#7FD9C0", "$description": "Low aurora. Where light starts." },
+      "violet": { "$value": "#A78BE0", "$description": "High aurora. Where light ends." }
+    },
+    "ember": {
+      "400": { "$value": "#E58F80", "$description": "The one warm signal. Destructive and error only." }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "serif": { "$value": ["Newsreader Variable", "Newsreader", "Iowan Old Style", "Charter", "Georgia", "serif"] },
+      "sans":  { "$value": ["Nunito Sans Variable", "Nunito Sans", "Avenir Next", "Segoe UI", "system-ui", "sans-serif"] },
+      "mono":  { "$value": ["JetBrains Mono Variable", "JetBrains Mono", "ui-monospace", "Menlo", "monospace"] }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular":  { "$value": 400 },
+      "medium":   { "$value": 500 },
+      "semibold": { "$value": 600 }
+    }
+  },
+  "space": {
+    "$type": "dimension",
+    "0":  { "$value": "0px" },
+    "px": { "$value": "1px" },
+    "0.5":{ "$value": "2px" },
+    "1":  { "$value": "4px" },
+    "2":  { "$value": "8px" },
+    "3":  { "$value": "12px" },
+    "4":  { "$value": "16px" },
+    "5":  { "$value": "20px" },
+    "6":  { "$value": "24px" },
+    "8":  { "$value": "32px" },
+    "10": { "$value": "40px" },
+    "12": { "$value": "48px" },
+    "16": { "$value": "64px" },
+    "20": { "$value": "80px" },
+    "24": { "$value": "96px" },
+    "32": { "$value": "128px" }
+  },
+  "radius": {
+    "$type": "dimension",
+    "none": { "$value": "0px" },
+    "sm":   { "$value": "4px", "$description": "Controls: buttons, inputs." },
+    "md":   { "$value": "6px", "$description": "Containers: cards, panels." },
+    "lg":   { "$value": "12px", "$description": "Stages and large media." },
+    "device": { "$value": "38px", "$description": "Device frames only." },
+    "pill": { "$value": "999px", "$description": "The ask bar and nothing else." }
+  },
+  "stroke": {
+    "$type": "dimension",
+    "hairline": { "$value": "1px", "$description": "The only stroke weight in the system." }
+  },
+  "easing": {
+    "$type": "cubicBezier",
+    "glide": { "$value": [0.32, 0.72, 0, 1], "$description": "Decelerates into place. Anything that moves or changes size." },
+    "soft":  { "$value": [0.4, 0, 0.2, 1], "$description": "Symmetric and quiet. Colour, opacity, borders." },
+    "out":   { "$value": [0.25, 1, 0.5, 1], "$description": "A long, gentle arrival. Entrances and reveals." },
+    "linear":{ "$value": [0, 0, 1, 1], "$description": "Time itself. Only for progress that tracks a held gesture." }
+  },
+  "duration": {
+    "$type": "duration",
+    "instant": { "$value": "120ms" },
+    "quick":   { "$value": "220ms" },
+    "base":    { "$value": "340ms" },
+    "moderate":{ "$value": "460ms" },
+    "glide":   { "$value": "600ms" },
+    "slow":    { "$value": "900ms" },
+    "reveal":  { "$value": "1400ms" },
+    "hold":    { "$value": "840ms", "$description": "How long a hold to confirm takes. A safeguard, not decoration." },
+    "drift":   { "$value": "12000ms", "$description": "One slow cycle of ambient light." }
+  }
+}

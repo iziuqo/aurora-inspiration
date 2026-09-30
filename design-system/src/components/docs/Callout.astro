@@ -1,0 +1,8 @@
+---
+interface Props { label?: string }
+const { label = 'Rule' } = Astro.props;
+---
+<aside class="d-callout">
+  <span class="d-callout__label au-label">{label}</span>
+  <div class="d-callout__body"><slot /></div>
+</aside>

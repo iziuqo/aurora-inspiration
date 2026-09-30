@@ -1,0 +1,27 @@
+.au-ask {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 13px 19px;
+  overflow: hidden;
+  background: var(--au-bg-raised);
+  border: var(--au-stroke-hairline) solid var(--au-border-hairline);
+  border-radius: var(--au-radius-pill);
+  font-family: var(--au-font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--au-text-label);
+  cursor: pointer;
+  transition: border-color var(--au-dur-moderate) var(--au-ease-soft), color var(--au-dur-moderate) var(--au-ease-soft);
+}
+.au-ask:hover { border-color: var(--au-border-strong); color: var(--au-text-tertiary); }
+.au-ask:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 3px; }
+.au-ask__pulse { flex: none; width: 5px; height: 5px; border-radius: 50%; background: var(--au-light-lo); opacity: 0.85; }
+.au-ask[data-busy='true'] .au-ask__pulse { animation: au-breathe 2.6s var(--au-ease-soft) infinite; }
+@keyframes au-breathe { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+.au-ask__label { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: transform var(--au-dur-base) var(--au-ease-glide), opacity var(--au-dur-base) var(--au-ease-soft); }
+.au-ask__label[data-phase='out'] { transform: translateY(-10px); opacity: 0; }
+.au-ask__label[data-phase='in'] { transform: translateY(10px); opacity: 0; transition: none; }
+@media (prefers-reduced-motion: reduce) { .au-ask[data-busy='true'] .au-ask__pulse { animation: none; } }

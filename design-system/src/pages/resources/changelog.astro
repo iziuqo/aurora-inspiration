@@ -1,0 +1,41 @@
+---
+import Doc from '../../layouts/Doc.astro';
+const releases = [
+  {
+    v: '0.1.0', date: '30 September 2026', title: 'First release',
+    notes: [
+      ['Added', 'Token pipeline: one DTCG source, generated CSS, TypeScript and Figma variables.'],
+      ['Added', 'Fourteen components, from Button to Quiet state, each with a documented anatomy.'],
+      ['Added', 'Five patterns: hold to confirm, morph, leave it open, the quiet day and a full showcase.'],
+      ['Added', 'Figma library: 72 variables in two collections, 22 text styles, every component with variants, and pattern and showcase pages built from instances.'],
+      ['Added', 'Build checks for WCAG AA contrast, raw hex in component CSS, and token name collisions.'],
+      ['Changed', 'Label grey retuned from 2.9:1 to 5.3:1 against the ground. The old value is now text-faint.'],
+      ['Fixed', 'A primitive and a semantic token compiled to the same CSS name, so hairline borders were not drawn. The primitive is now stroke.hairline.'],
+    ],
+  },
+];
+---
+<Doc title="Changelog" eyebrow="Resources" lead="What changed, and when. Aurora follows semantic versioning: a token rename is a breaking change." toc={false}>
+  {releases.map((r) => (
+    <section class="r-release">
+      <header>
+        <span class="r-release__v">v{r.v}</span>
+        <span class="au-label">{r.date}</span>
+      </header>
+      <h2>{r.title}</h2>
+      <ul>
+        {r.notes.map(([k, t]) => <li><span class="r-kind" data-kind={k}>{k}</span><span>{t}</span></li>)}
+      </ul>
+    </section>
+  ))}
+</Doc>
+<style is:global>
+  .r-release { margin-top: var(--au-space-12); max-width: 68ch; }
+  .r-release header { display: flex; align-items: center; gap: 16px; }
+  .r-release__v { font-family: var(--au-font-mono); font-size: 12px; color: var(--au-text-primary); padding: 3px 8px; border: var(--au-stroke-hairline) solid var(--au-border-strong); border-radius: var(--au-radius-sm); }
+  .r-release h2 { margin-top: 16px; font-family: var(--au-font-serif); font-weight: 400; font-size: 28px; line-height: 1.2; color: var(--au-text-primary); }
+  .r-release ul { list-style: none; margin-top: 20px; border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-release li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline); font-size: 14px; line-height: 1.55; color: var(--au-text-secondary); }
+  .r-kind { font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--au-text-label); padding-top: 3px; }
+  .r-kind[data-kind='Fixed'] { color: var(--au-text-tertiary); }
+</style>
