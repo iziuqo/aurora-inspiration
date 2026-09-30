@@ -1,0 +1,75 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import { Rule } from '../../components/aurora/Rule';
+---
+<Doc
+  title="Hairlines and radius"
+  eyebrow="Foundations"
+  lead="Aurora has no shadows. Depth comes from four surfaces stepping up from the ground, and structure comes from 1px rules. Corners are small and there are only three of them."
+  meta={[{ label: 'Shadows', value: 'None' }, { label: 'Border', value: '1px' }, { label: 'Radii', value: '4 · 6 · 12' }]}
+>
+  <Section id="surfaces" n="01" title="Surfaces">
+    <p>Four surfaces, each a small step lighter than the last. A card is <code>raised</code>; the same card under a pointer is <code>raised-hover</code>; code and wells are <code>sunken</code>. Each step is paired with a hairline so the edge holds even on a poor display.</p>
+    <Stage caption="Ground, raised, raised-hover, sunken">
+      <div class="d-stack">
+        <div data-s="ground"><span class="au-label">ground</span></div>
+        <div data-s="raised"><span class="au-label">raised</span></div>
+        <div data-s="hover"><span class="au-label">raised-hover</span></div>
+        <div data-s="sunken"><span class="au-label">sunken</span></div>
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="rules" n="02" title="Rules">
+    <p>A rule is the system’s basic unit of structure. <code>hairline</code> holds content together, <code>strong</code> separates groups and marks hover, and <code>light</code> marks open time and nothing else.</p>
+    <Stage caption="Hairline, strong, light">
+      <div style="display:flex;flex-direction:column;gap:32px;width:420px">
+        <div><span class="au-label">Hairline</span><div style="margin-top:12px"><Rule /></div></div>
+        <div><span class="au-label">Strong</span><div style="margin-top:12px"><Rule variant="strong" /></div></div>
+        <div><span class="au-label">Light · open time only</span><div style="margin-top:12px"><Rule variant="light" /></div></div>
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="radius" n="03" title="Radius">
+    <p>Three radii, chosen by what the thing is, not how big it is. Controls get 4px, containers get 6px, stages and media get 12px. The pill is kept for the ask bar alone, so the one way back to conversation has a shape nothing else shares.</p>
+    <div class="d-wide d-radii">
+      {[['sm', 4, 'Controls'], ['md', 6, 'Cards, panels'], ['lg', 12, 'Stages, media'], ['pill', 999, 'Ask bar only']].map(([n, r, u]) => (
+        <div class="d-radii__item">
+          <div class="d-radii__shape" style={`border-radius:${r}px`} />
+          <div class="d-ramp__name">radius-{n}</div>
+          <div class="d-ramp__hex">{r === 999 ? '999px' : `${r}px`} · {u}</div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="usage" n="04" title="Usage">
+    <DoDont
+      doText="Separate layers with a surface step and a hairline. The edge is exact at any size."
+      dontText="Don’t use a shadow for depth. On black it turns to mud, and it breaks the rule that structure is drawn, not blurred."
+    >
+      <div slot="do" style="width:220px;height:96px;border-radius:6px;background:var(--au-bg-raised);border:1px solid var(--au-border-hairline)" />
+      <div slot="dont" style="width:220px;height:96px;border-radius:6px;background:var(--au-bg-raised);box-shadow:0 20px 40px -8px rgb(0 0 0 / 0.9), 0 0 0 1px rgb(255 255 255 / 0.02)" />
+    </DoDont>
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['border.hairline', 'color.border.hairline', 'color.border.strong', 'radius.sm', 'radius.md', 'radius.lg', 'radius.pill']} />
+  </Section>
+</Doc>
+<style>
+  .d-stack { position: relative; width: 460px; height: 200px; }
+  .d-stack > div { position: absolute; width: 260px; height: 120px; padding: 14px 16px; border: 1px solid var(--au-border-hairline); border-radius: var(--au-radius-md); }
+  .d-stack [data-s='ground'] { left: 0; top: 0; background: var(--au-bg-ground); }
+  .d-stack [data-s='raised'] { left: 60px; top: 26px; background: var(--au-bg-raised); }
+  .d-stack [data-s='hover'] { left: 120px; top: 52px; background: var(--au-bg-raised-hover); border-color: var(--au-border-strong); }
+  .d-stack [data-s='sunken'] { left: 180px; top: 78px; background: var(--au-bg-sunken); }
+  .d-radii { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+  .d-radii__shape { height: 112px; border: 1px solid var(--au-border-strong); background: var(--au-bg-raised); }
+  @media (max-width: 900px) { .d-radii { grid-template-columns: 1fr 1fr; } .d-stack { transform: scale(0.7); transform-origin: left top; } }
+</style>

@@ -1,0 +1,64 @@
+---
+/**
+ * Annotates a live specimen. Pins point at parts (numbered, explained in a legend).
+ * Specs draw redlines with their measured value. Coordinates are in px from the
+ * specimen's top-left, so the specimen should render at a fixed width.
+ */
+interface Pin { n: number; x: number; y: number; bx: number; by: number }
+interface Spec { x1: number; y1: number; x2: number; y2: number; label: string; tx?: number; ty?: number }
+interface Part { name: string; description: string; token?: string }
+interface Props { width: number; height: number; pins?: Pin[]; specs?: Spec[]; parts?: Part[]; caption?: string }
+const { width, height, pins = [], specs = [], parts = [], caption } = Astro.props;
+const tick = 4;
+---
+<figure class="d-stage d-wide">
+  <div class="d-stage__canvas" style="padding: 72px 40px;">
+    <div class="d-anatomy" style={`width:${width}px;height:${height}px`}>
+      <slot />
+      <svg class="d-anatomy__svg" width={width} height={height} aria-hidden="true">
+        {pins.map((p) => (
+          <g>
+            <line x1={p.x} y1={p.y} x2={p.bx} y2={p.by} stroke="var(--au-text-primary)" stroke-width="1" opacity="0.55" />
+            <circle cx={p.x} cy={p.y} r="2.5" fill="var(--au-text-primary)" />
+          </g>
+        ))}
+        {specs.map((s) => {
+          const vertical = s.x1 === s.x2;
+          return (
+            <g stroke="var(--au-light-lo)" stroke-width="1">
+              <line x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} />
+              {vertical ? (
+                <>
+                  <line x1={s.x1 - tick} y1={s.y1} x2={s.x1 + tick} y2={s.y1} />
+                  <line x1={s.x2 - tick} y1={s.y2} x2={s.x2 + tick} y2={s.y2} />
+                </>
+              ) : (
+                <>
+                  <line x1={s.x1} y1={s.y1 - tick} x2={s.x1} y2={s.y1 + tick} />
+                  <line x1={s.x2} y1={s.y2 - tick} x2={s.x2} y2={s.y2 + tick} />
+                </>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+      {pins.map((p) => <span class="d-pin" style={`left:${p.bx}px;top:${p.by}px`}>{p.n}</span>)}
+      {specs.map((s) => <span class="d-spec__tag" style={`left:${s.tx ?? (s.x1 + s.x2) / 2}px;top:${s.ty ?? (s.y1 + s.y2) / 2}px`}>{s.label}</span>)}
+    </div>
+  </div>
+  {caption && <figcaption class="d-stage__bar"><span class="d-stage__caption">{caption}</span></figcaption>}
+</figure>
+{parts.length > 0 && (
+  <ol class="d-legend">
+    {parts.map((part, i) => (
+      <li>
+        <span class="d-pin">{i + 1}</span>
+        <div>
+          <div class="d-legend__name">{part.name}</div>
+          <div class="d-legend__desc">{part.description}</div>
+          {part.token && <code class="d-legend__token">{part.token}</code>}
+        </div>
+      </li>
+    ))}
+  </ol>
+)}

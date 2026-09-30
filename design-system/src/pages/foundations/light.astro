@@ -1,0 +1,54 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import Callout from '../../components/docs/Callout.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import LightDemos from '../../components/demos/LightDemos';
+---
+<Doc
+  title="Light"
+  eyebrow="Foundations"
+  lead="The aurora, mint moving into violet, is the only colour in the system. It is spent in four places, each meaning “attention belongs here”. Everywhere else, Aurora is black and bone."
+  meta={[{ label: 'Colours', value: 'Mint · Violet' }, { label: 'Allowed uses', value: '4' }, { label: 'As text', value: 'Never' }]}
+>
+  <Section id="why" n="01" title="Why so strict">
+    <p>Aurora’s own brand is “black, and light arriving in it”. If light is everywhere it stops arriving. Because it appears so rarely, a person learns within one screen that light means <em>this is open</em>, <em>this is yours</em>, or <em>this is happening</em>, and the interface can say that without a single word.</p>
+  </Section>
+
+  <Section id="uses" n="02" title="The four uses">
+    <div class="d-wide" style="margin-top:24px"><LightDemos client:visible /></div>
+  </Section>
+
+  <Section id="behaviour" n="03" title="How light behaves">
+    <ul class="d-list">
+      <li><strong>It drifts.</strong> The beam in open time moves its gradient over 12 seconds. Slow enough to feel ambient, fast enough to feel alive.</li>
+      <li><strong>It brightens under attention.</strong> Hover or focus on a gap lifts the beam from 40% to 72% opacity.</li>
+      <li><strong>It charges under commitment.</strong> Holding to confirm takes the beam to full strength and speeds the drift to 2.6 seconds.</li>
+      <li><strong>It withdraws when done.</strong> Once booked, the light sweeps across the break once, then leaves a plain hairline behind.</li>
+    </ul>
+  </Section>
+
+  <Section id="usage" n="04" title="Usage">
+    <DoDont
+      doText="Let the light mark the one thing that is open or committed. Everything around it stays black and bone."
+      dontText="Don’t colour text or decorate backgrounds with the aurora. It stops meaning anything the first time it’s used for style."
+    >
+      <div slot="do" style="width:240px">
+        <div style="height:1px;background:linear-gradient(90deg,var(--au-border-hairline) 0 30%,var(--au-light-lo) 30%,var(--au-light-hi))"></div>
+        <div style="padding:14px 0 0 30%;font-family:var(--au-font-serif);font-size:18px;color:var(--au-text-primary)">Three hours, open.</div>
+      </div>
+      <div slot="dont" style="width:240px;padding:20px;border-radius:6px;background:linear-gradient(135deg,color-mix(in srgb,var(--au-light-lo) 30%,transparent),color-mix(in srgb,var(--au-light-hi) 30%,transparent))">
+        <div style="font-family:var(--au-font-serif);font-size:18px;background:var(--au-light);-webkit-background-clip:text;background-clip:text;color:transparent">Three hours, open.</div>
+      </div>
+    </DoDont>
+    <Callout label="Test">
+      <p>Cover every instance of light on a screen. If the screen still says what it needs to, one of them was decoration. Remove it.</p>
+    </Callout>
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['color.light.lo', 'color.light.hi', 'color.light.focus', 'duration.drift']} />
+    <p>The whole gradient is also available as <code>--au-light</code>, a 90° linear gradient from <code>lo</code> to <code>hi</code>.</p>
+  </Section>
+</Doc>

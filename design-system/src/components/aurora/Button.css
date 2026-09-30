@@ -1,0 +1,46 @@
+.au-button {
+  --_h: 46px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--au-space-2);
+  min-height: var(--_h);
+  padding: 0 var(--au-space-5);
+  border-radius: var(--au-radius-sm);
+  border: var(--au-border-hairline) solid transparent;
+  font-family: var(--au-font-sans);
+  font-size: 13px;
+  font-weight: var(--au-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  text-decoration: none;
+  transition:
+    color var(--au-dur-moderate) var(--au-ease-soft),
+    background-color var(--au-dur-moderate) var(--au-ease-soft),
+    border-color var(--au-dur-moderate) var(--au-ease-soft),
+    transform var(--au-dur-moderate) var(--au-ease-glide);
+}
+.au-button[data-size='sm'] { --_h: 36px; padding: 0 var(--au-space-4); font-size: 12px; }
+/* labels sit on the cap band, not on their own ink, so every button shares one optical centre */
+.au-button > .au-button__label { position: relative; top: 0.04em; }
+.au-button:active:not(:disabled) { transform: scale(0.985); transition-duration: var(--au-dur-moderate), var(--au-dur-moderate), var(--au-dur-moderate), var(--au-dur-quick); }
+.au-button:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 3px; }
+
+.au-button[data-variant='primary'] { background: var(--au-bg-inverse); color: var(--au-text-inverse); }
+.au-button[data-variant='primary']:hover { background: var(--au-bg-inverse-hover); }
+
+.au-button[data-variant='secondary'] { background: var(--au-bg-raised-hover); border-color: var(--au-border-strong); color: var(--au-text-primary); }
+.au-button[data-variant='secondary']:hover { border-color: var(--au-text-faint); }
+
+.au-button[data-variant='quiet'] { background: transparent; border-color: var(--au-border-hairline); color: var(--au-text-label); font-weight: var(--au-weight-medium); }
+.au-button[data-variant='quiet']:hover { color: var(--au-text-primary); border-color: var(--au-border-strong); }
+
+.au-button[data-variant='critical'] { background: transparent; border-color: color-mix(in srgb, var(--au-text-critical) 40%, transparent); color: var(--au-text-critical); }
+.au-button[data-variant='critical']:hover { border-color: var(--au-text-critical); }
+
+.au-button:disabled { cursor: not-allowed; color: var(--au-text-disabled); background: transparent; border-color: var(--au-border-hairline); }
+.au-button[data-block='true'] { display: flex; width: 100%; }

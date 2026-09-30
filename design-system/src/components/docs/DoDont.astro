@@ -1,0 +1,20 @@
+---
+interface Props { doText: string; dontText: string }
+const { doText, dontText } = Astro.props;
+---
+<div class="d-dd">
+  <figure class="d-dd__card" data-kind="do">
+    <div class="d-dd__stage"><slot name="do" /></div>
+    <figcaption class="d-dd__text">
+      <span class="d-dd__verdict au-label" style="color:inherit"><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.8 9 10 3" stroke="currentColor" stroke-width="1.3"/></svg>Do</span>
+      <p class="d-dd__body">{doText}</p>
+    </figcaption>
+  </figure>
+  <figure class="d-dd__card" data-kind="dont">
+    <div class="d-dd__stage"><slot name="dont" /></div>
+    <figcaption class="d-dd__text">
+      <span class="d-dd__verdict au-label" style="color:inherit"><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 3 6 6M9 3 3 9" stroke="currentColor" stroke-width="1.3"/></svg>Don’t</span>
+      <p class="d-dd__body">{dontText}</p>
+    </figcaption>
+  </figure>
+</div>

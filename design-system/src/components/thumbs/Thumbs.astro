@@ -1,0 +1,52 @@
+---
+/** Small, static previews for index cards. Rendered from real components where possible. */
+import { Button } from '../aurora/Button';
+import { HoldButton } from '../aurora/HoldButton';
+import { SegmentedControl } from '../aurora/SegmentedControl';
+import { Label } from '../aurora/Label';
+import { Tally } from '../aurora/Tally';
+import { AskBar } from '../aurora/AskBar';
+import { ReasoningTrace } from '../aurora/ReasoningTrace';
+import { Timeline, TimelineRow, Gap, Held } from '../aurora/Timeline';
+import { ExecutionSteps } from '../aurora/ExecutionSteps';
+import { Quote } from '../aurora/Quote';
+interface Props { name: string }
+const { name } = Astro.props;
+const noop = () => {};
+---
+<div class="t-thumb" data-name={name} aria-hidden="true" inert>
+  {name === 'color' && (
+    <div class="t-swatches">
+      {['#08090A', '#0E0F11', '#131418', '#1E2024', '#2A2D33', '#8B8981', '#EDEBE5'].map((c) => <i style={`background:${c}`} />)}
+      <i class="t-swatches__light" />
+    </div>
+  )}
+  {name === 'type' && (<div class="t-type"><span class="t-type__serif">Aa</span><span class="t-type__sans">Aa</span></div>)}
+  {name === 'spacing' && (<div class="t-space">{[4, 8, 12, 16, 24, 32, 48, 64].map((n) => <i style={`width:${n}px`} />)}</div>)}
+  {name === 'hairlines' && (<div class="t-lines"><i /><i /><i data-open /><i /></div>)}
+  {name === 'motion' && (
+    <svg class="t-curve" viewBox="0 0 120 80" fill="none"><path d="M4 76 H116" stroke="var(--au-border-hairline)"/><path d="M4 76 C 42 22, 4 4, 116 4" stroke="url(#tg)" stroke-width="1.5"/><defs><linearGradient id="tg" x1="0" x2="1"><stop stop-color="var(--au-light-lo)"/><stop offset="1" stop-color="var(--au-light-hi)"/></linearGradient></defs><circle cx="116" cy="4" r="2.5" fill="var(--au-light-hi)"/></svg>
+  )}
+  {name === 'light' && (<div class="t-light"><i /></div>)}
+  {name === 'voice' && (<div class="t-voice">“Your third red-eye this month, and nothing needs you until two.”</div>)}
+  {name === 'a11y' && (<div class="t-a11y"><span>16.7</span><small>: 1</small></div>)}
+  {name === 'button' && (<div class="t-row"><Button variant="primary" size="sm">Confirm</Button><Button variant="quiet" size="sm">Not today</Button></div>)}
+  {name === 'hold-button' && (<div style="width:200px"><HoldButton block /></div>)}
+  {name === 'segmented-control' && (<div style="width:220px"><SegmentedControl label="View" value="a" onChange={noop} options={[{ value: 'a', label: 'Thursday' }, { value: 'b', label: 'Quiet' }]} /></div>)}
+  {name === 'label' && (<div class="t-col"><Label>London · Thursday 30 July</Label><Label tone="primary">Now</Label></div>)}
+  {name === 'rule' && (<div class="t-lines" style="width:200px"><i /><i data-open /></div>)}
+  {name === 'timeline' && (<div style="width:230px" class="t-scale"><Timeline><TimelineRow time="09.30" title="Board meeting" state="present" /><TimelineRow time="14.00" title="Fund review" /></Timeline></div>)}
+  {name === 'gap' && (<div style="width:230px" class="t-scale t-gap"><Timeline><TimelineRow time="14.00" title="Fund review" /><Gap time="16.00" span="Open"><Held why="Left open on purpose." /></Gap></Timeline></div>)}
+  {name === 'suggestion-card' && (
+    <div class="t-card">
+      <div class="t-card__because">Nothing needs you until two.</div>
+      <div class="t-card__what">Recovery, 75 minutes.</div>
+    </div>
+  )}
+  {name === 'reasoning-trace' && (<div style="width:230px"><ReasoningTrace signals={[{ key: 'Calendar', value: 'Clear until 14.00' }, { key: 'Health', value: 'Recovery 31%' }, { key: 'Access', value: 'Held until 10.30' }]} /></div>)}
+  {name === 'execution-steps' && (<div style="width:200px;padding-left:14px;border-left:1px solid var(--au-light-lo)"><ExecutionSteps static steps={['Slot held', 'Car at 11.10', 'Board told']} /></div>)}
+  {name === 'ask-bar' && (<div style="width:230px"><AskBar status="Aurora is watching the week" /></div>)}
+  {name === 'tally' && (<Tally items={[{ value: 21, label: 'Booking' }, { value: 16, label: 'Airbnb' }, { value: 1, label: 'Aurora', highlight: true }]} />)}
+  {name === 'quote' && (<div style="width:230px"><Quote cite="Alex Macdonald">“Prompting is for losers.”</Quote></div>)}
+  {name === 'quiet-state' && (<div class="t-quiet"><Label>Tuesday 4 August</Label><div>Nothing worth moving today.</div></div>)}
+</div>

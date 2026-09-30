@@ -1,0 +1,79 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { Timeline, TimelineRow } from '../../components/aurora/Timeline';
+const scale = [['0.5', 2], ['1', 4], ['2', 8], ['3', 12], ['4', 16], ['5', 20], ['6', 24], ['8', 32], ['10', 40], ['12', 48], ['16', 64], ['20', 80], ['24', 96], ['32', 128]] as const;
+---
+<Doc
+  title="Spacing and layout"
+  eyebrow="Foundations"
+  lead="A 4px scale with fourteen steps, one grid for anything that happens in time, and three breakpoints. The concept’s one-off values, like 13, 17 and 19px, are snapped to the scale."
+  meta={[{ label: 'Base unit', value: '4px' }, { label: 'Steps', value: '14' }, { label: 'Breakpoints', value: '640 · 1000 · 1280' }]}
+>
+  <Section id="scale" n="01" title="The scale">
+    <p>Steps are named by multiples of four, so <code>space-4</code> is 16px and <code>space-10</code> is 40px. The small end is dense because interfaces are dense there; the large end jumps because page rhythm needs contrast, not precision.</p>
+    <div class="d-wide d-scale">
+      {scale.map(([n, px]) => (
+        <div class="d-scale__row">
+          <code class="d-scale__name">space-{n}</code>
+          <span class="d-scale__px">{px}</span>
+          <span class="d-scale__bar"><i style={`width:${px * 3}px`} /></span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="rhythm" n="02" title="Rhythm">
+    <p>Three distances do most of the work. <strong>4 to 8px</strong> binds things that are one thing: a title and its detail. <strong>16 to 24px</strong> separates siblings: rows, cards, controls. <strong>48px and up</strong> separates ideas: sections, the greeting from the day.</p>
+    <Callout label="Rule">
+      <p>If two things are related, the space between them is smaller than the space around them. Always.</p>
+    </Callout>
+  </Section>
+
+  <Section id="timeline-grid" n="03" title="The timeline grid">
+    <p>Anything that happens at a time sits on the same two-column grid: a 50px column for the time, a 16px gutter, and the content. The gutter is where the light runs. Its centre, 57px from the left, is the axis for the beam and for every execution dot.</p>
+    <Anatomy
+      width={340} height={128}
+      pins={[{ n: 1, x: 22, y: 26, bx: 22, by: -30 }, { n: 2, x: 58, y: 64, bx: 58, by: 150 }, { n: 3, x: 200, y: 26, bx: 290, by: -30 }]}
+      specs={[{ x1: 0, y1: 118, x2: 50, y2: 118, label: '50' }, { x1: 50, y1: 118, x2: 66, y2: 118, label: '16', ty: 132 }]}
+      parts={[
+        { name: 'Time column', description: 'Fixed at 50px so times align down the whole day, whatever the content does.', token: '--_time: 50px' },
+        { name: 'Gutter and axis', description: '16px. Its centre line is where the beam and the execution dots sit.', token: 'space-4' },
+        { name: 'Content', description: 'Takes the rest. Minimum width zero, so long titles wrap instead of pushing the grid.', token: 'minmax(0, 1fr)' },
+      ]}
+    >
+      <div style="width:340px"><Timeline><TimelineRow time="09.30" title="Board meeting" detail="Berkeley Square" state="present" /><TimelineRow time="14.00" title="Fund review" detail="Call, 90 minutes" /></Timeline></div>
+    </Anatomy>
+  </Section>
+
+  <Section id="breakpoints" n="04" title="Breakpoints">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Name</th><th>Width</th><th>What changes</th></tr></thead>
+        <tbody>
+          <tr><td class="d-mono">compact</td><td class="d-mono-dim">&lt; 640</td><td>One column. Page gutters drop to 20px. The product itself is designed here first.</td></tr>
+          <tr><td class="d-mono">medium</td><td class="d-mono-dim">640 to 1000</td><td>Editorial layouts stack their label column above the content.</td></tr>
+          <tr><td class="d-mono">wide</td><td class="d-mono-dim">1000 to 1280</td><td>Two columns: argument and device side by side.</td></tr>
+          <tr><td class="d-mono">full</td><td class="d-mono-dim">&gt; 1280</td><td>Content stops growing at 1160px and the margins take the rest.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['space.1', 'space.2', 'space.3', 'space.4', 'space.6', 'space.8', 'space.12', 'space.16']} usage={{
+      'space.1': 'Title to its detail line.', 'space.2': 'Between buttons in a group.', 'space.3': 'Label to the thing it labels.',
+      'space.4': 'Timeline gutter. Rows inside a card.', 'space.6': 'Screen side padding on mobile.', 'space.8': 'Between groups.',
+      'space.12': 'Greeting to the day.', 'space.16': 'Between page sections.' }} />
+  </Section>
+</Doc>
+<style>
+  .d-scale { margin-top: 24px; border-top: 1px solid var(--au-border-strong); }
+  .d-scale__row { display: grid; grid-template-columns: 120px 56px 1fr; align-items: center; height: 40px; border-bottom: 1px solid var(--au-border-hairline); }
+  .d-scale__name { font-family: var(--au-font-mono); font-size: 12px; color: var(--au-text-primary); }
+  .d-scale__px { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--au-text-label); }
+  .d-scale__bar i { display: block; height: 8px; max-width: 100%; border-radius: 1px; background: color-mix(in srgb, var(--au-light-lo) 22%, transparent); border-left: 1px solid var(--au-light-lo); border-right: 1px solid var(--au-light-lo); }
+</style>

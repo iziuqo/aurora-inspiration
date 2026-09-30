@@ -1,0 +1,23 @@
+---
+import { neighbours } from '../../lib/nav';
+interface Props { path: string }
+const { prev, next } = neighbours(Astro.props.path);
+---
+<nav class="d-pager" aria-label="Pagination">
+  {prev && (
+    <a class="d-pager__link" data-dir="prev" href={prev.href}>
+      <span class="au-label">Previous</span>
+      <span class="d-pager__title">{prev.title}</span>
+    </a>
+  )}
+  {next && (
+    <a class="d-pager__link" data-dir="next" href={next.href}>
+      <span class="au-label">Next</span>
+      <span class="d-pager__title">{next.title}</span>
+    </a>
+  )}
+</nav>
+<footer class="d-foot">
+  <span>Aurora Design System · v0.1</span>
+  <span>Built from the <a href="https://izaias.xyz/aurora">Aurora inspiration concept</a> by Izaias Cavalcanti</span>
+</footer>

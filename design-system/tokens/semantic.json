@@ -1,0 +1,89 @@
+{
+  "$description": "Aurora semantic tokens. Named for the job, not the value. This is the layer components use.",
+  "color": {
+    "$type": "color",
+    "bg": {
+      "ground":   { "$value": "{color.night.950}", "$description": "Page background." },
+      "raised":   { "$value": "{color.night.900}", "$description": "Cards and controls at rest." },
+      "raised-hover": { "$value": "{color.night.850}", "$description": "Raised surfaces under a pointer." },
+      "sunken":   { "$value": "{color.night.800}", "$description": "Code, wells, docs panels." },
+      "inverse":  { "$value": "{color.stone.50}", "$description": "Fills that have been committed, like a held button." },
+      "inverse-hover": { "$value": "{color.stone.200}", "$description": "Inverse fills under a pointer." }
+    },
+    "border": {
+      "hairline": { "$value": "{color.night.750}", "$description": "Default 1px structure." },
+      "strong":   { "$value": "{color.night.700}", "$description": "Hover, and controls that need a visible edge." },
+      "inverse":  { "$value": "{color.stone.50}" }
+    },
+    "text": {
+      "primary":   { "$value": "{color.stone.50}", "$description": "What Aurora says. 16.7:1 on ground." },
+      "secondary": { "$value": "{color.stone.300}", "$description": "Supporting prose. 7.1:1." },
+      "tertiary":  { "$value": "{color.stone.400}", "$description": "Details and metadata. 5.7:1." },
+      "label":     { "$value": "{color.stone.500}", "$description": "Uppercase labels. 5.3:1." },
+      "faint":     { "$value": "{color.stone.600}", "$description": "Past or inactive content. Decorative, never the only carrier of meaning." },
+      "disabled":  { "$value": "{color.stone.700}" },
+      "inverse":   { "$value": "{color.night.950}" },
+      "critical":  { "$value": "{color.ember.400}" }
+    },
+    "light": {
+      "lo":   { "$value": "{color.aurora.mint}", "$description": "Start of the aurora." },
+      "hi":   { "$value": "{color.aurora.violet}", "$description": "End of the aurora." },
+      "focus":{ "$value": "{color.aurora.mint}", "$description": "Focus rings and selection." }
+    }
+  },
+  "type": {
+    "$type": "typography",
+    "display": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "56px", "lineHeight": 1.08, "letterSpacing": "-0.02em" },
+      "$description": "One per page, at most. The thesis."
+    },
+    "headline": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "40px", "lineHeight": 1.15, "letterSpacing": "-0.014em" }
+    },
+    "title-l": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "28px", "lineHeight": 1.25, "letterSpacing": "-0.01em" }
+    },
+    "title": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "24px", "lineHeight": 1.33, "letterSpacing": "-0.008em" },
+      "$description": "Screen greetings. What Aurora says first."
+    },
+    "title-s": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "20px", "lineHeight": 1.3, "letterSpacing": "-0.006em" },
+      "$description": "The thing being proposed."
+    },
+    "voice": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "18px", "lineHeight": 1.5, "letterSpacing": "0em" },
+      "$description": "Quotes and held lines."
+    },
+    "voice-s": {
+      "$value": { "fontFamily": "{font.family.serif}", "fontWeight": 400, "fontSize": "14px", "lineHeight": 1.55, "letterSpacing": "0em" },
+      "$description": "The reason. Always serif, always first."
+    },
+    "body-l": {
+      "$value": { "fontFamily": "{font.family.sans}", "fontWeight": 400, "fontSize": "17px", "lineHeight": 1.65, "letterSpacing": "0em" }
+    },
+    "body": {
+      "$value": { "fontFamily": "{font.family.sans}", "fontWeight": 400, "fontSize": "15px", "lineHeight": 1.65, "letterSpacing": "0em" }
+    },
+    "body-s": {
+      "$value": { "fontFamily": "{font.family.sans}", "fontWeight": 400, "fontSize": "13px", "lineHeight": 1.5, "letterSpacing": "0em" }
+    },
+    "caption": {
+      "$value": { "fontFamily": "{font.family.sans}", "fontWeight": 400, "fontSize": "12px", "lineHeight": 1.45, "letterSpacing": "0em" }
+    },
+    "figure": {
+      "$value": { "fontFamily": "{font.family.sans}", "fontWeight": 600, "fontSize": "11px", "lineHeight": 1.4, "letterSpacing": "0.06em" },
+      "$description": "Times and numbers. Tabular, lining, set with points: 09.30."
+    },
+    "label": {
+      "$value": { "fontFamily": "{font.family.sans}", "fontWeight": 600, "fontSize": "10px", "lineHeight": 1.4, "letterSpacing": "0.2em" },
+      "$description": "Uppercase metadata. Trim the trailing tracking on right-aligned runs."
+    }
+  },
+  "motion": {
+    "move":    { "$type": "transition", "$value": { "duration": "{duration.glide}", "timingFunction": "{easing.glide}", "delay": "0ms" }, "$description": "Position and size." },
+    "fade":    { "$type": "transition", "$value": { "duration": "{duration.base}", "timingFunction": "{easing.soft}", "delay": "0ms" }, "$description": "Colour and opacity." },
+    "enter":   { "$type": "transition", "$value": { "duration": "{duration.slow}", "timingFunction": "{easing.out}", "delay": "0ms" }, "$description": "Content arriving." },
+    "morph":   { "$type": "transition", "$value": { "duration": "660ms", "timingFunction": "{easing.glide}", "delay": "0ms" }, "$description": "A box changing into another box." }
+  }
+}

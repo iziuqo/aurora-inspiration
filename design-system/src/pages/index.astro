@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/docs/TopBar.astro';
+import Thumb from '../components/thumbs/Thumbs.astro';
+import DayPrototype from '../components/demos/DayPrototype';
+import { nav, REPO } from '../lib/nav';
+import { tokenList } from '../lib/tokens';
+import '../styles/home.css';
+
+const principles = [
+  { t: 'Light is earned', b: 'The aurora is never decoration and never a text colour. It appears only where time is open, where attention is, or where something is being committed.' },
+  { t: 'Hairlines, not shadows', b: 'Structure comes from 1px rules on a four-step night ramp. Depth is a change of surface, not a blur beneath it.' },
+  { t: 'Two voices', b: 'A serif for anything the product says in its own words. A sans for the machinery. Uppercase labels for metadata, and nothing else.' },
+  { t: 'Nothing overshoots', b: 'One family of decelerating curves, no springs. Boxes change shape; they are never swapped out.' },
+  { t: 'The reason before the thing', b: 'Anything that proposes an action shows why first. Trust comes from legible reasoning, not from polish.' },
+  { t: 'Restraint is a feature', b: 'Empty is a designed state. Two or three items, never a catalogue. The system is allowed to decide that nothing is worth showing.' },
+];
+const foundations = nav.find((g) => g.title === 'Foundations')!.items;
+const components = nav.find((g) => g.title === 'Components')!.items;
+const thumbFor: Record<string, string> = {
+  '/foundations/color': 'color', '/foundations/typography': 'type', '/foundations/spacing': 'spacing', '/foundations/hairlines': 'hairlines',
+  '/foundations/motion': 'motion', '/foundations/light': 'light', '/foundations/voice': 'voice', '/foundations/accessibility': 'a11y',
+};
+---
+<Base title="Aurora">
+  <TopBar path="/" />
+  <main class="h-wrap" id="main">
+    <section class="h-hero">
+      <div class="h-hero__copy">
+        <div class="h-eyebrow"><i aria-hidden="true"></i><span class="au-label">Aurora Design System · v0.1</span></div>
+        <h1 class="h-title">Interfaces that know when to stay <em>quiet.</em></h1>
+        <p class="h-lead">
+          Aurora is a design system for calm, high-trust products. A black ground, structure drawn in hairlines,
+          and light that appears only where something deserves your attention.
+        </p>
+        <div class="h-ctas">
+          <a class="au-button" data-variant="primary" data-size="md" href="/principles"><span class="au-button__label">Read the principles</span></a>
+          <a class="au-button" data-variant="quiet" data-size="md" href="/components/button"><span class="au-button__label">Browse components</span></a>
+        </div>
+        <dl class="h-note">
+          <div><dt class="h-note__n">{tokenList.length}</dt><dd class="h-note__k au-label">Tokens</dd></div>
+          <div><dt class="h-note__n">{components.length}</dt><dd class="h-note__k au-label">Components</dd></div>
+          <div><dt class="h-note__n">1</dt><dd class="h-note__k au-label">Source of truth</dd></div>
+        </dl>
+      </div>
+      <div class="h-proto">
+        <DayPrototype client:load />
+        <p class="h-proto__cap">Live, and built only from Aurora components. Open a suggestion, then hold to confirm. Push a card left to leave the hour open.</p>
+      </div>
+    </section>
+
+    <div class="h-horizon" aria-hidden="true"><span class="h-horizon__beam"></span></div>
+
+    <section class="h-section" aria-labelledby="principles">
+      <header class="h-section__head">
+        <span class="h-section__label au-label">Principles</span>
+        <div>
+          <h2 class="h-section__title" id="principles">Six rules. Every token and component traces back to one of them.</h2>
+          <p class="h-section__lead">They were read out of a single concept page, then made strict enough to settle arguments. When a decision is unclear, the principle decides.</p>
+        </div>
+      </header>
+      <ol class="h-principles">
+        {principles.map((p, i) => (
+          <li class="h-principle">
+            <span class="h-principle__n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h-principle__title">{p.t}</h3>
+            <p class="h-principle__body">{p.b}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="h-section" aria-labelledby="foundations">
+      <header class="h-section__head">
+        <span class="h-section__label au-label">Foundations</span>
+        <div>
+          <h2 class="h-section__title" id="foundations">The ground everything stands on.</h2>
+          <p class="h-section__lead">Color, type, space, hairlines, motion and light. Each page explains the decision, shows the values, and says when not to use them.</p>
+        </div>
+      </header>
+      <div class="h-grid">
+        {foundations.map((f) => (
+          <a class="d-card" href={f.href}>
+            <div class="d-card__thumb"><Thumb name={thumbFor[f.href]} /></div>
+            <div class="d-card__body">
+              <div class="d-card__title">{f.title}</div>
+              <p class="d-card__text">{f.summary}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="h-section" aria-labelledby="components">
+      <header class="h-section__head">
+        <span class="h-section__label au-label">Components</span>
+        <div>
+          <h2 class="h-section__title" id="components">Fourteen components, each with a reason to exist.</h2>
+          <p class="h-section__lead">Every page follows the same order: what it is for, a live demo, anatomy, states, usage, writing, accessibility, tokens and code. Learn one page and you can read them all.</p>
+        </div>
+      </header>
+      <div class="h-grid">
+        {components.map((c) => (
+          <a class="d-card" href={c.href}>
+            <div class="d-card__thumb"><Thumb name={c.href.split('/').pop()!} /></div>
+            <div class="d-card__body">
+              <div class="d-card__title">{c.title}</div>
+              <p class="d-card__text">{c.summary}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="h-section" aria-labelledby="pipeline">
+      <header class="h-section__head">
+        <span class="h-section__label au-label">How it’s built</span>
+        <div>
+          <h2 class="h-section__title" id="pipeline">Written once. Generated everywhere.</h2>
+          <p class="h-section__lead">Tokens live in one set of JSON files. A single build writes the CSS the browser reads, the TypeScript the components import, and the variables the Figma library uses, so design and code cannot drift.</p>
+        </div>
+      </header>
+      <div class="h-section__body h-pipe">
+        <div class="h-pipe__col">
+          <div class="h-node" data-source>
+            <div class="h-node__name"><code>tokens/*.json</code></div>
+            <div class="h-node__desc">The source of truth, in the W3C design tokens format. Primitives, then semantic names that point at them.</div>
+          </div>
+        </div>
+        <span class="h-link" aria-hidden="true"></span>
+        <div class="h-pipe__col">
+          <div class="h-node"><div class="h-node__name"><code>aurora.css</code></div><div class="h-node__desc">Custom properties</div></div>
+          <div class="h-node"><div class="h-node__name"><code>tokens.ts</code></div><div class="h-node__desc">Typed values</div></div>
+          <div class="h-node"><div class="h-node__name"><code>figma-variables.json</code></div><div class="h-node__desc">Collections and aliases</div></div>
+        </div>
+        <span class="h-link" aria-hidden="true"></span>
+        <div class="h-pipe__col">
+          <div class="h-node"><div class="h-node__name">Components</div><div class="h-node__desc">React and CSS, token-only</div></div>
+          <div class="h-node"><div class="h-node__name">This site</div><div class="h-node__desc">Built on what it documents</div></div>
+          <div class="h-node"><div class="h-node__name">Figma library</div><div class="h-node__desc">Variables, styles, components</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="h-close">
+      <h2 class="h-close__title">Start with the principles. The rest follows from them.</h2>
+      <div class="h-ctas" style="margin-top:0">
+        <a class="au-button" data-variant="primary" data-size="md" href="/getting-started"><span class="au-button__label">Get started</span></a>
+        <a class="au-button" data-variant="quiet" data-size="md" href="/resources/case-study"><span class="au-button__label">Read the case study</span></a>
+      </div>
+    </section>
+    <footer class="h-footer">
+      <span>Aurora Design System · v0.1 · <a href={REPO}>Source</a></span>
+      <span>Built from the <a href="https://izaias.xyz/aurora">Aurora inspiration concept</a> by Izaias Cavalcanti</span>
+    </footer>
+  </main>
+</Base>

@@ -1,0 +1,68 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Callout from '../../components/docs/Callout.astro';
+const pairs = [
+  ['Don’t miss out! Only 2 spots left at Tanaka 🔥', 'A counter released two seats twenty minutes ago.', 'Real windows, not urgency theatre. State the fact that makes it timely.'],
+  ['We think you might enjoy a relaxing spa treatment!', 'Your third red-eye this month, and nothing needs you until two.', 'The reason before the thing, and the reason is about the person, not the product.'],
+  ['Booking confirmed! 🎉 Your reservation #48213 is all set.', 'Booked · car at 19.40', 'Say what happened in the fewest words. Celebration is the product’s job, not the copy’s.'],
+  ['No suggestions available right now. Check back later!', 'Nothing worth moving today. Your day is already what it should be.', 'An empty state is a judgement. Own it, and say what you’re holding.'],
+  ['Are you sure you want to decline? You may lose this slot.', 'Not today. Aurora won’t raise this one again.', 'Respect the no. Confirm what happens next, once, without guilt.'],
+];
+---
+<Doc
+  title="Voice and writing"
+  eyebrow="Foundations"
+  lead="Aurora speaks like a good host: specific, unhurried, and never selling. It gives the reason first, states facts instead of pressure, and is comfortable saying nothing at all."
+>
+  <Section id="rules" n="01" title="Five rules">
+    <ul class="d-list">
+      <li><strong>The reason comes first.</strong> Every proposal opens with why this, why now, why you.</li>
+      <li><strong>Be specific.</strong> “Nine minutes from Berkeley Square”, not “nearby”. Specifics are how a person checks the system’s judgement.</li>
+      <li><strong>Facts, not pressure.</strong> “Two seats, released twenty minutes ago” is a real window. “Only 2 left!” is theatre.</li>
+      <li><strong>No exclamation marks, no emoji.</strong> Calm is the brand. Enthusiasm is shown by getting it right.</li>
+      <li><strong>Sentence case, plain words.</strong> Times with points: 09.30. Places before details. No jargon from the machinery.</li>
+    </ul>
+  </Section>
+
+  <Section id="rewrites" n="02" title="Rewrites">
+    <p>The same moment, written the usual way and the Aurora way.</p>
+    <div class="d-wide d-rw">
+      {pairs.map(([before, after, why]) => (
+        <div class="d-rw__row">
+          <div class="d-rw__before"><span class="au-label">Usual</span><p>{before}</p></div>
+          <div class="d-rw__after"><span class="au-label">Aurora</span><p>{after}</p></div>
+          <div class="d-rw__why">{why}</div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="where" n="03" title="Where each voice lives">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Surface</th><th>Voice</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Greeting</td><td>Serif, title</td><td>You landed at six. There are three hours at eleven.</td></tr>
+          <tr><td>Reason</td><td>Serif, voice-s</td><td>Sarah lands from Milan at six.</td></tr>
+          <tr><td>Proposal</td><td>Serif, title-s</td><td>Two seats at Tanaka’s counter, eight o’clock.</td></tr>
+          <tr><td>Detail</td><td>Sans, body-s</td><td>Released twenty minutes ago.</td></tr>
+          <tr><td>Evidence</td><td>Label and sans</td><td>HISTORY · Last dinner together 3 March</td></tr>
+          <tr><td>Status</td><td>Sans, body-s</td><td>Aurora is handling it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <Callout label="Rule">
+      <p>If the sentence could appear in any other app, rewrite it until it couldn’t.</p>
+    </Callout>
+  </Section>
+</Doc>
+<style>
+  .d-rw { margin-top: 24px; border-top: 1px solid var(--au-border-strong); }
+  .d-rw__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--au-border-hairline); }
+  .d-rw__row p { margin-top: 8px; }
+  .d-rw__before p { font-size: 14px !important; line-height: 1.5 !important; color: var(--au-text-label) !important; text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--au-text-critical) 60%, transparent); }
+  .d-rw__after p { font-family: var(--au-font-serif); font-size: 17px !important; line-height: 1.45 !important; color: var(--au-text-primary) !important; }
+  .d-rw__why { font-size: 13px; line-height: 1.6; color: var(--au-text-tertiary); padding-top: 22px; }
+  @media (max-width: 900px) { .d-rw__row { grid-template-columns: 1fr; gap: 10px; } .d-rw__why { padding-top: 0; } }
+</style>

@@ -1,0 +1,20 @@
+.au-trace { margin: 0; border-top: var(--au-border-hairline) solid var(--au-border-hairline); }
+.au-trace__signal {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: var(--au-space-3);
+  align-items: baseline;
+  padding: 9px 0;
+  border-bottom: var(--au-border-hairline) solid var(--au-border-hairline);
+}
+.au-trace__key {
+  font-size: 9px;
+  font-weight: var(--au-weight-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--au-text-label);
+}
+.au-trace__value { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--au-text-tertiary); }
+.au-trace[data-animate='true'] .au-trace__signal { opacity: 0; animation: au-trace-in 500ms var(--au-ease-out) both; animation-delay: calc(60ms * var(--_i) + 60ms); }
+@keyframes au-trace-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .au-trace[data-animate='true'] .au-trace__signal { animation: none; opacity: 1; } }

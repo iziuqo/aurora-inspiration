@@ -1,0 +1,719 @@
+{
+  "color": {
+    "night": {
+      "600": {
+        "$type": "color",
+        "$value": "#3A3D44",
+        "$description": "Scrollbars and inactive handles."
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#2A2D33",
+        "$description": "Strong hairline, hover borders."
+      },
+      "750": {
+        "$type": "color",
+        "$value": "#1E2024",
+        "$description": "Hairline."
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#181A1E",
+        "$description": "Third raise: docs panels and code."
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#131418",
+        "$description": "Second raise: hover and pressed surfaces."
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#0E0F11",
+        "$description": "First raise: cards, controls at rest."
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#08090A",
+        "$description": "The ground. Every Aurora surface starts here."
+      }
+    },
+    "stone": {
+      "50": {
+        "$type": "color",
+        "$value": "#EDEBE5",
+        "$description": "Bone. Primary ink, warm rather than white."
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#C9C6BE"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#9C9A93"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#8B8981"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#86847D",
+        "$description": "Retuned from the concept's #5C5B56 so labels pass WCAG AA on every surface."
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#5C5B56"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#4A4945"
+      }
+    },
+    "aurora": {
+      "mint": {
+        "$type": "color",
+        "$value": "#7FD9C0",
+        "$description": "Low aurora. Where light starts."
+      },
+      "violet": {
+        "$type": "color",
+        "$value": "#A78BE0",
+        "$description": "High aurora. Where light ends."
+      }
+    },
+    "ember": {
+      "400": {
+        "$type": "color",
+        "$value": "#E58F80",
+        "$description": "The one warm signal. Destructive and error only."
+      }
+    },
+    "bg": {
+      "ground": {
+        "$type": "color",
+        "$value": "#08090A",
+        "$description": "Page background."
+      },
+      "raised": {
+        "$type": "color",
+        "$value": "#0E0F11",
+        "$description": "Cards and controls at rest."
+      },
+      "raised-hover": {
+        "$type": "color",
+        "$value": "#131418",
+        "$description": "Raised surfaces under a pointer."
+      },
+      "sunken": {
+        "$type": "color",
+        "$value": "#181A1E",
+        "$description": "Code, wells, docs panels."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "#EDEBE5",
+        "$description": "Fills that have been committed, like a held button."
+      },
+      "inverse-hover": {
+        "$type": "color",
+        "$value": "#C9C6BE",
+        "$description": "Inverse fills under a pointer."
+      }
+    },
+    "border": {
+      "hairline": {
+        "$type": "color",
+        "$value": "#1E2024",
+        "$description": "Default 1px structure."
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "#2A2D33",
+        "$description": "Hover, and controls that need a visible edge."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "#EDEBE5"
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "#EDEBE5",
+        "$description": "What Aurora says. 16.7:1 on ground."
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#9C9A93",
+        "$description": "Supporting prose. 7.1:1."
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "#8B8981",
+        "$description": "Details and metadata. 5.7:1."
+      },
+      "label": {
+        "$type": "color",
+        "$value": "#86847D",
+        "$description": "Uppercase labels. 5.3:1."
+      },
+      "faint": {
+        "$type": "color",
+        "$value": "#5C5B56",
+        "$description": "Past or inactive content. Decorative, never the only carrier of meaning."
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "#4A4945"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "#08090A"
+      },
+      "critical": {
+        "$type": "color",
+        "$value": "#E58F80"
+      }
+    },
+    "light": {
+      "lo": {
+        "$type": "color",
+        "$value": "#7FD9C0",
+        "$description": "Start of the aurora."
+      },
+      "hi": {
+        "$type": "color",
+        "$value": "#A78BE0",
+        "$description": "End of the aurora."
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "#7FD9C0",
+        "$description": "Focus rings and selection."
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "serif": {
+        "$type": "fontFamily",
+        "$value": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ]
+      },
+      "sans": {
+        "$type": "fontFamily",
+        "$value": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ]
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": [
+          "JetBrains Mono Variable",
+          "JetBrains Mono",
+          "ui-monospace",
+          "Menlo",
+          "monospace"
+        ]
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500
+      },
+      "semibold": {
+        "$type": "fontWeight",
+        "$value": 600
+      }
+    }
+  },
+  "space": {
+    "0": {
+      "$type": "dimension",
+      "$value": "0px"
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": "64px"
+    },
+    "20": {
+      "$type": "dimension",
+      "$value": "80px"
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": "96px"
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": "128px"
+    },
+    "px": {
+      "$type": "dimension",
+      "$value": "1px"
+    },
+    "0.5": {
+      "$type": "dimension",
+      "$value": "2px"
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "0px"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Controls: buttons, inputs."
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$description": "Containers: cards, panels."
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "Stages and large media."
+    },
+    "device": {
+      "$type": "dimension",
+      "$value": "38px",
+      "$description": "Device frames only."
+    },
+    "pill": {
+      "$type": "dimension",
+      "$value": "999px",
+      "$description": "The ask bar and nothing else."
+    }
+  },
+  "border": {
+    "hairline": {
+      "$type": "dimension",
+      "$value": "1px"
+    }
+  },
+  "easing": {
+    "glide": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.32,
+        0.72,
+        0,
+        1
+      ],
+      "$description": "Decelerates into place. Anything that moves or changes size."
+    },
+    "soft": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.4,
+        0,
+        0.2,
+        1
+      ],
+      "$description": "Symmetric and quiet. Colour, opacity, borders."
+    },
+    "out": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.25,
+        1,
+        0.5,
+        1
+      ],
+      "$description": "A long, gentle arrival. Entrances and reveals."
+    },
+    "linear": {
+      "$type": "cubicBezier",
+      "$value": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "$description": "Time itself. Only for progress that tracks a held gesture."
+    }
+  },
+  "duration": {
+    "instant": {
+      "$type": "duration",
+      "$value": "120ms"
+    },
+    "quick": {
+      "$type": "duration",
+      "$value": "220ms"
+    },
+    "base": {
+      "$type": "duration",
+      "$value": "340ms"
+    },
+    "moderate": {
+      "$type": "duration",
+      "$value": "460ms"
+    },
+    "glide": {
+      "$type": "duration",
+      "$value": "600ms"
+    },
+    "slow": {
+      "$type": "duration",
+      "$value": "900ms"
+    },
+    "reveal": {
+      "$type": "duration",
+      "$value": "1400ms"
+    },
+    "hold": {
+      "$type": "duration",
+      "$value": "840ms",
+      "$description": "How long a hold to confirm takes. A safeguard, not decoration."
+    },
+    "drift": {
+      "$type": "duration",
+      "$value": "12000ms",
+      "$description": "One slow cycle of ambient light."
+    }
+  },
+  "type": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "56px",
+        "lineHeight": 1.08,
+        "letterSpacing": "-0.02em"
+      },
+      "$description": "One per page, at most. The thesis."
+    },
+    "headline": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "40px",
+        "lineHeight": 1.15,
+        "letterSpacing": "-0.014em"
+      }
+    },
+    "title-l": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "28px",
+        "lineHeight": 1.25,
+        "letterSpacing": "-0.01em"
+      }
+    },
+    "title": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "24px",
+        "lineHeight": 1.33,
+        "letterSpacing": "-0.008em"
+      },
+      "$description": "Screen greetings. What Aurora says first."
+    },
+    "title-s": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "20px",
+        "lineHeight": 1.3,
+        "letterSpacing": "-0.006em"
+      },
+      "$description": "The thing being proposed."
+    },
+    "voice": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "18px",
+        "lineHeight": 1.5,
+        "letterSpacing": "0em"
+      },
+      "$description": "Quotes and held lines."
+    },
+    "voice-s": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Newsreader Variable",
+          "Newsreader",
+          "Iowan Old Style",
+          "Charter",
+          "Georgia",
+          "serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "14px",
+        "lineHeight": 1.55,
+        "letterSpacing": "0em"
+      },
+      "$description": "The reason. Always serif, always first."
+    },
+    "body-l": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "17px",
+        "lineHeight": 1.65,
+        "letterSpacing": "0em"
+      }
+    },
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "15px",
+        "lineHeight": 1.65,
+        "letterSpacing": "0em"
+      }
+    },
+    "body-s": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "13px",
+        "lineHeight": 1.5,
+        "letterSpacing": "0em"
+      }
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontWeight": 400,
+        "fontSize": "12px",
+        "lineHeight": 1.45,
+        "letterSpacing": "0em"
+      }
+    },
+    "figure": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontWeight": 600,
+        "fontSize": "11px",
+        "lineHeight": 1.4,
+        "letterSpacing": "0.06em"
+      },
+      "$description": "Times and numbers. Tabular, lining, set with points: 09.30."
+    },
+    "label": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": [
+          "Nunito Sans Variable",
+          "Nunito Sans",
+          "Avenir Next",
+          "Segoe UI",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontWeight": 600,
+        "fontSize": "10px",
+        "lineHeight": 1.4,
+        "letterSpacing": "0.2em"
+      },
+      "$description": "Uppercase metadata. Trim the trailing tracking on right-aligned runs."
+    }
+  },
+  "motion": {
+    "move": {
+      "$type": "transition",
+      "$value": {
+        "duration": "600ms",
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ],
+        "delay": "0ms"
+      },
+      "$description": "Position and size."
+    },
+    "fade": {
+      "$type": "transition",
+      "$value": {
+        "duration": "340ms",
+        "timingFunction": [
+          0.4,
+          0,
+          0.2,
+          1
+        ],
+        "delay": "0ms"
+      },
+      "$description": "Colour and opacity."
+    },
+    "enter": {
+      "$type": "transition",
+      "$value": {
+        "duration": "900ms",
+        "timingFunction": [
+          0.25,
+          1,
+          0.5,
+          1
+        ],
+        "delay": "0ms"
+      },
+      "$description": "Content arriving."
+    },
+    "morph": {
+      "$type": "transition",
+      "$value": {
+        "duration": "660ms",
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ],
+        "delay": "0ms"
+      },
+      "$description": "A box changing into another box."
+    }
+  }
+}

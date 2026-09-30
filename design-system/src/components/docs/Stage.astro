@@ -1,0 +1,22 @@
+---
+interface Props {
+  caption?: string;
+  align?: 'center' | 'start';
+  pad?: 'normal' | 'tight';
+  plain?: boolean;
+  minHeight?: number;
+  class?: string;
+}
+const { caption, align = 'center', pad = 'normal', plain = false, minHeight, class: cls } = Astro.props;
+---
+<figure class:list={['d-stage d-wide', cls]}>
+  <div class="d-stage__canvas" data-align={align} data-pad={pad} data-plain={plain ? 'true' : undefined} style={minHeight ? `min-height:${minHeight}px` : undefined}>
+    <slot />
+  </div>
+  {(caption || Astro.slots.has('bar')) && (
+    <figcaption class="d-stage__bar">
+      {caption && <span class="d-stage__caption">{caption}</span>}
+      <slot name="bar" />
+    </figcaption>
+  )}
+</figure>

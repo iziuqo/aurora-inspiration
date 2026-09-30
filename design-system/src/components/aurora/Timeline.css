@@ -1,0 +1,111 @@
+/* ---------- the day ---------- */
+.au-timeline { --_time: 50px; --_gutter: var(--au-space-4); position: relative; }
+
+.au-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--_time) minmax(0, 1fr);
+  gap: var(--_gutter);
+  border-top: var(--au-border-hairline) solid var(--au-border-hairline);
+}
+.au-row__time {
+  padding-top: 15px;
+  font-family: var(--au-type-figure-family);
+  font-size: var(--au-type-figure-size);
+  font-weight: var(--au-type-figure-weight);
+  letter-spacing: var(--au-type-figure-tracking);
+  line-height: var(--au-type-figure-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--au-text-label);
+}
+.au-row__now, .au-row__span {
+  display: block;
+  margin-top: 5px;
+  font-size: 9px;
+  font-weight: var(--au-weight-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.au-row__now { color: var(--au-text-primary); opacity: 0.6; }
+.au-row__span { color: var(--au-text-label); letter-spacing: 0.16em; transition: opacity var(--au-dur-base) var(--au-ease-soft); }
+
+.au-row__entry { padding: 14px 0 16px; min-width: 0; }
+.au-row__title { font-size: 14.5px; line-height: 1.45; letter-spacing: -0.004em; color: var(--au-text-secondary); }
+.au-row__detail { margin-top: var(--au-space-1); font-size: 12px; line-height: 1.45; color: var(--au-text-label); }
+
+.au-row[data-state='past'] .au-row__time,
+.au-row[data-state='past'] .au-row__title,
+.au-row[data-state='past'] .au-row__detail { color: var(--au-text-disabled); }
+.au-row[data-state='present'] .au-row__title { color: var(--au-text-primary); }
+.au-row[data-state='settled'] .au-row__title { color: var(--au-text-primary); }
+.au-row[data-state='settled'] .au-row__detail { color: var(--au-text-tertiary); }
+
+/* ---------- the gap: the rule breaks where the day is open, and light fills the break ---------- */
+.au-gap { border-top-color: transparent; }
+.au-gap::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--au-border-hairline) 0 var(--_time),
+    color-mix(in srgb, var(--au-light-lo) 62%, transparent) var(--_time),
+    color-mix(in srgb, var(--au-light-hi) 50%, transparent));
+  animation: au-rule-open var(--au-dur-reveal) var(--au-ease-out) both;
+  transition: opacity var(--au-dur-glide) var(--au-ease-soft);
+}
+.au-gap .au-row__time { color: var(--au-text-tertiary); padding-top: 16px; }
+
+.au-gap__beam {
+  position: absolute;
+  left: calc(var(--_time) + var(--_gutter) / 2 - 1px);
+  top: 2px;
+  bottom: var(--au-space-4);
+  width: 1px;
+  background: linear-gradient(180deg, var(--au-light-lo), var(--au-light-hi), var(--au-light-lo));
+  background-size: 100% 260%;
+  opacity: 0.4;
+  transform-origin: top;
+  animation:
+    au-beam-strike var(--au-dur-reveal) 300ms var(--au-ease-out) both,
+    au-beam-drift var(--au-dur-drift) 1700ms linear infinite;
+  transition: opacity var(--au-dur-glide) var(--au-ease-soft), transform var(--au-dur-glide) var(--au-ease-glide);
+}
+@keyframes au-beam-strike { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes au-beam-drift { from { background-position: 0 0; } to { background-position: 0 260%; } }
+
+/* attention brightens the light; holding charges it */
+.au-gap:hover .au-gap__beam, .au-gap:focus-within .au-gap__beam { opacity: 0.72; }
+.au-gap[data-state='charging'] .au-gap__beam { opacity: 1; animation-duration: var(--au-dur-reveal), 2.6s; }
+.au-gap[data-state='working'] .au-gap__beam { opacity: 0.9; }
+
+.au-gap__body { position: relative; min-width: 0; }
+
+/* settled: the light withdraws and the rule closes across the break */
+.au-gap[data-state='settled'] { border-top-color: var(--au-border-hairline); }
+.au-gap[data-state='settled']::before { opacity: 0; }
+.au-gap[data-state='settled'] .au-gap__beam { animation: none; opacity: 0; transform: scaleY(0); }
+.au-gap[data-state='settled']::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: var(--_time); right: 0;
+  height: 1px;
+  transform-origin: left;
+  background: var(--au-light);
+  animation: au-rule-close 1050ms var(--au-ease-glide) forwards;
+}
+@keyframes au-rule-close {
+  0% { transform: scaleX(0); opacity: 1; }
+  58% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes au-rule-open { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* ---------- a gap Aurora chose to leave open ---------- */
+.au-held { padding: 18px 0 22px; }
+.au-held__line { font-family: var(--au-font-serif); font-size: 19px; line-height: 1.35; color: var(--au-text-primary); }
+.au-held__why { margin-top: 9px; max-width: 34ch; font-size: 12.5px; line-height: 1.6; color: var(--au-text-label); }
+
+@media (prefers-reduced-motion: reduce) {
+  .au-gap::before, .au-gap__beam, .au-gap[data-state='settled']::after { animation: none; }
+}

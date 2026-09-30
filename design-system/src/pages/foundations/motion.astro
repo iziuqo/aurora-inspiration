@@ -1,0 +1,64 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import Callout from '../../components/docs/Callout.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import EasingLab from '../../components/demos/EasingLab';
+import MorphDemo from '../../components/demos/MorphDemo';
+---
+<Doc
+  title="Motion"
+  eyebrow="Foundations"
+  lead="One rule: nothing overshoots. Motion decelerates into place on a small family of curves, and when content changes, the box it lives in changes shape rather than being swapped."
+  meta={[{ label: 'Curves', value: '4' }, { label: 'Durations', value: '9' }, { label: 'Springs', value: 'None' }]}
+>
+  <Section id="curves" n="01" title="Curves">
+    <p>Every animation in the system uses one of four curves. <strong>Glide</strong> does almost all the work: it starts fast and settles slowly, so things feel placed rather than thrown. The others exist for the jobs glide does badly.</p>
+    <Stage align="start" pad="tight" caption="Plot and race. Pick a duration and replay.">
+      <EasingLab client:visible />
+    </Stage>
+  </Section>
+
+  <Section id="durations" n="02" title="Durations">
+    <p>Durations scale with distance. A colour change is instant-feeling at 340ms; a box travelling or changing height needs 600ms to read as one continuous shape. Anything over a second is ambient, like the drift of light, or a reveal on first load.</p>
+    <TokenTable paths={['duration.quick', 'duration.base', 'duration.moderate', 'duration.glide', 'duration.slow', 'duration.reveal', 'duration.hold', 'duration.drift']} usage={{
+      'duration.quick': 'The press on a button.', 'duration.base': 'Colour and opacity. The ask bar rolling its text.',
+      'duration.moderate': 'Border and background on hover.', 'duration.glide': 'Height, position, the segmented indicator.',
+      'duration.slow': 'Content arriving on scroll.', 'duration.reveal': 'A rule drawing in. The beam striking down.' }} />
+  </Section>
+
+  <Section id="morph" n="03" title="Morph">
+    <p>The one motion primitive the rest is built from. The container keeps its place and glides from its old height to its new one over 660ms, while the old contents fade out in 300ms and the new ones fade in, 140ms later. Nothing jumps, and nothing is replaced with a flash.</p>
+    <Stage caption="The suggestion becomes the work Aurora is doing.">
+      <MorphDemo client:visible />
+    </Stage>
+    <p>Read the full pattern, including when not to morph, on <a href="/patterns/morph">Morph</a>.</p>
+  </Section>
+
+  <Section id="reduced" n="04" title="Reduced motion">
+    <p>When someone asks for reduced motion, movement stops but meaning doesn’t. Rules appear already drawn, morphs become instant swaps, and the hold to confirm still requires a hold, shortened to 380ms, because it is a safeguard rather than decoration.</p>
+    <Callout label="Rule">
+      <p>Every animation in the system has a reduced-motion fallback, and the fallback is tested, not assumed.</p>
+    </Callout>
+  </Section>
+
+  <Section id="code" n="05" title="In code">
+    <CodeBlock tabs={[
+      { label: 'CSS', lang: 'css', code: `.drawer {
+  transition: height var(--au-dur-glide) var(--au-ease-glide);
+}
+.card {
+  transition:
+    border-color var(--au-dur-moderate) var(--au-ease-soft),
+    transform var(--au-dur-glide) var(--au-ease-glide);
+}` },
+      { label: 'React', lang: 'tsx', code: `import { Morph } from './aurora';
+
+<Morph contentKey={phase}>
+  {phase === 'offer' ? <SuggestionCard {...s} /> : <ExecutionSteps steps={s.steps} />}
+</Morph>` },
+    ]} />
+  </Section>
+</Doc>
