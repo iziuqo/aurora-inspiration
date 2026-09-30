@@ -1,0 +1,41 @@
+---
+/** A timing chart: each track is one thing that moves, drawn to scale in milliseconds. */
+interface Track { name: string; start: number; end: number; curve?: string; note?: string; light?: boolean }
+interface Props { tracks: Track[]; total?: number; step?: number }
+const { tracks, total = Math.max(...tracks.map((t) => t.end)), step = 500 } = Astro.props;
+const ticks = Array.from({ length: Math.floor(total / step) + 1 }, (_, i) => i * step);
+const pct = (ms: number) => `${(ms / total) * 100}%`;
+---
+<div class="d-choreo d-wide">
+  <div class="d-choreo__axis">
+    <span></span>
+    <div class="d-choreo__ticks">{ticks.map((t) => <i style={`left:${pct(t)}`}><b>{t}</b></i>)}</div>
+  </div>
+  {tracks.map((t) => (
+    <div class="d-choreo__row">
+      <div class="d-choreo__name">{t.name}{t.curve && <small>{t.curve}</small>}</div>
+      <div class="d-choreo__lane">
+        {ticks.map((tk) => <i class="d-choreo__grid" style={`left:${pct(tk)}`} />)}
+        <span class="d-choreo__bar" data-light={t.light ? 'true' : undefined} style={`left:${pct(t.start)};width:${pct(t.end - t.start)}`}>
+          <em>{t.end - t.start}ms</em>
+        </span>
+      </div>
+    </div>
+  ))}
+</div>
+<style>
+  .d-choreo { margin-top: 24px; padding: 20px 24px 12px; border: 1px solid var(--au-border-hairline); border-radius: var(--au-radius-lg); background: var(--au-bg-raised); }
+  .d-choreo__axis, .d-choreo__row { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 16px; }
+  .d-choreo__ticks { position: relative; height: 20px; }
+  .d-choreo__ticks i { position: absolute; top: 0; transform: translateX(-50%); font-style: normal; }
+  .d-choreo__ticks b { font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--au-text-label); }
+  .d-choreo__row { align-items: center; min-height: 40px; border-top: 1px solid var(--au-border-hairline); }
+  .d-choreo__name { font-size: 13px; color: var(--au-text-primary); line-height: 1.3; }
+  .d-choreo__name small { display: block; font-family: var(--au-font-mono); font-size: 10.5px; color: var(--au-text-label); }
+  .d-choreo__lane { position: relative; height: 40px; }
+  .d-choreo__grid { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--au-border-hairline); opacity: 0.6; }
+  .d-choreo__bar { position: absolute; top: 12px; height: 16px; border-radius: 3px; background: color-mix(in srgb, var(--au-text-primary) 14%, transparent); border: 1px solid color-mix(in srgb, var(--au-text-primary) 30%, transparent); display: flex; align-items: center; overflow: visible; }
+  .d-choreo__bar[data-light] { background: linear-gradient(90deg, color-mix(in srgb, var(--au-light-lo) 35%, transparent), color-mix(in srgb, var(--au-light-hi) 35%, transparent)); border-color: color-mix(in srgb, var(--au-light-lo) 60%, transparent); }
+  .d-choreo__bar em { position: absolute; left: calc(100% + 8px); font-style: normal; font-size: 10.5px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--au-text-tertiary); white-space: nowrap; }
+  @media (max-width: 900px) { .d-choreo__axis, .d-choreo__row { grid-template-columns: 110px minmax(0, 1fr); } }
+</style>

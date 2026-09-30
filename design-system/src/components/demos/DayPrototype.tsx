@@ -9,8 +9,8 @@ import { DAY } from './day-data';
 import './DayPrototype.css';
 
 /** The Aurora inspiration surface, rebuilt entirely from system components. */
-export default function DayPrototype({ withSwitch = true }: { withSwitch?: boolean }) {
-  const [view, setView] = useState<'day' | 'quiet'>('day');
+export default function DayPrototype({ withSwitch = true, initialView = 'day' }: { withSwitch?: boolean; initialView?: 'day' | 'quiet' }) {
+  const [view, setView] = useState<'day' | 'quiet'>(initialView);
   const [status, setStatus] = useState({ text: 'Aurora is watching the week', busy: false });
   const [run, setRun] = useState(0);
   const screen = useRef<HTMLDivElement>(null);

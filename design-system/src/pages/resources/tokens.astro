@@ -1,0 +1,96 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { tokenList } from '../../lib/tokens';
+
+const paths = (test: (p: string) => boolean) => tokenList.filter((t) => test(t.path)).map((t) => t.path);
+const groups = [
+  { id: 'semantic-color', title: 'Semantic colour', n: '02', lead: 'The names components use. Each one points at a primitive, so a retune happens in one place.', paths: paths((p) => /^color\.(bg|border|text|light)\./.test(p)) },
+  { id: 'primitive-color', title: 'Primitive colour', n: '03', lead: 'The raw ramps. Components never read these directly; semantic tokens do.', paths: paths((p) => /^color\.(night|stone|aurora|ember)\./.test(p)) },
+  { id: 'space', title: 'Space, radius and stroke', n: '05', lead: 'A 4px scale with a few half steps for optical work, four radii, and one stroke width.', paths: paths((p) => /^(space|radius|stroke)\./.test(p)) },
+  { id: 'motion', title: 'Motion', n: '06', lead: 'Curves, durations, and the named transitions built from them.', paths: paths((p) => /^(easing|duration|motion)\./.test(p)) },
+  { id: 'font', title: 'Font families and weights', n: '07', lead: 'The stacks behind the type styles.', paths: paths((p) => /^font\./.test(p)) },
+];
+const type = tokenList.filter((t) => t.type === 'typography');
+const downloads = [
+  { file: 'aurora.css', href: '/tokens/aurora.css', what: 'Custom properties and type classes. Link it and every variable on this page is available.' },
+  { file: 'aurora.tokens.json', href: '/tokens/aurora.tokens.json', what: 'Resolved values in the W3C design tokens format, for Style Dictionary or your own build.' },
+  { file: 'figma-variables.json', href: '/tokens/figma-variables.json', what: 'Two collections, primitives and semantic, with aliases kept. This is what the Figma library was built from.' },
+];
+---
+<Doc
+  title="Tokens"
+  eyebrow="Resources"
+  lead={`All ${tokenList.length} tokens in one place: the name you write in CSS, the value it resolves to, and what it is for. Everything here is generated from the same JSON the components and the Figma library use.`}
+>
+  <Section id="download" n="01" title="Download">
+    <ul class="r-files d-wide">
+      {downloads.map((d) => (
+        <li>
+          <a href={d.href} download>
+            <code>{d.file}</code>
+            <span>{d.what}</span>
+            <i aria-hidden="true">↓</i>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <CodeBlock lang="css" label="CSS" code={`@import url('https://aurora-design-system.vercel.app/tokens/aurora.css');
+
+.card {
+  background: var(--au-bg-raised);
+  border: var(--au-stroke-hairline) solid var(--au-border-hairline);
+  border-radius: var(--au-radius-md);
+  transition: height var(--au-dur-glide) var(--au-ease-glide);
+}`} />
+  </Section>
+
+  {groups.slice(0, 2).map((g) => (
+    <Section id={g.id} n={g.n} title={g.title}>
+      <p>{g.lead}</p>
+      <TokenTable paths={g.paths} />
+    </Section>
+  ))}
+
+  <Section id="type" n="04" title="Type styles">
+    <p>Each style compiles to five variables and one class. Use the class in markup, or the variables when you need a single property.</p>
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Class</th><th>Family</th><th>Size / leading</th><th>Weight</th><th>Tracking</th></tr></thead>
+        <tbody>
+          {type.map((t) => {
+            const v = t.value as any;
+            return (
+              <tr>
+                <td class="d-mono">{t.cssVar}</td>
+                <td>{String(v.fontFamily[0]).replace(' Variable', '')}</td>
+                <td class="d-mono-dim">{v.fontSize} / {v.lineHeight}</td>
+                <td class="d-mono-dim">{v.fontWeight}</td>
+                <td class="d-mono-dim">{v.letterSpacing}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  {groups.slice(2).map((g) => (
+    <Section id={g.id} n={g.n} title={g.title}>
+      <p>{g.lead}</p>
+      <TokenTable paths={g.paths} />
+    </Section>
+  ))}
+</Doc>
+<style is:global>
+  .r-files { list-style: none; margin-top: var(--au-space-6); border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-files li { border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline); }
+  .r-files a { display: grid; grid-template-columns: 220px minmax(0, 1fr) 24px; gap: 24px; align-items: baseline; padding: 18px 0; text-decoration: none; color: var(--au-text-secondary); font-size: 14px; line-height: 1.55; transition: color var(--au-dur-quick) var(--au-ease-soft); }
+  .r-files code { font-family: var(--au-font-mono); font-size: 13px; color: var(--au-text-primary); }
+  .r-files i { font-style: normal; color: var(--au-text-label); text-align: right; transition: transform var(--au-dur-quick) var(--au-ease-out), color var(--au-dur-quick) var(--au-ease-soft); }
+  .r-files a:hover { color: var(--au-text-primary); }
+  .r-files a:hover i { color: var(--au-light-lo); transform: translateY(2px); }
+  @media (max-width: 700px) { .r-files a { grid-template-columns: minmax(0, 1fr) 24px; } .r-files span { grid-column: 1; grid-row: 2; } }
+</style>

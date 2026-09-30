@@ -70,7 +70,7 @@
 }
 .d-search:hover { border-color: var(--au-border-strong); color: var(--au-text-tertiary); }
 .d-search__text { flex: 1; text-align: left; }
-.d-kbd {
+.d-kbd { white-space: nowrap;
   display: inline-flex;
   align-items: center;
   height: 20px;
@@ -587,7 +587,8 @@
   body[data-menu='open'] { overflow: hidden; }
   .d-top { padding: 0 var(--au-space-4); gap: var(--au-space-3); }
   .d-top__links, .d-version, .d-mark__sep, .d-mark__sub { display: none; }
-  .d-search { width: auto; flex: 1; max-width: 240px; margin-left: auto; }
+  .d-search { width: 34px; height: 34px; padding: 0; justify-content: center; flex: none; }
+  .d-search__text, .d-search .d-kbd { display: none; }
   .d-menu {
     display: inline-flex;
     align-items: center;

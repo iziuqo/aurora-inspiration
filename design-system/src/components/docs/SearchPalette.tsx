@@ -42,7 +42,7 @@ export default function SearchPalette({ pages }: { pages: Page[] }) {
 
   return (
     <>
-      <button className="d-search" type="button" onClick={() => setOpen(true)} aria-haspopup="dialog">
+      <button className="d-search" type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" aria-label="Search the system">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><circle cx="5.6" cy="5.6" r="4.3" stroke="currentColor" /><path d="m8.8 8.8 3 3" stroke="currentColor" /></svg>
         <span className="d-search__text">Search the system</span>
         <kbd className="d-kbd">{mac ? '⌘' : 'Ctrl'} K</kbd>

@@ -79,7 +79,7 @@
 @keyframes au-beam-strike { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
 @media (max-width: 1100px) {
-  .h-hero { grid-template-columns: 1fr; gap: var(--au-space-16); }
+  .h-hero { grid-template-columns: minmax(0, 1fr); gap: var(--au-space-16); }
   .h-hero__copy { position: static; }
   .h-proto { align-items: flex-start; }
   .h-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

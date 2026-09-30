@@ -1,0 +1,39 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { CardOnlyDemo } from '../../components/demos/ComponentDemos';
+---
+<Doc
+  title="Leave it open"
+  eyebrow="Patterns"
+  lead="Saying no is as designed as saying yes. Push a suggestion left and the hour stays open; Aurora records the no and won’t raise it again. The system treats restraint as a result, not a failure."
+>
+  <Section id="demo" n="01" title="Try it">
+    <Stage caption="Push the card to the left, past the threshold"><CardOnlyDemo client:visible /></Stage>
+  </Section>
+
+  <Section id="physics" n="02" title="How the gesture feels">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Dead zone</td><td class="d-mono">7px</td><td>A tap that wobbles is still a tap, and vertical scrolling is never hijacked.</td></tr>
+          <tr><td>Resistance</td><td class="d-mono">0.86</td><td>The card moves a little slower than the finger, so it feels weighted.</td></tr>
+          <tr><td>Travel</td><td class="d-mono">Left only, max 150px</td><td>Right has no meaning here, so it does nothing.</td></tr>
+          <tr><td>Threshold</td><td class="d-mono">84px</td><td>Past it, releasing leaves the hour open. Before it, the card glides home.</td></tr>
+          <tr><td>Reveal</td><td class="d-mono">“Leave it open”</td><td>Fades in behind the card as it moves, reaching full at 88px, so the outcome is readable before you commit.</td></tr>
+          <tr><td>Exit</td><td class="d-mono">−118%, then morph</td><td>The card leaves fully, then the gap morphs into a held line.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="after" n="03" title="What happens after">
+    <p>The gap stays lit, because the time is still open, and now says why: <em>“Not today. Aurora won’t raise this one again.”</em> No undo toast, no “are you sure?”. A no is respected the first time.</p>
+    <Callout label="Rule">
+      <p>Every gesture has a button. “Not today” sits next to the hold and does exactly what the swipe does.</p>
+    </Callout>
+  </Section>
+</Doc>

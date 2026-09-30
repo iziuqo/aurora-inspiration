@@ -17,7 +17,8 @@ const full = title === 'Aurora' ? 'Aurora Design System' : `${title} · Aurora D
     <meta name="theme-color" content="#08090A" />
     <meta property="og:title" content={full} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content={new URL("/og.png", Astro.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>

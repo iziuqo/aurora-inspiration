@@ -1,0 +1,89 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Callout from '../../components/docs/Callout.astro';
+import Choreo from '../../components/docs/Choreo.astro';
+import { Timeline, Gap } from '../../components/aurora/Timeline';
+import { SuggestionCard } from '../../components/aurora/SuggestionCard';
+import { ExecutionSteps } from '../../components/aurora/ExecutionSteps';
+import { HoldButton } from '../../components/aurora/HoldButton';
+import { SuggestionDemo } from '../../components/demos/ComponentDemos';
+const sig = [{ key: 'Calendar', value: 'Clear 11.00 to 14.00' }, { key: 'Health', value: 'Recovery 31%' }];
+---
+<Doc
+  title="Hold to confirm"
+  eyebrow="Patterns"
+  lead="The moment of commitment, choreographed end to end. You hold rather than tap; the light charges while you do; then the card doesn’t disappear. It morphs into the work Aurora is doing, and settles into your day."
+>
+  <Section id="why" n="01" title="Why a hold">
+    <p>Booking something in most products takes fifteen to twenty screens and ends on a green tick. Aurora does that work ahead of time, so reserving takes one gesture. One gesture has to be both safe and satisfying, and a tap is neither: it is easy to do by accident, and it feels like nothing.</p>
+    <p>A hold is deliberate. It takes 840ms, long enough that it can’t happen by mistake, short enough that it never feels like waiting. And because the fill tracks your finger, you can see exactly how committed you are, and back out at any point with nothing spent.</p>
+  </Section>
+
+  <Section id="storyboard" n="02" title="The sequence">
+    <div class="d-wide d-story">
+      <figure>
+        <div class="d-story__frame"><Timeline><Gap time="11.00" span="Three hours"><SuggestionCard swipeable={false} because="Nothing needs you until two." what="Recovery, 75 minutes." signals={sig} /></Gap></Timeline></div>
+        <figcaption><b><span>01</span>Offer</b> The reason, then the proposal. The beam drifts at 40%.</figcaption>
+      </figure>
+      <figure>
+        <div class="d-story__frame"><Timeline><Gap time="11.00" span="Three hours"><SuggestionCard swipeable={false} defaultOpen because="Nothing needs you until two." what="Recovery, 75 minutes." signals={sig} /></Gap></Timeline></div>
+        <figcaption><b><span>02</span>Open</b> The trace glides to its measured height. Evidence first, then the actions.</figcaption>
+      </figure>
+      <figure>
+        <div class="d-story__frame d-story__charging"><Timeline><Gap time="11.00" span="Three hours" state="charging"><div style="padding-top:18px"><HoldButton block holdingLabel="Keep holding" /></div></Gap></Timeline></div>
+        <figcaption><b><span>03</span>Charge</b> Hold. The fill runs linear; the beam goes to full and speeds up.</figcaption>
+      </figure>
+      <figure>
+        <div class="d-story__frame"><Timeline><Gap time="11.00" state="working"><ExecutionSteps static steps={['Slot held', 'Car at 11.10', 'Board told']} /></Gap></Timeline></div>
+        <figcaption><b><span>04</span>Work</b> The card morphs into the work, struck as points down the beam.</figcaption>
+      </figure>
+      <figure>
+        <div class="d-story__frame"><Timeline><Gap time="11.00" state="settled"><div class="au-row__entry" style="padding-left:0"><div class="au-row__title">Recovery, Surrenne</div><div class="au-row__detail">Booked · car at 11.10</div></div></Gap></Timeline></div>
+        <figcaption><b><span>05</span>Settle</b> The light sweeps across once and withdraws. A plain entry remains.</figcaption>
+      </figure>
+    </div>
+  </Section>
+
+  <Section id="try" n="03" title="Try it">
+    <Stage caption="Open the card, then hold to confirm"><SuggestionDemo client:visible which="dinner" /></Stage>
+  </Section>
+
+  <Section id="timing" n="04" title="Timing">
+    <p>Every duration in the sequence, to scale, from the moment the finger goes down. Light-coloured bars are the moments the aurora is involved.</p>
+    <Choreo total={4000} step={500} tracks={[
+      { name: 'Hold fill', curve: 'linear', start: 0, end: 840 },
+      { name: 'Beam charge', curve: 'soft', start: 0, end: 840, light: true },
+      { name: 'Confirmed label', start: 840, end: 1120 },
+      { name: 'Morph to work', curve: 'glide', start: 1120, end: 1780 },
+      { name: 'Step 1', curve: 'out', start: 1420, end: 2020, light: true },
+      { name: 'Step 2', curve: 'out', start: 1880, end: 2480, light: true },
+      { name: 'Step 3', curve: 'out', start: 2340, end: 2940, light: true },
+      { name: 'Morph to entry', curve: 'glide', start: 2600, end: 3260 },
+      { name: 'Rule closes', curve: 'glide', start: 2600, end: 3650, light: true },
+    ]} />
+    <Callout label="Rule">
+      <p>Nothing in the sequence cuts. Every step is one continuous shape changing into another, which is what makes it read as execution rather than confirmation.</p>
+    </Callout>
+  </Section>
+
+  <Section id="edges" n="05" title="Edge cases">
+    <ul class="d-list">
+      <li><strong>Released early.</strong> The fill glides back over 420ms and the beam returns to rest. Nothing was spent, and nothing says so; the motion is the message.</li>
+      <li><strong>Finger slides off.</strong> Treated as a release. A scroll can never confirm.</li>
+      <li><strong>Booking fails.</strong> The steps stop at the last true one and the gap shows a held line explaining what happened, in the same calm voice.</li>
+      <li><strong>Reduced motion.</strong> The hold shortens to 380ms and every morph becomes instant. The order of events is unchanged.</li>
+    </ul>
+  </Section>
+</Doc>
+<style is:global>
+  .d-story { display: grid; grid-auto-flow: column; grid-auto-columns: 336px; gap: 12px; margin-top: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; scrollbar-width: thin; scrollbar-color: var(--au-night-700) transparent; }
+  .d-story figure { display: flex; flex-direction: column; margin: 0; border: var(--au-stroke-hairline) solid var(--au-border-hairline); border-radius: var(--au-radius-lg); overflow: hidden; scroll-snap-align: start; background: var(--au-bg-ground); }
+  .d-story__frame { flex: 1; height: 344px; padding: 24px 16px 16px 8px; pointer-events: none; overflow: hidden; }
+  .d-story figcaption { padding: 14px 16px 16px; border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); background: var(--au-bg-raised); font-size: 13px; line-height: 1.5; color: var(--au-text-tertiary); }
+  .d-story figcaption b { display: block; margin-bottom: 4px; font-size: 13px; color: var(--au-text-primary); font-weight: 650; }
+  .d-story figcaption b span { color: var(--au-text-label); font-variant-numeric: tabular-nums; margin-right: 6px; }
+  .d-story__charging .au-hold__fill { transform: scaleX(0.58); }
+  .d-story__charging .au-hold { border-color: var(--au-border-strong); }
+</style>
