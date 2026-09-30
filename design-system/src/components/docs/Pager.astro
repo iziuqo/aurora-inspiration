@@ -1,4 +1,5 @@
 ---
+import Credit from './Credit.astro';
 import { neighbours, url } from '../../lib/nav';
 interface Props { path: string }
 const { prev, next } = neighbours(Astro.props.path);
@@ -18,6 +19,6 @@ const { prev, next } = neighbours(Astro.props.path);
   )}
 </nav>
 <footer class="d-foot">
-  <span>Aurora Design System · v0.1</span>
-  <span>Built from the <a href="https://izaias.xyz/aurora">Aurora inspiration concept</a> by Izaias Cavalcanti</span>
+  <span>Aurora Design System · v0.1 · Built from the <a href="https://izaias.xyz/aurora">Aurora concept</a></span>
+  <Credit />
 </footer>

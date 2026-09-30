@@ -1,0 +1,18 @@
+---
+/** The designer credit, shared by every footer. */
+const LINKEDIN = 'https://www.linkedin.com/in/izaias/';
+---
+<span class="d-credit">
+  <span>Designed by <a href={LINKEDIN} rel="me">Izaias Cavalcanti</a></span>
+  <span class="d-credit__status"><i aria-hidden="true"></i>Available for work</span>
+  <a href={LINKEDIN} rel="me">LinkedIn&nbsp;↗</a>
+</span>
+<style>
+  .d-credit { display: inline-flex; flex-wrap: wrap; align-items: center; column-gap: 14px; row-gap: 4px; }
+  .d-credit__status { display: inline-flex; align-items: center; gap: 7px; color: var(--au-text-tertiary); }
+  .d-credit__status i {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--au-light-lo);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--au-light-lo) 14%, transparent);
+  }
+</style>

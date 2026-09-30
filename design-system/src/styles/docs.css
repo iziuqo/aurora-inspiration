@@ -334,6 +334,7 @@ body[data-menu='open'] .d-menu__icon i:last-child { top: 3.5px; transform: rotat
 }
 .d-foot a { color: var(--au-text-tertiary); text-decoration: none; }
 .d-foot a:hover { color: var(--au-text-primary); }
+@media (max-width: 700px) { .d-foot { flex-direction: column; gap: var(--au-space-3); } }
 
 /* ---------- stage: where live components sit ---------- */
 .d-stage {
