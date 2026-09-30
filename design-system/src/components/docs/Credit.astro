@@ -1,11 +1,23 @@
 ---
-/** The designer credit, shared by every footer. Plain type, no ornament. */
+/** The designer credit, shared by every footer. Same words as the Figma file. */
 const LINKEDIN = 'https://www.linkedin.com/in/izaias/';
 ---
-<span class="d-credit">
-  Designed by <a href={LINKEDIN} rel="me">Izaias Cavalcanti</a>, available for work.
-  <a href={LINKEDIN} rel="me">LinkedIn&nbsp;↗</a>
-</span>
+<span class="d-credit">Designed by <a href={LINKEDIN} rel="me">Izaias Cavalcanti</a>, currently open to new work.</span>
 <style>
-  .d-credit a:last-child { margin-left: 10px; white-space: nowrap; }
+  .d-credit {
+    font-family: var(--au-font-serif);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: var(--au-text-tertiary);
+  }
+  .d-credit a {
+    color: var(--au-text-secondary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--au-border-strong);
+    transition: color var(--au-dur-base) var(--au-ease-soft), text-decoration-color var(--au-dur-base) var(--au-ease-soft);
+  }
+  .d-credit a:hover { color: var(--au-text-primary); text-decoration-color: var(--au-text-tertiary); }
 </style>
