@@ -1,5 +1,5 @@
 /* ---------- the day ---------- */
-.au-timeline { --_time: 50px; --_gutter: var(--au-space-4); position: relative; }
+.au-timeline { --_time: 56px; --_gutter: var(--au-space-4); position: relative; }
 
 .au-row {
   position: relative;
