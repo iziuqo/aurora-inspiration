@@ -1,0 +1,127 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { SuggestionCard } from '../../components/aurora/SuggestionCard';
+import { SuggestionDemo } from '../../components/demos/ComponentDemos';
+import { componentMeta } from '../../lib/nav';
+const sig = [{ key: 'Calendar', value: 'Clear 11.00 to 14.00, no travel either side' }, { key: 'Health', value: 'Recovery 31%, three nights under five hours' }];
+---
+<Doc
+  title="Suggestion card"
+  eyebrow="Components"
+  lead="One proposal for one gap. The reason comes first, in the serif; the thing comes second; the evidence and the commitment are one tap away. A card never appears outside a gap."
+  meta={componentMeta('SuggestionCard', [{ label: 'Per gap', value: '1' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="The whole flow: open, hold to confirm, watch it morph. Or push it left.">
+      <SuggestionDemo client:visible />
+    </Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      width={340}
+      pad="72px 120px"
+      pins={[
+        { sel: '.au-card__because', side: 'left', at: 0.5, dist: 48 },
+        { sel: '.au-card__what', side: 'right', at: 0.3, dist: 48 },
+        { sel: '.au-card__detail', side: 'left', at: 0.5, dist: 48 },
+        { sel: '.au-trace', side: 'right', at: 0.4, dist: 48 },
+        { sel: '.au-hold', side: 'bottom', at: 0.3, dist: 40 },
+        { sel: '.au-card__actions .au-button', side: 'bottom', at: 0.5, dist: 40 },
+      ]}
+      parts={[
+        { name: 'Reason', description: 'Why this, why now, why you. Serif, tertiary ink, always first, separated by a hairline.', token: '.au-type-voice-s' },
+        { name: 'Proposal', description: 'The thing itself, specific enough to act on. Serif in bone.', token: '.au-type-title-s' },
+        { name: 'Detail', description: 'Where, how far, what it costs you. Sans in label grey.', token: '.au-type-body-s' },
+        { name: 'Reasoning trace', description: 'The evidence, revealed to a measured height when the card opens.', token: 'ReasoningTrace' },
+        { name: 'Commit', description: 'A hold button. Booking is never a single tap.', token: 'HoldButton' },
+        { name: 'Decline', description: 'Quiet, and final: Aurora won’t raise it again.', token: "Button variant='quiet'" },
+      ]}
+    >
+      <SuggestionCard defaultOpen swipeable={false} because="Your third red-eye this month, and nothing needs you until two." what="Contrast and lymphatic recovery, 75 minutes." detail="Surrenne, Knightsbridge." signals={sig} />
+    </Anatomy>
+  </Section>
+
+  <Section id="behaviour" n="03" title="Behaviour">
+    <ul class="d-list">
+      <li><strong>Open.</strong> Tap the card. The trace glides open to its measured height over 600ms; signals stagger in 60ms apart; the actions arrive last.</li>
+      <li><strong>Commit.</strong> Hold. The gap’s beam charges while you do. When the hold completes, the card morphs into the work Aurora is doing.</li>
+      <li><strong>Leave it open.</strong> Push the card left. Past 84px it slides away and the gap says it will stay open. “Not today” does the same without a gesture.</li>
+    </ul>
+    <Callout label="Rule">
+      <p>Two or three suggestions a day, never a catalogue. If a day has more gaps than good ideas, leave the gaps open.</p>
+    </Callout>
+  </Section>
+
+  <Section id="usage" n="04" title="Usage">
+    <DoDont
+      doText="Lead with a reason about the person: their day, their history, a real window."
+      dontText="Don’t lead with the product, and don’t use urgency. The reason is the whole argument for trust."
+    >
+      <div slot="do" style="width:260px;padding:16px;border:1px solid var(--au-border-hairline);border-radius:6px;background:var(--au-bg-raised)">
+        <div style="font-family:var(--au-font-serif);font-size:13.5px;color:var(--au-text-tertiary);padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--au-border-hairline)">Sarah lands at six. It’s been twenty-seven days.</div>
+        <div style="font-family:var(--au-font-serif);font-size:18px;color:var(--au-text-primary)">Tanaka’s counter, eight o’clock.</div>
+      </div>
+      <div slot="dont" style="width:260px;padding:16px;border:1px solid var(--au-border-hairline);border-radius:6px;background:var(--au-bg-raised)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--au-text-critical);margin-bottom:8px">ONLY 2 LEFT!</div>
+        <div style="font-family:var(--au-font-serif);font-size:18px;color:var(--au-text-primary)">Tanaka’s counter, eight o’clock.</div>
+        <div style="font-family:var(--au-font-serif);font-size:13.5px;color:var(--au-text-tertiary);margin-top:8px">Trending in London</div>
+      </div>
+    </DoDont>
+  </Section>
+
+  <Section id="a11y" n="05" title="Accessibility">
+    <ul class="d-list">
+      <li><strong>The summary is a button</strong> with <code>aria-expanded</code> and <code>aria-controls</code>. Actions sit outside it, so there are no buttons nested in buttons.</li>
+      <li><strong>Closed means inert.</strong> The trace and its actions can’t be reached until the card is open.</li>
+      <li><strong>Swipe has a button.</strong> “Not today” is the keyboard and screen-reader path for leaving the gap open.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="06" title="Props">
+    <PropsTable rows={[
+      { name: 'because', type: 'string', required: true, description: 'Why this, why now. One sentence.' },
+      { name: 'what', type: 'string', required: true, description: 'The proposal.' },
+      { name: 'detail', type: 'string', description: 'Where, how far, what it costs.' },
+      { name: 'signals', type: '{ key: string; value: string }[]', required: true, description: 'Three to five pieces of evidence.' },
+      { name: 'onConfirm', type: '() => void', description: 'Called when the hold completes.' },
+      { name: 'onDecline', type: '() => void', description: 'Called on Not today or a swipe past 84px.' },
+      { name: 'onChargeChange', type: '(charging: boolean) => void', description: 'Pass the gap’s setter so its light charges with the hold.' },
+      { name: 'defaultOpen', type: 'boolean', default: 'false', description: 'Start with the trace open.' },
+      { name: 'swipeable', type: 'boolean', default: 'true', description: 'Allow pushing the card aside.' },
+      { name: 'declineLabel', type: 'string', default: "'Not today'", description: 'Label for the quiet button.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="07" title="Tokens">
+    <TokenTable paths={['color.bg.raised', 'color.bg.raised-hover', 'color.border.hairline', 'color.border.strong', 'radius.md', 'type.voice-s', 'type.title-s', 'duration.glide']} />
+  </Section>
+
+  <Section id="code" n="08" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<Gap time="19.30" span="Evening" state={charging ? 'charging' : 'idle'}>
+  <Morph contentKey={phase}>
+    {phase === 'offer' ? (
+      <SuggestionCard
+        because="Sarah lands from Milan at six. You haven’t had dinner together since the third."
+        what="Two seats at Tanaka’s counter, eight o’clock."
+        detail="Released twenty minutes ago."
+        signals={signals}
+        onChargeChange={setCharging}
+        onConfirm={() => setPhase('working')}
+        onDecline={() => setPhase('declined')}
+      />
+    ) : (
+      <ExecutionSteps steps={['Counter held for two', 'Car at 19.40', 'Sarah sent the time']} />
+    )}
+  </Morph>
+</Gap>`} />
+  </Section>
+</Doc>

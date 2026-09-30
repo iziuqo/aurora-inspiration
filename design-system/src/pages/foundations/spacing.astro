@@ -36,9 +36,16 @@ const scale = [['0.5', 2], ['1', 4], ['2', 8], ['3', 12], ['4', 16], ['5', 20], 
   <Section id="timeline-grid" n="03" title="The timeline grid">
     <p>Anything that happens at a time sits on the same two-column grid: a 50px column for the time, a 16px gutter, and the content. The gutter is where the light runs. Its centre, 57px from the left, is the axis for the beam and for every execution dot.</p>
     <Anatomy
-      width={340} height={128}
-      pins={[{ n: 1, x: 22, y: 26, bx: 22, by: -30 }, { n: 2, x: 58, y: 64, bx: 58, by: 150 }, { n: 3, x: 200, y: 26, bx: 290, by: -30 }]}
-      specs={[{ x1: 0, y1: 118, x2: 50, y2: 118, label: '50' }, { x1: 50, y1: 118, x2: 66, y2: 118, label: '16', ty: 132 }]}
+      width={340}
+      pins={[
+        { sel: '.au-row:first-child .au-row__time', side: 'top', dist: 44 },
+        { sel: '.au-row:last-child .au-row__entry', side: 'bottom', at: 0, dist: 44 },
+        { sel: '.au-row:first-child .au-row__title', side: 'top', at: 0.7, dist: 44 },
+      ]}
+      specs={[
+        { sel: '.au-row:last-child .au-row__time', dim: 'width', side: 'bottom', offset: 12 },
+        { from: '.au-row:last-child .au-row__time', to: '.au-row:last-child .au-row__entry', axis: 'x', offset: 12 },
+      ]}
       parts={[
         { name: 'Time column', description: 'Fixed at 50px so times align down the whole day, whatever the content does.', token: '--_time: 50px' },
         { name: 'Gutter and axis', description: '16px. Its centre line is where the beam and the execution dots sit.', token: 'space-4' },

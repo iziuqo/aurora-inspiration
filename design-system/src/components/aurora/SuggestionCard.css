@@ -21,7 +21,7 @@
 .au-card {
   position: relative;
   background: var(--au-bg-raised);
-  border: var(--au-border-hairline) solid var(--au-border-hairline);
+  border: var(--au-stroke-hairline) solid var(--au-border-hairline);
   border-radius: var(--au-radius-md);
   touch-action: pan-y;
   transition:
@@ -54,7 +54,7 @@
   color: var(--au-text-tertiary);
   padding-bottom: 13px;
   margin-bottom: 14px;
-  border-bottom: var(--au-border-hairline) solid var(--au-border-hairline);
+  border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline);
 }
 .au-card__what {
   font-family: var(--au-type-title-s-family);

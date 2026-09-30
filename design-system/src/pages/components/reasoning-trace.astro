@@ -1,0 +1,79 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { ReasoningTrace } from '../../components/aurora/ReasoningTrace';
+import { componentMeta } from '../../lib/nav';
+const signals = [
+  { key: 'Calendar', value: 'Sarah, Linate to City, lands 18.05, evening clear' },
+  { key: 'History', value: 'Last dinner together 3 March, twenty-seven days' },
+  { key: 'Access', value: 'Counter cancellation, two seats, unlisted' },
+  { key: 'Judgement', value: 'Not a Michelin night. A reconnection one.' },
+];
+---
+<Doc
+  title="Reasoning trace"
+  eyebrow="Components"
+  lead="The evidence behind a suggestion, laid out as a ledger: one signal per line, named on the left, stated on the right. It is how a person checks Aurora’s judgement without asking."
+  meta={componentMeta('ReasoningTrace', [{ label: 'Signals', value: '3 to 5' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage><div style="width:340px"><ReasoningTrace signals={signals} /></div></Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={320}
+      pins={[
+        { sel: '.au-trace__signal:first-child .au-trace__key', side: 'left', at: 0.5, dist: 40 },
+        { sel: '.au-trace__signal:first-child .au-trace__value', side: 'top', at: 0.6, dist: 40 },
+        { sel: '.au-trace__signal:nth-child(2)', side: 'right', at: 1, dist: 36 },
+      ]}
+      specs={[{ sel: '.au-trace__signal:first-child .au-trace__key', dim: 'width', side: 'top', offset: 24 }]}
+      parts={[
+        { name: 'Signal', description: 'Where the evidence comes from: Calendar, Health, History, Access, Judgement. 76px column, so values align.', token: '9px · +18%' },
+        { name: 'Value', description: 'One fact, specific and checkable. Never an opinion, except under Judgement.', token: '--au-text-tertiary' },
+        { name: 'Hairline', description: 'Every signal closes with a rule, like a line in a ledger.', token: '--au-border-hairline' },
+      ]}
+    >
+      <ReasoningTrace signals={signals.slice(0, 3)} />
+    </Anatomy>
+  </Section>
+
+  <Section id="usage" n="03" title="Usage">
+    <DoDont
+      doText="State facts the person can verify: a time, a count, a date. End with a judgement only if it adds something the facts don’t."
+      dontText="Don’t pad the trace with vague reasons or scores. “You might like this” isn’t evidence."
+    >
+      <div slot="do" style="width:260px"><ReasoningTrace signals={signals.slice(1, 3)} /></div>
+      <div slot="dont" style="width:260px"><ReasoningTrace signals={[{ key: 'Match', value: '94% match for you' }, { key: 'Why', value: 'You might like this' }]} /></div>
+    </DoDont>
+  </Section>
+
+  <Section id="props" n="04" title="Props">
+    <PropsTable rows={[
+      { name: 'signals', type: '{ key: string; value: string }[]', required: true, description: 'Three to five signals.' },
+      { name: 'animate', type: 'boolean', default: 'false', description: 'Stagger signals in, 60ms apart. The card sets this when it opens.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['color.text.label', 'color.text.tertiary', 'color.border.hairline', 'easing.out']} />
+  </Section>
+
+  <Section id="code" n="06" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<ReasoningTrace
+  signals={[
+    { key: 'Calendar', value: 'Clear 11.00 to 14.00, no travel either side' },
+    { key: 'Health', value: 'Recovery 31%, three nights under five hours' },
+    { key: 'Access', value: 'Held for you until 10.30' },
+  ]}
+/>`} />
+  </Section>
+</Doc>

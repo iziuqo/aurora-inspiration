@@ -1,0 +1,90 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { SegmentedControl } from '../../components/aurora/SegmentedControl';
+import { SegmentedDemo } from '../../components/demos/ComponentDemos';
+import { componentMeta } from '../../lib/nav';
+const noop = () => {};
+---
+<Doc
+  title="Segmented control"
+  eyebrow="Components"
+  lead="Switches between two to four views of the same thing. The bone indicator glides between options; it never jumps, and the text inverts as it arrives."
+  meta={componentMeta('SegmentedControl', [{ label: 'Options', value: '2 to 4' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Click or use the arrow keys">
+      <SegmentedDemo client:visible />
+    </Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={300}
+      pins={[
+        { sel: '.au-segmented', side: 'top', at: 0.95, dist: 40 },
+        { sel: '.au-segmented__indicator', side: 'bottom', at: 0.3, dist: 40 },
+        { sel: '.au-segmented__option:nth-of-type(2) > span', side: 'top', at: 0.5, dist: 40 },
+      ]}
+      specs={[{ sel: '.au-segmented', dim: 'height', side: 'right', offset: 18 }]}
+      parts={[
+        { name: 'Track', description: 'A hairline box with square corners. Square, because it’s a switch, not a button.', token: '--au-border-hairline' },
+        { name: 'Indicator', description: 'A bone block that slides to the selected option over 600ms on the glide curve.', token: '--au-bg-inverse' },
+        { name: 'Option', description: 'Label type. Inverts to ink on bone when selected. Trailing tracking trimmed so it centres true.', token: '.au-type-label' },
+      ]}
+    >
+      <SegmentedControl label="View" value="a" onChange={noop} options={[{ value: 'a', label: 'Thursday' }, { value: 'b', label: 'A quiet day' }]} />
+    </Anatomy>
+  </Section>
+
+  <Section id="usage" n="03" title="Usage">
+    <DoDont
+      doText="Use it to switch views of the same content, with short, parallel labels."
+      dontText="Don’t use it for actions or for more than four options. Actions are buttons; long lists are navigation."
+    >
+      <div slot="do" style="width:260px"><SegmentedControl label="View" value="a" onChange={noop} options={[{ value: 'a', label: 'Day' }, { value: 'b', label: 'Week' }]} /></div>
+      <div slot="dont" style="width:280px"><SegmentedControl label="Actions" value="a" onChange={noop} options={[{ value: 'a', label: 'Save' }, { value: 'b', label: 'Share' }, { value: 'c', label: 'Delete' }, { value: 'd', label: 'Copy' }, { value: 'e', label: 'More' }]} /></div>
+    </DoDont>
+  </Section>
+
+  <Section id="a11y" n="04" title="Accessibility">
+    <ul class="d-list">
+      <li><strong>A radio group.</strong> The track is <code>role="radiogroup"</code> with a required <code>label</code>; each option is a radio.</li>
+      <li><strong>One tab stop.</strong> Tab lands on the selected option; arrow keys move selection and focus together, and wrap.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="05" title="Props">
+    <PropsTable rows={[
+      { name: 'options', type: '{ value: string; label: string }[]', required: true, description: 'Two to four options.' },
+      { name: 'value', type: 'string', required: true, description: 'The selected option.' },
+      { name: 'onChange', type: '(value: string) => void', required: true, description: 'Called with the new value.' },
+      { name: 'label', type: 'string', required: true, description: 'Names the group for assistive technology.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="06" title="Tokens">
+    <TokenTable paths={['color.bg.inverse', 'color.text.inverse', 'color.text.label', 'color.border.hairline', 'duration.glide', 'easing.glide']} />
+  </Section>
+
+  <Section id="code" n="07" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`const [view, setView] = useState('day');
+
+<SegmentedControl
+  label="Prototype state"
+  value={view}
+  onChange={setView}
+  options={[
+    { value: 'day', label: 'Thursday' },
+    { value: 'quiet', label: 'A quiet day' },
+  ]}
+/>`} />
+  </Section>
+</Doc>

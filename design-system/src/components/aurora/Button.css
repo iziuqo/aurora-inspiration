@@ -8,7 +8,7 @@
   min-height: var(--_h);
   padding: 0 var(--au-space-5);
   border-radius: var(--au-radius-sm);
-  border: var(--au-border-hairline) solid transparent;
+  border: var(--au-stroke-hairline) solid transparent;
   font-family: var(--au-font-sans);
   font-size: 13px;
   font-weight: var(--au-weight-semibold);

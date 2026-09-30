@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: var(--_time) minmax(0, 1fr);
   gap: var(--_gutter);
-  border-top: var(--au-border-hairline) solid var(--au-border-hairline);
+  border-top: var(--au-stroke-hairline) solid var(--au-border-hairline);
 }
 .au-row__time {
   padding-top: 15px;

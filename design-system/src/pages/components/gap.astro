@@ -1,0 +1,103 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { Timeline, TimelineRow, Gap, Held } from '../../components/aurora/Timeline';
+import { GapStatesDemo } from '../../components/demos/ComponentDemos';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Gap"
+  eyebrow="Components"
+  lead="Open time. Where the day opens, the rule breaks and light fills the break, and Aurora writes into it. The gap is the unit of the interface: it is the reason the product exists."
+  meta={componentMeta('Timeline', [{ label: 'States', value: '4' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Step through the states">
+      <GapStatesDemo client:visible />
+    </Stage>
+    <p>Every experience worth suggesting has the same shape: it fits into a hole in a day that already exists. So open time is drawn differently from everything else. Its rule carries light, a beam runs down its gutter, and the time column says how much is open in words: <em>three hours</em>, <em>evening</em>.</p>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={340}
+      pad="96px 72px"
+      pins={[
+        { sel: '.au-gap', side: 'top', at: 0.75, dist: 44 },
+        { sel: '.au-gap__beam', side: 'bottom', at: 0.5, dist: 44 },
+        { sel: '.au-row__span', side: 'left', at: 0.5, dist: 34 },
+        { sel: '.au-held__why', side: 'bottom', at: 0.6, dist: 44 },
+      ]}
+      parts={[
+        { name: 'Broken rule', description: 'Hairline across the time column, then light across the content. Draws in from the left over 1.4s when the gap appears.', token: '--au-light-lo → --au-light-hi' },
+        { name: 'Beam', description: 'A 1px gradient on the gutter’s centre line. It drifts over 12s, brightens under attention and charges under a hold.', token: '--au-dur-drift' },
+        { name: 'Span', description: 'How much time is open, in words. Removed once the gap is filled.', token: '9px · +16%' },
+        { name: 'Content', description: 'A suggestion card, the work in progress, the booked result, or a held line saying why it stays open.', token: 'Morph' },
+      ]}
+    >
+      <Timeline><Gap time="16.00" span="Open"><Held why="Aurora found two things worth doing here and judged neither worth it." /></Gap></Timeline>
+    </Anatomy>
+  </Section>
+
+  <Section id="states" n="03" title="States">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>State</th><th>Beam</th><th>Rule</th><th>Content</th></tr></thead>
+        <tbody>
+          <tr><td class="d-mono">idle</td><td>40%, drifting over 12s</td><td>Broken, with light</td><td>A suggestion or a held line</td></tr>
+          <tr><td class="d-mono">idle, attended</td><td>72%</td><td>Broken, with light</td><td>Hover or focus inside</td></tr>
+          <tr><td class="d-mono">charging</td><td>100%, drift at 2.6s</td><td>Broken, with light</td><td>The user is holding to confirm</td></tr>
+          <tr><td class="d-mono">working</td><td>90%</td><td>Broken, with light</td><td>Execution steps land on the beam</td></tr>
+          <tr><td class="d-mono">settled</td><td>Withdraws</td><td>Light sweeps across once, then a hairline</td><td>The booked entry</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <Callout label="Rule">
+      <p>A gap can be left open on purpose. When Aurora decides nothing is worth the time, it says so in the gap, and the light stays.</p>
+    </Callout>
+  </Section>
+
+  <Section id="held" n="04" title="Left open">
+    <p><code>Held</code> is what Aurora writes into a gap it chose not to fill. The line is in the serif, because it is a judgement; the reason is in the sans, because it is evidence.</p>
+    <Stage>
+      <div style="width:340px"><Timeline><TimelineRow time="14.00" title="Fund review" detail="Call, 90 minutes" /><Gap time="16.00" span="Open"><Held why="You have been on calls before seven four mornings running. Aurora found two things worth doing here and judged neither worth this afternoon." /></Gap></Timeline></div>
+    </Stage>
+  </Section>
+
+  <Section id="props" n="05" title="Props">
+    <PropsTable rows={[
+      { name: 'time', type: 'string', required: true, description: 'When the open time starts.' },
+      { name: 'span', type: 'string', description: 'How much is open, in words.' },
+      { name: 'state', type: "'idle' | 'charging' | 'working' | 'settled'", default: "'idle'", description: 'Drives the light. See States.' },
+      { name: 'children', type: 'ReactNode', required: true, description: 'Usually a SuggestionCard, ExecutionSteps or Held, inside a Morph.' },
+    ]} />
+    <h3 class="d-h3">Held</h3>
+    <PropsTable rows={[
+      { name: 'line', type: 'string', default: "'Left open.'", description: 'The judgement, in the serif.' },
+      { name: 'why', type: 'ReactNode', required: true, description: 'The evidence for it.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="06" title="Tokens">
+    <TokenTable paths={['color.light.lo', 'color.light.hi', 'duration.drift', 'duration.reveal', 'easing.out', 'easing.glide']} />
+  </Section>
+
+  <Section id="code" n="07" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`const [charging, setCharging] = useState(false);
+
+<Gap time="11.00" span="Three hours" state={charging ? 'charging' : 'idle'}>
+  <SuggestionCard {...suggestion} onChargeChange={setCharging} onConfirm={book} />
+</Gap>
+
+<Gap time="16.00" span="Open">
+  <Held why="Aurora judged nothing worth this afternoon." />
+</Gap>`} />
+  </Section>
+</Doc>

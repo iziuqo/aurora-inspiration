@@ -1,0 +1,66 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { Timeline, Gap } from '../../components/aurora/Timeline';
+import { ExecutionSteps } from '../../components/aurora/ExecutionSteps';
+import { StepsDemo } from '../../components/demos/ComponentDemos';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Execution steps"
+  eyebrow="Components"
+  lead="The work Aurora is doing, struck as points of light down the beam. It replaces a spinner: instead of asking you to wait, it shows you what is being done on your behalf."
+  meta={componentMeta('ExecutionSteps', [{ label: 'Interval', value: '460ms' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Steps land 460ms apart, each with a dot on the gap’s beam"><StepsDemo client:visible /></Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={280}
+      pins={[
+        { sel: '.au-steps__step:first-child .au-steps__dot', side: 'left', at: 0.5, dist: 40 },
+        { sel: '.au-steps__step:nth-child(2)', side: 'right', at: 0.5, dist: 40 },
+      ]}
+      parts={[
+        { name: 'Point', description: 'A 5px dot in the aurora gradient, centred on the beam. It scales in with each step.', token: '--au-light-lo → --au-light-hi' },
+        { name: 'Step', description: 'Past tense, shortest first: “Slot held”, “Car at 11.10”. Each one is a thing that is now true.', token: '--au-text-tertiary' },
+      ]}
+    >
+      <Timeline><Gap time="11.00" state="working"><ExecutionSteps static steps={['Slot held', 'Car at 11.10', 'Board told you leave at 11']} /></Gap></Timeline>
+    </Anatomy>
+  </Section>
+
+  <Section id="writing" n="03" title="Writing">
+    <ul class="d-list">
+      <li><strong>Past tense, as facts.</strong> “Slot held”, not “Holding slot…”. Each step lands when it is true.</li>
+      <li><strong>Three steps.</strong> Enough to show care, few enough to finish in under three seconds.</li>
+      <li><strong>End with the person.</strong> The last step is usually someone told: “Sarah sent the time”.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="04" title="Props">
+    <PropsTable rows={[
+      { name: 'steps', type: 'string[]', required: true, description: 'What Aurora is doing, in past tense.' },
+      { name: 'interval', type: 'number', default: '460', description: 'Milliseconds between steps.' },
+      { name: 'static', type: 'boolean', default: 'false', description: 'Show all steps at once, without the strike-in.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['color.light.lo', 'color.light.hi', 'color.text.tertiary', 'easing.out']} />
+  </Section>
+
+  <Section id="code" n="06" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<Gap time="11.00" state="working">
+  <ExecutionSteps steps={['Slot held', 'Car at 11.10', 'Board told you leave at 11']} />
+</Gap>`} />
+  </Section>
+</Doc>

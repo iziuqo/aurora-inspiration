@@ -1,6 +1,6 @@
 .au-rule {
   display: block;
-  height: var(--au-border-hairline);
+  height: var(--au-stroke-hairline);
   border: 0;
   margin: 0;
   background: var(--au-border-hairline);

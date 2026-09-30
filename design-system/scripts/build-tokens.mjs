@@ -76,6 +76,15 @@ function cssRef(t) {
   return cssValue(t);
 }
 
+// ---- guard: two tokens must never share a CSS name ------------------------
+const seen = new Map();
+for (const t of tokens) {
+  if (t.type === 'typography') continue;
+  const n = cssName(t.path);
+  if (seen.has(n)) throw new Error(`${t.path.join('.')} and ${seen.get(n)} both compile to ${n}`);
+  seen.set(n, t.path.join('.'));
+}
+
 // ---- CSS -----------------------------------------------------------------
 const lines = [];
 const typeClasses = [];

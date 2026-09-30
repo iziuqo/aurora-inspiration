@@ -1,0 +1,58 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { Rule } from '../../components/aurora/Rule';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Rule"
+  eyebrow="Components"
+  lead="The 1px line that holds every Aurora layout together. It replaces shadows, dividers and boxes, and it is the only element allowed to carry light outside a control."
+  meta={componentMeta('Rule', [{ label: 'Weight', value: '1px' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Hairline, strong and light. The light rule draws in from the left.">
+      <div style="display:flex;flex-direction:column;gap:36px;width:440px">
+        <Rule />
+        <Rule variant="strong" />
+        <Rule variant="light" animate />
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="variants" n="02" title="Variants">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Variant</th><th>Use for</th></tr></thead>
+        <tbody>
+          <tr><td class="d-mono">hairline</td><td>Between rows, under headers, around cards. The default for everything.</td></tr>
+          <tr><td class="d-mono">strong</td><td>Separating groups, the top of a table, hover edges.</td></tr>
+          <tr><td class="d-mono">light</td><td>Open time only. See <a href="/components/gap">Gap</a>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <Callout label="Rule">
+      <p>A rule with light must sit over time that is actually open. Anywhere else, it is decoration.</p>
+    </Callout>
+  </Section>
+
+  <Section id="props" n="03" title="Props">
+    <PropsTable rows={[
+      { name: 'variant', type: "'hairline' | 'strong' | 'light'", default: "'hairline'", description: 'Weight and meaning.' },
+      { name: 'animate', type: 'boolean', default: 'false', description: 'Draw the rule in from the left on mount, over 1.4s.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="04" title="Tokens">
+    <TokenTable paths={['stroke.hairline', 'color.border.hairline', 'color.border.strong', 'color.light.lo', 'color.light.hi', 'duration.reveal']} />
+  </Section>
+
+  <Section id="code" n="05" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<Rule />\n<Rule variant="strong" />\n<Rule variant="light" animate />`} />
+  </Section>
+</Doc>

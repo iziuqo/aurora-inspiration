@@ -1,11 +1,11 @@
-.au-trace { margin: 0; border-top: var(--au-border-hairline) solid var(--au-border-hairline); }
+.au-trace { margin: 0; border-top: var(--au-stroke-hairline) solid var(--au-border-hairline); }
 .au-trace__signal {
   display: grid;
   grid-template-columns: 76px minmax(0, 1fr);
   gap: var(--au-space-3);
   align-items: baseline;
   padding: 9px 0;
-  border-bottom: var(--au-border-hairline) solid var(--au-border-hairline);
+  border-bottom: var(--au-stroke-hairline) solid var(--au-border-hairline);
 }
 .au-trace__key {
   font-size: 9px;

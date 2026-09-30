@@ -106,7 +106,7 @@ export function SuggestionCard({
           <div className="au-card__what">{what}</div>
           {detail && <div className="au-card__detail">{detail}</div>}
         </button>
-        <div className="au-card__drawer" ref={drawer} id={id}>
+        <div className="au-card__drawer" ref={drawer} id={id} style={defaultOpen ? { height: 'auto' } : undefined}>
           <div className="au-card__drawer-inner" inert={!open || undefined}>
             <ReasoningTrace signals={signals} animate={open} key={String(open)} />
             <div className="au-card__actions">

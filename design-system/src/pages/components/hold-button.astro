@@ -1,0 +1,113 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Callout from '../../components/docs/Callout.astro';
+import { HoldButton } from '../../components/aurora/HoldButton';
+import { Button } from '../../components/aurora/Button';
+import { HoldDemo } from '../../components/demos/ComponentDemos';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Hold button"
+  eyebrow="Components"
+  lead="Confirm by holding, not tapping. The fill charges while you hold; let go early and it glides back with nothing spent. It is how Aurora asks for a commitment that costs money or time."
+  meta={componentMeta('HoldButton', [{ label: 'Hold', value: '840ms' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Try it. Release early to cancel.">
+      <HoldDemo client:visible />
+    </Stage>
+    <p>Everyone else ends a booking on a green tick after a price breakdown, a payment sheet and a page of terms. Aurora has already done that work, so the confirmation has to be worth the gesture: deliberate enough to be safe, short enough never to feel like a wait.</p>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={240}
+      pins={[
+        { sel: '.au-hold', side: 'top', at: 0.08, dist: 44 },
+        { sel: '.au-hold__fill', side: 'bottom', at: 0.2, dist: 44 },
+        { sel: '.au-hold__label', side: 'top', at: 0.7, dist: 44 },
+      ]}
+      specs={[{ sel: '.au-hold', dim: 'height', side: 'right', offset: 18 }]}
+      parts={[
+        { name: 'Container', description: 'The same 46px box as a button, with a strong hairline so it reads as the primary control in its row.', token: '--au-bg-raised-hover' },
+        { name: 'Fill', description: 'A bone layer that scales from the left. Linear while held, because it tracks time itself. Glides home on release.', token: '--au-bg-inverse' },
+        { name: 'Label', description: 'Blended with difference, so it stays legible as the fill passes under it: bone on dark, dark on bone.', token: 'mix-blend-mode: difference' },
+      ]}
+    >
+      <HoldButton block />
+    </Anatomy>
+  </Section>
+
+  <Section id="states" n="03" title="States">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>State</th><th>Label</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td class="d-mono">idle</td><td>Hold to confirm</td><td>Resting. The fill is at zero.</td></tr>
+          <tr><td class="d-mono">charging</td><td>Keep holding</td><td>The fill runs left to right over 840ms, linear. A parent gap charges its light in step.</td></tr>
+          <tr><td class="d-mono">released</td><td>Hold to confirm</td><td>Let go early and the fill glides back over 420ms. Nothing was spent.</td></tr>
+          <tr><td class="d-mono">done</td><td>Confirmed</td><td>The fill stays, the border turns bone, and <code>onConfirm</code> fires 280ms later so the change is seen first.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="usage" n="04" title="Usage">
+    <DoDont
+      doText="Use it for the one commitment on a card, beside a quiet way out of the same height."
+      dontText="Don’t use it for low-stakes actions like opening or saving. A hold on everything turns a safeguard into friction."
+    >
+      <div slot="do" style="display:flex;gap:8px;width:280px"><div style="flex:1"><HoldButton block /></div><Button variant="quiet">Not today</Button></div>
+      <div slot="dont" style="display:flex;flex-direction:column;gap:8px;width:220px"><HoldButton block label="Hold to open" /><HoldButton block label="Hold to save" /></div>
+    </DoDont>
+    <Callout label="Rule">
+      <p>If undoing it would need a phone call, it needs a hold. Otherwise, it doesn’t.</p>
+    </Callout>
+  </Section>
+
+  <Section id="a11y" n="05" title="Accessibility">
+    <ul class="d-list">
+      <li><strong>Keyboard:</strong> hold Enter or Space. Key repeat is ignored, and releasing the key early cancels, exactly like a pointer.</li>
+      <li><strong>Announced:</strong> it carries an accessible description, “Press and hold to confirm”, and announces “Confirmed” through a polite live region.</li>
+      <li><strong>Reduced motion:</strong> the hold shortens to 380ms but never disappears. It is a safeguard against accidental bookings, not decoration.</li>
+      <li><strong>Pointer capture:</strong> sliding a finger off the button cancels, so a scroll can never confirm by accident.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="06" title="Props">
+    <PropsTable rows={[
+      { name: 'onConfirm', type: '() => void', description: 'Called once, 280ms after the hold completes.' },
+      { name: 'onChargeChange', type: '(charging: boolean) => void', description: 'Fires as the hold starts and stops, so a parent can charge its light.' },
+      { name: 'duration', type: 'number', default: '840', description: 'Milliseconds to hold. Change it only with a reason.' },
+      { name: 'label', type: 'string', default: "'Hold to confirm'", description: 'Resting label.' },
+      { name: 'holdingLabel', type: 'string', default: "'Keep holding'", description: 'Shown while charging.' },
+      { name: 'doneLabel', type: 'string', default: "'Confirmed'", description: 'Shown once confirmed, and announced.' },
+      { name: 'block', type: 'boolean', default: 'false', description: 'Fill the width of the container.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="07" title="Tokens">
+    <TokenTable paths={['duration.hold', 'easing.linear', 'easing.glide', 'color.bg.inverse', 'color.bg.raised-hover', 'color.border.strong', 'color.border.inverse']} />
+  </Section>
+
+  <Section id="code" n="08" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`import { HoldButton, Button } from './aurora';
+
+<div className="actions">
+  <HoldButton onConfirm={book} onChargeChange={setCharging} />
+  <Button variant="quiet" onClick={decline}>Not today</Button>
+</div>`} />
+  </Section>
+</Doc>
+<style is:global>
+  /* the anatomy shows the button mid-hold, so the fill and the blended label are visible */
+  .d-anatomy .au-hold__fill { transform: scaleX(0.46); }
+</style>

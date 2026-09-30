@@ -1,7 +1,7 @@
 .au-segmented {
   position: relative;
   display: flex;
-  border: var(--au-border-hairline) solid var(--au-border-hairline);
+  border: var(--au-stroke-hairline) solid var(--au-border-hairline);
   border-radius: var(--au-radius-none);
   isolation: isolate;
 }

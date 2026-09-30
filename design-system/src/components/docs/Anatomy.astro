@@ -1,49 +1,25 @@
 ---
 /**
- * Annotates a live specimen. Pins point at parts (numbered, explained in a legend).
- * Specs draw redlines with their measured value. Coordinates are in px from the
- * specimen's top-left, so the specimen should render at a fixed width.
+ * Annotates a live specimen. Pins and redlines are placed by measuring the real
+ * rendered parts (CSS selectors inside the specimen), so they are always exact,
+ * and measurement labels show the true rendered size.
+ *
+ * pins:  { sel, side: 'top'|'right'|'bottom'|'left', at?: 0..1 along the edge, dist?: px out }
+ * specs: { sel, dim: 'width'|'height'|'pad-top'|'pad-left'|'pad-right'|'pad-bottom', side?, label? }
+ *        or { from, to, axis: 'x'|'y', side? } for the gap between two parts.
  */
-interface Pin { n: number; x: number; y: number; bx: number; by: number }
-interface Spec { x1: number; y1: number; x2: number; y2: number; label: string; tx?: number; ty?: number }
+interface Pin { sel: string; side?: 'top' | 'right' | 'bottom' | 'left'; at?: number; dist?: number }
+interface Spec { sel?: string; dim?: string; from?: string; to?: string; axis?: 'x' | 'y'; side?: 'top' | 'right' | 'bottom' | 'left'; label?: string; offset?: number }
 interface Part { name: string; description: string; token?: string }
-interface Props { width: number; height: number; pins?: Pin[]; specs?: Spec[]; parts?: Part[]; caption?: string }
-const { width, height, pins = [], specs = [], parts = [], caption } = Astro.props;
-const tick = 4;
+interface Props { pins?: Pin[]; specs?: Spec[]; parts?: Part[]; caption?: string; width?: number; pad?: string; scale?: number }
+const { pins = [], specs = [], parts = [], caption, width, pad = '88px 56px', scale = 1 } = Astro.props;
+const config = JSON.stringify({ pins, specs, scale });
 ---
 <figure class="d-stage d-wide">
-  <div class="d-stage__canvas" style="padding: 72px 40px;">
-    <div class="d-anatomy" style={`width:${width}px;height:${height}px`}>
-      <slot />
-      <svg class="d-anatomy__svg" width={width} height={height} aria-hidden="true">
-        {pins.map((p) => (
-          <g>
-            <line x1={p.x} y1={p.y} x2={p.bx} y2={p.by} stroke="var(--au-text-primary)" stroke-width="1" opacity="0.55" />
-            <circle cx={p.x} cy={p.y} r="2.5" fill="var(--au-text-primary)" />
-          </g>
-        ))}
-        {specs.map((s) => {
-          const vertical = s.x1 === s.x2;
-          return (
-            <g stroke="var(--au-light-lo)" stroke-width="1">
-              <line x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} />
-              {vertical ? (
-                <>
-                  <line x1={s.x1 - tick} y1={s.y1} x2={s.x1 + tick} y2={s.y1} />
-                  <line x1={s.x2 - tick} y1={s.y2} x2={s.x2 + tick} y2={s.y2} />
-                </>
-              ) : (
-                <>
-                  <line x1={s.x1} y1={s.y1 - tick} x2={s.x1} y2={s.y1 + tick} />
-                  <line x1={s.x2} y1={s.y2 - tick} x2={s.x2} y2={s.y2 + tick} />
-                </>
-              )}
-            </g>
-          );
-        })}
-      </svg>
-      {pins.map((p) => <span class="d-pin" style={`left:${p.bx}px;top:${p.by}px`}>{p.n}</span>)}
-      {specs.map((s) => <span class="d-spec__tag" style={`left:${s.tx ?? (s.x1 + s.x2) / 2}px;top:${s.ty ?? (s.y1 + s.y2) / 2}px`}>{s.label}</span>)}
+  <div class="d-stage__canvas" style={`padding:${pad}`}>
+    <div class="d-anatomy" data-anatomy={config}>
+      <div class="d-anatomy__specimen" style={`${width ? `width:${width}px;` : ''}${scale !== 1 ? `zoom:${scale};` : ''}`}><slot /></div>
+      <svg class="d-anatomy__svg" aria-hidden="true"></svg>
     </div>
   </div>
   {caption && <figcaption class="d-stage__bar"><span class="d-stage__caption">{caption}</span></figcaption>}
@@ -62,3 +38,94 @@ const tick = 4;
     ))}
   </ol>
 )}
+<script>
+  type Side = 'top' | 'right' | 'bottom' | 'left';
+  const NS = 'http://www.w3.org/2000/svg';
+  const line = (svg: SVGSVGElement, x1: number, y1: number, x2: number, y2: number, stroke: string, opacity = 1) => {
+    const l = document.createElementNS(NS, 'line');
+    Object.entries({ x1, y1, x2, y2, stroke, 'stroke-width': 1, opacity, 'shape-rendering': 'crispEdges' }).forEach(([k, v]) => l.setAttribute(k, String(v)));
+    svg.append(l);
+  };
+  const draw = (root: HTMLElement) => {
+    const { pins = [], specs = [], scale = 1 } = JSON.parse(root.dataset.anatomy || '{}');
+    const svg = root.querySelector<SVGSVGElement>('.d-anatomy__svg')!;
+    root.querySelectorAll('.d-pin, .d-spec__tag').forEach((n) => n.remove());
+    svg.innerHTML = '';
+    const R = root.getBoundingClientRect();
+    svg.setAttribute('width', String(R.width));
+    svg.setAttribute('height', String(R.height));
+    const box = (sel: string) => {
+      const el = root.querySelector(sel);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { x: r.left - R.left, y: r.top - R.top, w: r.width, h: r.height, el };
+    };
+    const ink = 'var(--au-text-primary)', lite = 'var(--au-light-lo)';
+
+    pins.forEach((p: { sel: string; side?: Side; at?: number; dist?: number }, i: number) => {
+      const b = box(p.sel);
+      if (!b) return;
+      const side = p.side ?? 'top', at = p.at ?? 0.5, d = p.dist ?? 40;
+      let x = 0, y = 0, bx = 0, by = 0;
+      if (side === 'top') { x = b.x + b.w * at; y = b.y; bx = x; by = y - d; }
+      if (side === 'bottom') { x = b.x + b.w * at; y = b.y + b.h; bx = x; by = y + d; }
+      if (side === 'left') { x = b.x; y = b.y + b.h * at; bx = x - d; by = y; }
+      if (side === 'right') { x = b.x + b.w; y = b.y + b.h * at; bx = x + d; by = y; }
+      line(svg, x, y, bx, by, ink, 0.5);
+      const dot = document.createElementNS(NS, 'circle');
+      Object.entries({ cx: x, cy: y, r: 2.5, fill: ink }).forEach(([k, v]) => dot.setAttribute(k, String(v)));
+      svg.append(dot);
+      const pin = document.createElement('span');
+      pin.className = 'd-pin';
+      pin.textContent = String(i + 1);
+      pin.style.left = `${bx}px`; pin.style.top = `${by}px`;
+      root.append(pin);
+    });
+
+    const tag = (text: string, x: number, y: number) => {
+      const t = document.createElement('span');
+      t.className = 'd-spec__tag';
+      t.textContent = text;
+      t.style.left = `${x}px`; t.style.top = `${y}px`;
+      root.append(t);
+    };
+    const hSpec = (x1: number, x2: number, y: number, label: string) => {
+      line(svg, x1, y, x2, y, lite); line(svg, x1, y - 4, x1, y + 4, lite); line(svg, x2, y - 4, x2, y + 4, lite);
+      tag(label, (x1 + x2) / 2, y);
+    };
+    const vSpec = (y1: number, y2: number, x: number, label: string) => {
+      line(svg, x, y1, x, y2, lite); line(svg, x - 4, y1, x + 4, y1, lite); line(svg, x - 4, y2, x + 4, y2, lite);
+      tag(label, x, (y1 + y2) / 2);
+    };
+    const px = (n: number) => `${Math.round(n / scale)}`;
+    const ext = (x1: number, y1: number, x2: number, y2: number) => line(svg, x1, y1, x2, y2, lite, 0.35);
+
+    specs.forEach((s: { sel?: string; dim?: string; from?: string; to?: string; axis?: 'x' | 'y'; side?: Side; label?: string; offset?: number }) => {
+      const off = s.offset ?? 16;
+      if (s.from && s.to) {
+        const a = box(s.from), b = box(s.to);
+        if (!a || !b) return;
+        if (s.axis === 'x') { const x1 = a.x + a.w, x2 = b.x, y = (s.side === 'top' ? Math.min(a.y, b.y) - off : Math.max(a.y + a.h, b.y + b.h) + off); hSpec(x1, x2, y, s.label ?? px(x2 - x1)); }
+        else { const y1 = a.y + a.h, y2 = b.y, x = (s.side === 'left' ? Math.min(a.x, b.x) - off : Math.max(a.x + a.w, b.x + b.w) + off); vSpec(y1, y2, x, s.label ?? px(y2 - y1)); }
+        return;
+      }
+      const b = box(s.sel!);
+      if (!b) return;
+      const cs = getComputedStyle(b.el);
+      if (s.dim === 'width') hSpec(b.x, b.x + b.w, s.side === 'top' ? b.y - off : b.y + b.h + off, s.label ?? px(b.w));
+      if (s.dim === 'height') vSpec(b.y, b.y + b.h, s.side === 'left' ? b.x - off : b.x + b.w + off, s.label ?? px(b.h));
+      const below = b.y + b.h + off, leftX = b.x - off;
+      if (s.dim === 'pad-left') { const p = parseFloat(cs.paddingLeft) * scale; ext(b.x, b.y + b.h, b.x, below); ext(b.x + p, b.y + b.h / 2, b.x + p, below); hSpec(b.x, b.x + p, below, s.label ?? px(p)); }
+      if (s.dim === 'pad-right') { const p = parseFloat(cs.paddingRight) * scale; ext(b.x + b.w, b.y + b.h, b.x + b.w, below); ext(b.x + b.w - p, b.y + b.h / 2, b.x + b.w - p, below); hSpec(b.x + b.w - p, b.x + b.w, below, s.label ?? px(p)); }
+      if (s.dim === 'pad-top') { const p = parseFloat(cs.paddingTop) * scale; ext(b.x, b.y, leftX, b.y); ext(b.x + b.w / 2, b.y + p, leftX, b.y + p); vSpec(b.y, b.y + p, leftX, s.label ?? px(p)); }
+      if (s.dim === 'pad-bottom') { const p = parseFloat(cs.paddingBottom) * scale; ext(b.x, b.y + b.h, leftX, b.y + b.h); ext(b.x + b.w / 2, b.y + b.h - p, leftX, b.y + b.h - p); vSpec(b.y + b.h - p, b.y + b.h, leftX, s.label ?? px(p)); }
+    });
+  };
+  const all = () => document.querySelectorAll<HTMLElement>('[data-anatomy]').forEach(draw);
+  document.fonts?.ready.then(() => requestAnimationFrame(all));
+  window.addEventListener('load', all);
+  let t: number | undefined;
+  window.addEventListener('resize', () => { clearTimeout(t); t = window.setTimeout(all, 120); });
+  // hydrated specimens render after this script; redraw once they settle
+  setTimeout(all, 600);
+</script>

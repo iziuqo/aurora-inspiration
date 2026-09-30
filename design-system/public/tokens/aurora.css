@@ -59,8 +59,8 @@
   --au-radius-device: 38px;  /* Device frames only. */
   --au-radius-pill: 999px;  /* The ask bar and nothing else. */
 
-  /* primitive · border */
-  --au-border-hairline: 1px;
+  /* primitive · stroke */
+  --au-stroke-hairline: 1px;  /* The only stroke weight in the system. */
 
   /* primitive · easing */
   --au-ease-glide: cubic-bezier(0.32, 0.72, 0, 1);  /* Decelerates into place. Anything that moves or changes size. */

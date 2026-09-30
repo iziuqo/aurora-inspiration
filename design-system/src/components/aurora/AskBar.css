@@ -6,7 +6,7 @@
   padding: 13px 19px;
   overflow: hidden;
   background: var(--au-bg-raised);
-  border: var(--au-border-hairline) solid var(--au-border-hairline);
+  border: var(--au-stroke-hairline) solid var(--au-border-hairline);
   border-radius: var(--au-radius-pill);
   font-family: var(--au-font-sans);
   font-size: 13px;

@@ -1,5 +1,5 @@
 .au-tally { display: flex; flex-wrap: wrap; gap: var(--au-space-6); margin: 0; padding: 0; list-style: none; }
-.au-tally__item { position: relative; min-width: 74px; padding-top: 9px; border-top: var(--au-border-hairline) solid var(--au-border-strong); }
+.au-tally__item { position: relative; min-width: 74px; padding-top: 9px; border-top: var(--au-stroke-hairline) solid var(--au-border-strong); }
 .au-tally__n {
   font-family: var(--au-font-serif);
   font-size: 27px;

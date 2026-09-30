@@ -70,9 +70,9 @@
     "device": { "$value": "38px", "$description": "Device frames only." },
     "pill": { "$value": "999px", "$description": "The ask bar and nothing else." }
   },
-  "border": {
+  "stroke": {
     "$type": "dimension",
-    "hairline": { "$value": "1px" }
+    "hairline": { "$value": "1px", "$description": "The only stroke weight in the system." }
   },
   "easing": {
     "$type": "cubicBezier",

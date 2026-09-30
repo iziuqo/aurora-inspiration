@@ -474,11 +474,11 @@
           ]
         },
         {
-          "name": "border/hairline",
+          "name": "stroke/hairline",
           "type": "FLOAT",
           "value": 1,
           "alias": null,
-          "description": "",
+          "description": "The only stroke weight in the system.",
           "scopes": [
             "STROKE_FLOAT"
           ]

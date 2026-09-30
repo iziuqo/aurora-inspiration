@@ -288,10 +288,10 @@ export const tokens = {
       "cssVar": "--au-radius-pill"
     }
   },
-  "border": {
+  "stroke": {
     "hairline": {
       "value": "1px",
-      "cssVar": "--au-border-hairline"
+      "cssVar": "--au-stroke-hairline"
     }
   },
   "easing": {
@@ -964,13 +964,13 @@ export const tokenList = [
     "description": "The ask bar and nothing else."
   },
   {
-    "path": "border.hairline",
+    "path": "stroke.hairline",
     "layer": "primitive",
     "type": "dimension",
-    "cssVar": "--au-border-hairline",
+    "cssVar": "--au-stroke-hairline",
     "value": "1px",
     "alias": null,
-    "description": null
+    "description": "The only stroke weight in the system."
   },
   {
     "path": "easing.glide",

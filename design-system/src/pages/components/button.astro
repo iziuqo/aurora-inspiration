@@ -1,0 +1,122 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { Button } from '../../components/aurora/Button';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Button"
+  eyebrow="Components"
+  lead="Four intents at two sizes. Buttons are rare in Aurora: most commitments use the hold button, so a plain button is for proposing, declining, or navigating."
+  meta={componentMeta('Button', [{ label: 'Variants', value: '4' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Primary, secondary, quiet and critical at 46px">
+      <Button variant="primary">Get started</Button>
+      <Button variant="secondary">Open trace</Button>
+      <Button variant="quiet">Not today</Button>
+      <Button variant="critical">Cancel booking</Button>
+    </Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      pins={[
+        { sel: '.au-button', side: 'top', at: 0.1, dist: 40 },
+        { sel: '.au-button__label', side: 'top', at: 0.8, dist: 40 },
+      ]}
+      specs={[
+        { sel: '.au-button', dim: 'height', side: 'right', offset: 18 },
+        { sel: '.au-button', dim: 'pad-left', offset: 18 },
+        { sel: '.au-button', dim: 'width', side: 'bottom', offset: 52 },
+      ]}
+      parts={[
+        { name: 'Container', description: '46px tall, the minimum comfortable touch target. 4px radius, the control radius. 1px border so every variant has the same outer size.', token: '--au-radius-sm' },
+        { name: 'Label', description: '13px sans, semibold. Centred on the cap band, not the ink, so buttons side by side share one baseline.', token: 'font-size: 13px' },
+      ]}
+    >
+      <Button variant="secondary">Open trace</Button>
+    </Anatomy>
+  </Section>
+
+  <Section id="variants" n="03" title="Variants">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>Variant</th><th>Use for</th><th>Never for</th></tr></thead>
+        <tbody>
+          <tr><td class="d-mono">primary</td><td>The one forward action on a screen that isn’t a booking. Get started, Continue.</td><td>More than one per view.</td></tr>
+          <tr><td class="d-mono">secondary</td><td>Proposing or opening something. It has a visible edge because it’s an invitation.</td><td>Committing to anything that costs money or time. Use the hold button.</td></tr>
+          <tr><td class="d-mono">quiet</td><td>Declining, dismissing, going back. “Not today.”</td><td>The action you want people to take.</td></tr>
+          <tr><td class="d-mono">critical</td><td>Undoing a real commitment: cancelling a booking.</td><td>Warnings. Aurora explains, it doesn’t alarm.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="states" n="04" title="States and sizes">
+    <Stage caption="md, 46px · sm, 36px · disabled">
+      <Button variant="secondary">Medium</Button>
+      <Button variant="secondary" size="sm">Small</Button>
+      <Button variant="secondary" disabled>Unavailable</Button>
+    </Stage>
+    <p>Hover lifts the border or fill one step. Press scales to 98.5% over 220ms, then glides back. Focus draws the mint ring. Disabled drops to the disabled ink on a plain hairline, and keeps its size so nothing shifts around it.</p>
+  </Section>
+
+  <Section id="usage" n="05" title="Usage">
+    <DoDont
+      doText="Pair the commitment with a quiet way out. The quiet button is as tall as the hold, so the pair reads as one control."
+      dontText="Don’t line up several filled buttons. When everything asks for attention, nothing gets it."
+    >
+      <div slot="do" style="display:flex;gap:8px"><Button variant="secondary">Open trace</Button><Button variant="quiet">Not today</Button></div>
+      <div slot="dont" style="display:flex;gap:8px"><Button variant="primary">Book</Button><Button variant="primary">Save</Button><Button variant="primary">Share</Button></div>
+    </DoDont>
+  </Section>
+
+  <Section id="writing" n="06" title="Writing">
+    <ul class="d-list">
+      <li><strong>A verb, in sentence case.</strong> “Open trace”, not “Trace” or “OPEN TRACE”.</li>
+      <li><strong>Say what happens, not how it feels.</strong> “Cancel booking”, not “Oops, never mind”.</li>
+      <li><strong>Declines are gentle and final.</strong> “Not today” tells the system to stop asking.</li>
+    </ul>
+  </Section>
+
+  <Section id="a11y" n="07" title="Accessibility">
+    <ul class="d-list">
+      <li><strong>A real button element</strong>, with <code>type="button"</code> by default so it never submits a form by accident.</li>
+      <li><strong>Enter and Space</strong> activate it. Focus shows the mint ring, 3px out.</li>
+      <li><strong>Disabled buttons stay in the tab order</strong> only when you pair them with a reason; otherwise use <code>disabled</code> and explain nearby.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="08" title="Props">
+    <PropsTable rows={[
+      { name: 'variant', type: "'primary' | 'secondary' | 'quiet' | 'critical'", default: "'secondary'", description: 'The intent. See Variants.' },
+      { name: 'size', type: "'md' | 'sm'", default: "'md'", description: '46px for touch, 36px for dense desktop surfaces.' },
+      { name: 'block', type: 'boolean', default: 'false', description: 'Fill the width of the container.' },
+      { name: '...rest', type: 'ButtonHTMLAttributes', description: 'Any native button attribute, including onClick and disabled.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="09" title="Tokens">
+    <TokenTable paths={['color.bg.inverse', 'color.bg.inverse-hover', 'color.bg.raised-hover', 'color.border.strong', 'color.border.hairline', 'color.text.label', 'color.text.critical', 'radius.sm', 'color.light.focus']} />
+  </Section>
+
+  <Section id="code" n="10" title="Code">
+    <CodeBlock tabs={[
+      { label: 'React', lang: 'tsx', code: `import { Button } from './aurora';
+
+<Button variant="secondary" onClick={openTrace}>Open trace</Button>
+<Button variant="quiet" onClick={decline}>Not today</Button>` },
+      { label: 'HTML', lang: 'html', code: `<button class="au-button" data-variant="secondary" data-size="md" type="button">
+  <span class="au-button__label">Open trace</span>
+</button>` },
+    ]} />
+  </Section>
+</Doc>

@@ -8,7 +8,7 @@
   padding: 0 var(--au-space-5);
   overflow: hidden;
   border-radius: var(--au-radius-sm);
-  border: var(--au-border-hairline) solid var(--au-border-strong);
+  border: var(--au-stroke-hairline) solid var(--au-border-strong);
   background: var(--au-bg-raised-hover);
   font-family: var(--au-font-sans);
   font-size: 13px;

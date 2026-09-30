@@ -695,3 +695,4 @@
 .ld__beam { width: 100%; height: 1px; background: var(--au-light); opacity: 0.35; transition: opacity var(--au-dur-glide) var(--au-ease-soft), box-shadow var(--au-dur-glide) var(--au-ease-soft); }
 .ld__beam[data-charging] { opacity: 1; box-shadow: 0 0 18px 1px color-mix(in srgb, var(--au-light-lo) 45%, transparent); }
 @media (max-width: 900px) { .ld { grid-template-columns: 1fr; } }
+.d-anatomy__specimen { position: relative; }

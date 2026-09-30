@@ -78,3 +78,11 @@ export function neighbours(href: string) {
 
 export const REPO = 'https://github.com/iziuqo/aurora-inspiration/tree/main/design-system';
 export const FIGMA = ''; // filled in once the Figma library exists (M7)
+
+/** Header meta for a component page. */
+export const componentMeta = (file: string, extra: { label: string; value: string }[] = []) => [
+  { label: 'Status', value: 'Stable', dot: 'stable' as const },
+  ...extra,
+  { label: 'Source', value: `${file}.tsx`, href: `${REPO}/src/components/aurora/${file}.tsx` },
+  { label: 'Figma', value: 'Library', href: '/resources/figma' },
+];

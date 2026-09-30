@@ -1,0 +1,67 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { Label } from '../../components/aurora/Label';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Label"
+  eyebrow="Components"
+  lead="Uppercase, tracked metadata: where, when, what kind. Labels name things; they never say things. Anything Aurora says in a sentence belongs in the serif."
+  meta={componentMeta('Label', [{ label: 'Size', value: '10px · +20%' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="label, primary, secondary and faint">
+      <div style="display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+        <Label>London · Thursday 30 July</Label>
+        <Label tone="primary">Now</Label>
+        <Label tone="secondary">Aurora is holding</Label>
+        <Label tone="faint">Landed</Label>
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="trim" n="02" title="Edge trimming">
+    <p>Tracking adds space after the last letter, so a label aligned to a right edge falls short of it by the tracking amount. Set <code>trim</code> on any label that ends on an edge: it pulls the trailing space back so the last glyph meets the edge exactly.</p>
+    <Stage caption="Top: trim on. Bottom: trim off. The mint line is the edge.">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;width:300px;padding-right:0;border-right:1px solid var(--au-light-lo);zoom:1.6">
+        <Label trim>Aurora is holding</Label>
+        <Label>Aurora is holding</Label>
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="usage" n="03" title="Usage">
+    <DoDont
+      doText="Use labels for short metadata: a place and a date, a signal’s name, a column header."
+      dontText="Don’t write sentences in labels. Uppercase and tracking make anything longer than a few words hard to read."
+    >
+      <div slot="do"><Label>London · Thursday 30 July</Label></div>
+      <div slot="dont" style="max-width:240px"><Label>Aurora found two things worth doing here and judged neither worth it</Label></div>
+    </DoDont>
+  </Section>
+
+  <Section id="props" n="04" title="Props">
+    <PropsTable rows={[
+      { name: 'tone', type: "'label' | 'primary' | 'secondary' | 'faint'", default: "'label'", description: 'Primary for the one label that matters, like Now.' },
+      { name: 'trim', type: 'boolean', default: 'false', description: 'Trim trailing tracking for right-aligned or centred runs.' },
+      { name: 'as', type: 'ElementType', default: "'span'", description: 'Render as another element, like dt or cite.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="05" title="Tokens">
+    <TokenTable paths={['type.label', 'color.text.label', 'color.text.primary', 'color.text.tertiary', 'color.text.faint']} />
+  </Section>
+
+  <Section id="code" n="06" title="Code">
+    <CodeBlock tabs={[
+      { label: 'React', lang: 'tsx', code: `<Label>London · Thursday 30 July</Label>\n<Label trim>Aurora is holding</Label>` },
+      { label: 'HTML', lang: 'html', code: `<span class="au-label">London · Thursday 30 July</span>\n<span class="au-label" data-trim="true">Aurora is holding</span>` },
+    ]} />
+  </Section>
+</Doc>

@@ -1,0 +1,109 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Stage from '../../components/docs/Stage.astro';
+import Anatomy from '../../components/docs/Anatomy.astro';
+import DoDont from '../../components/docs/DoDont.astro';
+import PropsTable from '../../components/docs/PropsTable.astro';
+import TokenTable from '../../components/docs/TokenTable.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { Timeline, TimelineRow } from '../../components/aurora/Timeline';
+import { componentMeta } from '../../lib/nav';
+---
+<Doc
+  title="Timeline"
+  eyebrow="Components"
+  lead="A day, top to bottom. Committed time is printed grey and held together by hairlines, so the eye skips over it and lands on what is open. The timeline is the page; there is no feed."
+  meta={componentMeta('Timeline', [{ label: 'Row states', value: '4' }])}
+>
+  <Section id="overview" n="01" title="Overview">
+    <Stage caption="Past, present, upcoming and settled rows">
+      <div style="width:360px">
+        <Timeline>
+          <TimelineRow time="06.40" title="Landed, BA 286 from San Francisco" detail="Heathrow, Terminal 5" state="past" />
+          <TimelineRow time="09.30" title="Board meeting" detail="Berkeley Square" state="present" />
+          <TimelineRow time="11.00" title="Recovery, Surrenne" detail="Booked · car at 11.10" state="settled" />
+          <TimelineRow time="14.00" title="Fund review" detail="Call, 90 minutes" />
+        </Timeline>
+      </div>
+    </Stage>
+  </Section>
+
+  <Section id="anatomy" n="02" title="Anatomy">
+    <Anatomy
+      scale={2}
+      width={340}
+      pins={[
+        { sel: '.au-row', side: 'top', at: 0.98, dist: 40 },
+        { sel: '.au-row__time time', side: 'left', at: 0.5, dist: 40 },
+        { sel: '.au-row__now', side: 'left', at: 0.5, dist: 40 },
+        { sel: '.au-row__title', side: 'top', at: 0.18, dist: 40 },
+        { sel: '.au-row__detail', side: 'bottom', at: 0.18, dist: 40 },
+      ]}
+      parts={[
+        { name: 'Rule', description: 'Each row opens with a hairline. Rows are held together by these, not by boxes.', token: '--au-border-hairline' },
+        { name: 'Time', description: 'Figure style, tabular, set with a point: 09.30. Always in the 50px time column.', token: '.au-type-figure' },
+        { name: 'Now marker', description: 'Only on the present row. Bone at 60%, so it’s found but not shouted.', token: '--au-text-primary' },
+        { name: 'Title', description: 'What is happening. Secondary grey for committed time; bone when it is now or just booked.', token: '--au-text-secondary' },
+        { name: 'Detail', description: 'Where, or how long. Label grey.', token: '--au-text-label' },
+      ]}
+    >
+      <Timeline><TimelineRow time="09.30" title="Board meeting" detail="Berkeley Square" state="present" /></Timeline>
+    </Anatomy>
+  </Section>
+
+  <Section id="states" n="03" title="Row states">
+    <div class="d-table-wrap">
+      <table class="d-table">
+        <thead><tr><th>State</th><th>Look</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td class="d-mono">past</td><td>Everything drops to the disabled ink.</td><td>It already happened. It stays for context.</td></tr>
+          <tr><td class="d-mono">present</td><td>Bone title and a Now marker.</td><td>It is happening. Only one row at a time.</td></tr>
+          <tr><td class="d-mono">upcoming</td><td>Secondary title, label detail.</td><td>Committed and ahead. The default.</td></tr>
+          <tr><td class="d-mono">settled</td><td>Bone title, tertiary detail.</td><td>Aurora just booked it into a gap.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="usage" n="04" title="Usage">
+    <DoDont
+      doText="Keep rows to a title and one line of detail. The timeline is for scanning a day, not reading about it."
+      dontText="Don’t decorate committed time with icons, colour or cards. Grey is the point: it lets open time stand out."
+    >
+      <div slot="do" style="width:250px"><Timeline><TimelineRow time="14.00" title="Fund review" detail="Call, 90 minutes" /></Timeline></div>
+      <div slot="dont" style="width:250px;padding:12px 14px;border:1px solid var(--au-border-strong);border-radius:6px;background:var(--au-bg-raised)">
+        <div style="font-size:14px;color:var(--au-light-lo)">● Fund review</div>
+        <div style="font-size:12px;color:var(--au-text-tertiary);margin-top:2px">2:00 PM · Call, 90 minutes · Zoom link</div>
+      </div>
+    </DoDont>
+  </Section>
+
+  <Section id="a11y" n="05" title="Accessibility">
+    <ul class="d-list">
+      <li><strong>A list of items</strong>, so a screen reader announces how many entries the day holds.</li>
+      <li><strong>Times are time elements.</strong> “Now” is real text, not only a colour change.</li>
+    </ul>
+  </Section>
+
+  <Section id="props" n="06" title="Props">
+    <PropsTable rows={[
+      { name: 'time', type: 'string', required: true, description: 'Set with a point: 09.30.' },
+      { name: 'title', type: 'ReactNode', required: true, description: 'What is happening.' },
+      { name: 'detail', type: 'ReactNode', description: 'Where, or how long.' },
+      { name: 'state', type: "'upcoming' | 'past' | 'present' | 'settled'", default: "'upcoming'", description: 'See Row states.' },
+    ]} />
+  </Section>
+
+  <Section id="tokens" n="07" title="Tokens">
+    <TokenTable paths={['type.figure', 'color.text.secondary', 'color.text.label', 'color.text.disabled', 'color.border.hairline', 'space.4']} />
+  </Section>
+
+  <Section id="code" n="08" title="Code">
+    <CodeBlock lang="tsx" label="React" code={`<Timeline>
+  <TimelineRow time="06.40" title="Landed, BA 286" detail="Heathrow, Terminal 5" state="past" />
+  <TimelineRow time="09.30" title="Board meeting" detail="Berkeley Square" state="present" />
+  <TimelineRow time="14.00" title="Fund review" detail="Call, 90 minutes" />
+</Timeline>`} />
+  </Section>
+</Doc>
