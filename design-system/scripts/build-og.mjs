@@ -44,7 +44,7 @@ const css = `
   .og__title[data-long] { font-size: 64px; line-height: 1.1; letter-spacing: -0.02em; max-width: 22ch; }
   .og__title em { font-style: italic; color: var(--au-text-secondary); }
   .og__lead { margin: 26px 0 0; max-width: 60ch; font-size: 21px; line-height: 1.5; color: var(--au-text-secondary);
-              display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+}
   .og__rule { position: relative; height: 1px; margin-top: 52px; background: var(--au-border-hairline); }
   .og__rule::after { content: ''; position: absolute; top: 0; height: 1px; left: 32%; width: 26%;
                      background: linear-gradient(90deg, var(--au-light-lo), var(--au-light-hi)); }
@@ -77,6 +77,19 @@ async function draw(card) {
       </div>`;
   }, { card, css });
   await page.evaluate(() => document.fonts.ready);
+  // The lead gets two lines and is never cut mid-sentence: drop whole sentences from the end until it fits.
+  await page.evaluate(() => {
+    const lead = document.querySelector('.og__lead');
+    if (!lead) return;
+    const max = () => parseFloat(getComputedStyle(lead).lineHeight) * 2 + 1;
+    const sentences = lead.textContent.match(/[^.!?]+[.!?]+(\s|$)/g) ?? [lead.textContent];
+    while (sentences.length > 1 && lead.getBoundingClientRect().height > max()) {
+      sentences.pop();
+      lead.textContent = sentences.join('').trim();
+    }
+    let size = 21;
+    while (lead.getBoundingClientRect().height > max() && size > 16) lead.style.fontSize = `${--size}px`;
+  });
   await page.waitForTimeout(150);
   const file = join(out, card.file + '.png');
   mkdirSync(dirname(file), { recursive: true });
