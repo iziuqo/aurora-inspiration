@@ -45,7 +45,10 @@ npm run dev        # build tokens, then start the docs at localhost:4321/aurora/
 npm run build      # tokens + static site in dist/
 npm run check      # contrast and raw-colour checks
 npx astro check    # types
+npm run og         # redraw the Open Graph cards (needs the dev server running)
 ```
+
+Every docs page has its own 1200×630 Open Graph card in `public/og/`, drawn by `scripts/build-og.mjs` inside the running site so it uses the real tokens and fonts. `public/og/concept.png` is the card for the concept page at izaias.xyz/aurora. Redraw the cards after adding a page or changing a page's title or lead; a page without a card falls back to `public/og.png`.
 
 The docs deploy with the concept page, from the same Vercel project. `vercel.json` at the repository root runs `scripts/vercel-build.sh`, which puts the concept page at `/` and the docs at `/aurora/design`, so they are served at izaias.xyz/aurora/design. Astro's `base` is `/aurora/design`, so the dev server runs at `localhost:4321/aurora/design`, and every internal link goes through `url()` in `src/lib/nav.ts`.
 
