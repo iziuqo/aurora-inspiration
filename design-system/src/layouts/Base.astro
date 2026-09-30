@@ -2,11 +2,18 @@
 import '../styles/global.css';
 import '../styles/docs.css';
 import '../styles/thumbs.css';
-import { url } from '../lib/nav';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { url, route } from '../lib/nav';
 
 interface Props { title: string; description?: string }
 const { title, description = 'Aurora is a design system for calm, high-trust interfaces: black ground, hairline structure, and light only where something deserves attention.' } = Astro.props;
 const full = title === 'Aurora' ? 'Aurora Design System' : `${title} · Aurora Design System`;
+// Each page has its own card in public/og (scripts/build-og.mjs); the home page and any page without one use og.png.
+const path = route(Astro.url.pathname);
+const card = path !== '/' && existsSync(join(process.cwd(), 'public/og', `${path}.png`)) ? `/og${path}.png` : '/og.png';
+const canonical = new URL(url(path), Astro.site).href;
+const image = new URL(url(card), Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -16,10 +23,20 @@ const full = title === 'Aurora' ? 'Aurora Design System' : `${title} · Aurora D
     <title>{full}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#08090A" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aurora Design System" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={full} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(url('/og.png'), Astro.site).href} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${full}: ${description}`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={full} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
   </head>
   <body>
