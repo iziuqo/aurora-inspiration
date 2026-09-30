@@ -8,8 +8,8 @@ const [prim, sem] = figma.collections;
 const pages = [
   { name: 'Cover', what: 'The library at a glance, and how to use it.' },
   { name: 'Foundations', what: 'Colour ramps, type specimens, spacing, radius and the light, each drawn from variables.' },
-  { name: 'Components', what: 'Every component with its variants, properties and a short annotation beside it.' },
-  { name: 'Patterns', what: 'The hold sequence storyboard, leave it open, and the quiet day.' },
+  { name: 'Components', what: 'Every component with its variants and text properties, grouped into three sections: actions and structure, timeline and suggestion, content and states. Each has a description that shows up in the Assets panel.' },
+  { name: 'Patterns', what: 'The five-frame hold to confirm storyboard, leave it open, and the quiet day, all built from instances.' },
   { name: 'Showcase', what: 'The full day screen, assembled only from library instances.' },
 ];
 ---
@@ -35,7 +35,7 @@ const pages = [
         <tbody>
           <tr><td>Primitives</td><td class="d-mono">{prim.variables.length}</td><td>Night and stone ramps, the two lights, ember, space, radius, stroke, durations and weights.</td></tr>
           <tr><td>Semantic</td><td class="d-mono">{sem.variables.length}</td><td>Surfaces, borders, inks and light, each an alias of a primitive.</td></tr>
-          <tr><td>Text styles</td><td class="d-mono">{figma.textStyles.length}</td><td>One per type style, from display down to label.</td></tr>
+          <tr><td>Text styles</td><td class="d-mono">{figma.textStyles.length + 9}</td><td>{figma.textStyles.length} type styles, from display down to label, plus 9 component styles such as button labels, trace keys and the held line.</td></tr>
         </tbody>
       </table>
     </div>

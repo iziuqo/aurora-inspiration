@@ -77,7 +77,7 @@ export function neighbours(href: string) {
 }
 
 export const REPO = 'https://github.com/iziuqo/aurora-inspiration/tree/main/design-system';
-export const FIGMA = ''; // filled in once the Figma library exists (M7)
+export const FIGMA = 'https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System';
 
 /** Header meta for a component page. */
 export const componentMeta = (file: string, extra: { label: string; value: string }[] = []) => [
