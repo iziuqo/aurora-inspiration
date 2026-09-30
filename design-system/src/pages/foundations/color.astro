@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/nav';
 import Doc from '../../layouts/Doc.astro';
 import Section from '../../components/docs/Section.astro';
 import ColorRamp from '../../components/docs/ColorRamp.astro';
@@ -33,7 +34,7 @@ const inks = ['text.primary', 'text.secondary', 'text.tertiary', 'text.label', '
   </Section>
 
   <Section id="light" n="03" title="Light">
-    <p>Two colours, never used apart: mint where the light starts and violet where it ends. Together they are the aurora. They are covered in full on the <a href="/foundations/light">Light</a> page, because where they may appear is a rule, not a preference.</p>
+    <p>Two colours, never used apart: mint where the light starts and violet where it ends. Together they are the aurora. They are covered in full on the <a href={url('/foundations/light')}>Light</a> page, because where they may appear is a rule, not a preference.</p>
     <div class="d-wide" style="display:grid;grid-template-columns:1fr 1fr 2fr;gap:8px;margin-top:24px">
       <ColorRamp paths={['color.aurora.mint']} names={{ 'color.aurora.mint': 'Mint · lo' }} />
       <ColorRamp paths={['color.aurora.violet']} names={{ 'color.aurora.violet': 'Violet · hi' }} />

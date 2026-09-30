@@ -1,3 +1,19 @@
+/** The site's base path ('' at a root, '/aurora/design' in production). */
+export const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** Prefix a site-absolute path with the base. External and hash links pass through. */
+export const url = (p: string) => {
+  if (!p.startsWith('/')) return p;
+  const u = BASE + p;
+  return u.length > 1 ? u.replace(/\/$/, '') : u;
+};
+
+/** The inverse of url(): a request pathname back to the site-absolute path the nav uses. */
+export const route = (pathname: string) => {
+  const p = BASE && pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname;
+  return p.replace(/\/$/, '') || '/';
+};
+
 export interface NavItem {
   title: string;
   href: string;
@@ -84,5 +100,5 @@ export const componentMeta = (file: string, extra: { label: string; value: strin
   { label: 'Status', value: 'Stable', dot: 'stable' as const },
   ...extra,
   { label: 'Source', value: `${file}.tsx`, href: `${REPO}/src/components/aurora/${file}.tsx` },
-  { label: 'Figma', value: 'Library', href: '/resources/figma' },
+  { label: 'Figma', value: 'Library', href: url('/resources/figma') },
 ];

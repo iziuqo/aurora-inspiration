@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/docs.css';
 import '../styles/thumbs.css';
+import { url } from '../lib/nav';
 
 interface Props { title: string; description?: string }
 const { title, description = 'Aurora is a design system for calm, high-trust interfaces: black ground, hairline structure, and light only where something deserves attention.' } = Astro.props;
@@ -17,10 +18,9 @@ const full = title === 'Aurora' ? 'Aurora Design System' : `${title} · Aurora D
     <meta name="theme-color" content="#08090A" />
     <meta property="og:title" content={full} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL("/og.png", Astro.site).href} />
+    <meta property="og:image" content={new URL(url('/og.png'), Astro.site).href} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
   </head>
   <body>
     <slot />

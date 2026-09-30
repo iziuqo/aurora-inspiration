@@ -1,17 +1,17 @@
 ---
-import { neighbours } from '../../lib/nav';
+import { neighbours, url } from '../../lib/nav';
 interface Props { path: string }
 const { prev, next } = neighbours(Astro.props.path);
 ---
 <nav class="d-pager" aria-label="Pagination">
   {prev && (
-    <a class="d-pager__link" data-dir="prev" href={prev.href}>
+    <a class="d-pager__link" data-dir="prev" href={url(prev.href)}>
       <span class="au-label">Previous</span>
       <span class="d-pager__title">{prev.title}</span>
     </a>
   )}
   {next && (
-    <a class="d-pager__link" data-dir="next" href={next.href}>
+    <a class="d-pager__link" data-dir="next" href={url(next.href)}>
       <span class="au-label">Next</span>
       <span class="d-pager__title">{next.title}</span>
     </a>

@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/nav';
 import Doc from '../../layouts/Doc.astro';
 import Section from '../../components/docs/Section.astro';
 import Stage from '../../components/docs/Stage.astro';
@@ -34,7 +35,7 @@ import MorphDemo from '../../components/demos/MorphDemo';
     <Stage caption="The suggestion becomes the work Aurora is doing.">
       <MorphDemo client:visible />
     </Stage>
-    <p>Read the full pattern, including when not to morph, on <a href="/patterns/morph">Morph</a>.</p>
+    <p>Read the full pattern, including when not to morph, on <a href={url('/patterns/morph')}>Morph</a>.</p>
   </Section>
 
   <Section id="reduced" n="04" title="Reduced motion">

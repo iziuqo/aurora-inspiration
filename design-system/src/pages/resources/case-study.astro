@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/nav';
 import Doc from '../../layouts/Doc.astro';
 import Section from '../../components/docs/Section.astro';
 import Callout from '../../components/docs/Callout.astro';
@@ -48,7 +49,7 @@ const types = tokenList.filter((t) => t.type === 'typography').length;
 
   <Section id="principles" n="03" title="Principles before pixels">
     <p>
-      Six principles came out of the audit, and each one is enforceable. “Light is earned” limits the aurora gradient to four uses, and each is listed on the <a href="/foundations/light">Light</a> page. “Nothing overshoots” is why there are no spring curves. “Restraint is a feature” is why the empty day has its own
+      Six principles came out of the audit, and each one is enforceable. “Light is earned” limits the aurora gradient to four uses, and each is listed on the <a href={url('/foundations/light')}>Light</a> page. “Nothing overshoots” is why there are no spring curves. “Restraint is a feature” is why the empty day has its own
       pattern, and why a “No suggestions” message counts as a bug.
     </p>
     <Callout label="Why it matters">A principle that can’t settle an argument is a slogan. Every principle here has been used to reject something.</Callout>
@@ -89,7 +90,7 @@ const types = tokenList.filter((t) => t.type === 'typography').length;
 
   <Section id="pipeline" n="06" title="One source, three outputs">
     <p>
-      Tokens live in W3C-format JSON. One script writes the CSS the browser reads, the TypeScript the components import, and the variables the <a href="/resources/figma">Figma library</a> is built from. Design and code are generated from the same source, so they can’t drift apart.
+      Tokens live in W3C-format JSON. One script writes the CSS the browser reads, the TypeScript the components import, and the variables the <a href={url('/resources/figma')}>Figma library</a> is built from. Design and code are generated from the same source, so they can’t drift apart.
     </p>
   </Section>
 

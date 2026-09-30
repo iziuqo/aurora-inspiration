@@ -6,7 +6,7 @@ This design system was extracted from the [Aurora inspiration concept](https://i
 
 | | |
 |---|---|
-| **Docs site** | Build locally with `npm run build`, or deploy this folder to Vercel |
+| **Docs site** | [izaias.xyz/aurora/design](https://izaias.xyz/aurora/design) |
 | **Figma library** | [Aurora Design System](https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System) |
 | **Tokens** | 96, in W3C DTCG format under `tokens/` |
 | **Components** | 14 in React, each paired with a CSS file that uses tokens only |
@@ -41,13 +41,13 @@ Semantic tokens point at primitives, and components read only semantic tokens. T
 
 ```bash
 npm install
-npm run dev        # build tokens, then start the docs site
+npm run dev        # build tokens, then start the docs at localhost:4321/aurora/design
 npm run build      # tokens + static site in dist/
 npm run check      # contrast and raw-colour checks
 npx astro check    # types
 ```
 
-To deploy on Vercel, import this repository and set the root directory to `design-system`. The framework preset is Astro and the output directory is `dist`.
+The docs deploy with the concept page, from the same Vercel project. `vercel.json` at the repository root runs `scripts/vercel-build.sh`, which puts the concept page at `/` and the docs at `/aurora/design`, so they are served at izaias.xyz/aurora/design. Astro's `base` is `/aurora/design`, so the dev server runs at `localhost:4321/aurora/design`, and every internal link goes through `url()` in `src/lib/nav.ts`.
 
 To build a portable preview that works from any sub-path, run `PREVIEW=1 npx astro build && node scripts/export-preview.mjs`. The output goes to `dist-preview/`.
 

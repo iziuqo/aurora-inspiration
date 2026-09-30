@@ -1,5 +1,5 @@
 ---
-import { nav } from '../../lib/nav';
+import { nav, url } from '../../lib/nav';
 interface Props { path: string }
 const { path } = Astro.props;
 ---
@@ -10,7 +10,7 @@ const { path } = Astro.props;
       <ul class="d-side__list">
         {group.items.map((item) => (
           <li>
-            <a class="d-side__link" href={item.href} aria-current={item.href === path ? 'page' : undefined}>
+            <a class="d-side__link" href={url(item.href)} aria-current={item.href === path ? 'page' : undefined}>
               <span>{item.title}</span>
               {item.status === 'new' && <span class="d-badge">New</span>}
             </a>
