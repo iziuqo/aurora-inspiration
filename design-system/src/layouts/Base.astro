@@ -41,5 +41,22 @@ const image = new URL(url(card), Astro.site).href;
   </head>
   <body>
     <slot />
+    <script>
+      // Spotlight: hairlines marked data-spot catch the pointer. Fine pointers only.
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        let active: HTMLElement | null = null;
+        document.addEventListener('pointermove', (e) => {
+          const el = (e.target as Element | null)?.closest<HTMLElement>('[data-spot]') ?? null;
+          if (active && active !== el) active.style.setProperty('--spot', '0');
+          active = el;
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+          el.style.setProperty('--my', `${e.clientY - r.top}px`);
+          el.style.setProperty('--spot', '1');
+        }, { passive: true });
+        document.addEventListener('pointerleave', () => active?.style.setProperty('--spot', '0'));
+      }
+    </script>
   </body>
 </html>

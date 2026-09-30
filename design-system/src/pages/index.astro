@@ -17,6 +17,14 @@ const principles = [
 ];
 const foundations = nav.find((g) => g.title === 'Foundations')!.items;
 const components = nav.find((g) => g.title === 'Components')!.items;
+const featured = new Set(['/components/hold-button', '/components/suggestion-card']);
+const facts = [
+  { n: '4', k: 'Surfaces', d: 'A night ramp from ground to sunken. Depth is a change of surface.' },
+  { n: '1', k: 'Stroke weight', d: 'Every line in the system is a 1px hairline.' },
+  { n: '3', k: 'Curves', d: 'All decelerate. Nothing springs, nothing overshoots.' },
+  { n: '2', k: 'Colours of light', d: 'Mint where light starts, violet where it ends.' },
+  { n: '0', k: 'Shadows', d: 'Not one box-shadow does the work of structure.' },
+];
 const thumbFor: Record<string, string> = {
   '/foundations/color': 'color', '/foundations/typography': 'type', '/foundations/spacing': 'spacing', '/foundations/hairlines': 'hairlines',
   '/foundations/motion': 'motion', '/foundations/light': 'light', '/foundations/voice': 'voice', '/foundations/accessibility': 'a11y',
@@ -24,33 +32,61 @@ const thumbFor: Record<string, string> = {
 ---
 <Base title="Aurora">
   <TopBar path="/" />
-  <main class="h-wrap" id="main">
+  <main id="main">
     <section class="h-hero">
-      <div class="h-hero__copy">
-        <div class="h-eyebrow"><i aria-hidden="true"></i><span class="au-label">Aurora Design System · v0.1</span></div>
-        <h1 class="h-title">Interfaces that know when to stay <em>quiet.</em></h1>
-        <p class="h-lead">
-          Aurora is a design system for calm, high-trust products. A black ground, structure drawn in hairlines,
-          and light that appears only where something deserves your attention.
-        </p>
-        <div class="h-ctas">
-          <a class="au-button" data-variant="primary" data-size="md" href={url('/principles')}><span class="au-button__label">Read the principles</span></a>
-          <a class="au-button" data-variant="quiet" data-size="md" href={url('/components/button')}><span class="au-button__label">Browse components</span></a>
-        </div>
-        <dl class="h-note">
-          <div><dt class="h-note__n">{tokenList.length}</dt><dd class="h-note__k au-label">Tokens</dd></div>
-          <div><dt class="h-note__n">{components.length}</dt><dd class="h-note__k au-label">Components</dd></div>
-          <div><dt class="h-note__n">1</dt><dd class="h-note__k au-label">Source of truth</dd></div>
-        </dl>
+      <div class="h-sky" aria-hidden="true">
+        <i class="h-sky__glow" data-tone="lo"></i>
+        <i class="h-sky__glow" data-tone="hi"></i>
+        <i class="h-sky__grid"></i>
+        <i class="h-sky__grain"></i>
       </div>
-      <div class="h-proto">
-        <DayPrototype client:load />
-        <p class="h-proto__cap">Live, and built only from Aurora components. Open a suggestion, then hold to confirm. Push a card left to leave the hour open.</p>
+      <div class="h-wrap h-hero__inner">
+        <div class="h-hero__copy">
+          <a class="h-pill" href={url('/resources/figma')}>
+            <span class="h-pill__dot" aria-hidden="true"></span>
+            <span class="h-pill__text">v0.1 · Now with a Figma library</span>
+            <span class="h-pill__arrow" aria-hidden="true">→</span>
+          </a>
+          <h1 class="h-title">
+            <span class="h-title__line"><span>Interfaces that</span></span>
+            <span class="h-title__line"><span>know when to</span></span>
+            <span class="h-title__line"><span>stay <em>quiet.</em></span></span>
+          </h1>
+          <p class="h-lead">
+            Aurora is a design system for calm, high-trust products. A black ground, structure drawn in hairlines,
+            and light that appears only where something deserves your attention.
+          </p>
+          <div class="h-ctas">
+            <a class="au-button" data-variant="primary" data-size="md" href={url('/principles')}><span class="au-button__label">Read the principles</span></a>
+            <a class="au-button" data-variant="quiet" data-size="md" href={url('/components/button')}><span class="au-button__label">Browse components</span></a>
+          </div>
+          <dl class="h-note">
+            <div><dt class="h-note__n">{tokenList.length}</dt><dd class="h-note__k au-label">Tokens</dd></div>
+            <div><dt class="h-note__n">{components.length}</dt><dd class="h-note__k au-label">Components</dd></div>
+            <div><dt class="h-note__n">1</dt><dd class="h-note__k au-label">Source of truth</dd></div>
+          </dl>
+        </div>
+        <div class="h-stage">
+          <div class="h-stage__tag"><span class="h-stage__live" aria-hidden="true"></span><span class="au-label">Live prototype</span></div>
+          <div class="h-stage__device"><DayPrototype client:load /></div>
+          <p class="h-stage__cap">Built only from Aurora components. Open a suggestion, then hold to confirm. Push a card left to leave the hour open.</p>
+        </div>
       </div>
     </section>
 
-    <div class="h-horizon" aria-hidden="true"><span class="h-horizon__beam"></span></div>
+    <div class="h-horizon" aria-hidden="true"></div>
 
+    <section class="h-wrap h-facts" aria-label="The system at a glance">
+      {facts.map((f) => (
+        <div class="h-fact">
+          <span class="h-fact__n">{f.n}</span>
+          <span class="h-fact__k au-label">{f.k}</span>
+          <p class="h-fact__d">{f.d}</p>
+        </div>
+      ))}
+    </section>
+
+    <div class="h-wrap">
     <section class="h-section" aria-labelledby="principles">
       <header class="h-section__head">
         <span class="h-section__label au-label">Principles</span>
@@ -80,10 +116,10 @@ const thumbFor: Record<string, string> = {
       </header>
       <div class="h-grid">
         {foundations.map((f) => (
-          <a class="d-card" href={url(f.href)}>
+          <a class="d-card" href={url(f.href)} data-spot>
             <div class="d-card__thumb"><Thumb name={thumbFor[f.href]} /></div>
             <div class="d-card__body">
-              <div class="d-card__title">{f.title}</div>
+              <div class="d-card__row"><span class="d-card__title">{f.title}</span><span class="d-card__go" aria-hidden="true">→</span></div>
               <p class="d-card__text">{f.summary}</p>
             </div>
           </a>
@@ -101,10 +137,10 @@ const thumbFor: Record<string, string> = {
       </header>
       <div class="h-grid">
         {components.map((c) => (
-          <a class="d-card" href={url(c.href)}>
+          <a class="d-card" href={url(c.href)} data-spot data-wide={featured.has(c.href) ? 'true' : undefined}>
             <div class="d-card__thumb"><Thumb name={c.href.split('/').pop()!} /></div>
             <div class="d-card__body">
-              <div class="d-card__title">{c.title}</div>
+              <div class="d-card__row"><span class="d-card__title">{c.title}</span><span class="d-card__go" aria-hidden="true">→</span></div>
               <p class="d-card__text">{c.summary}</p>
             </div>
           </a>
@@ -122,36 +158,46 @@ const thumbFor: Record<string, string> = {
       </header>
       <div class="h-section__body h-pipe">
         <div class="h-pipe__col">
-          <div class="h-node" data-source>
+          <div class="h-node" data-source data-spot>
+            <span class="au-label">Source</span>
             <div class="h-node__name"><code>tokens/*.json</code></div>
             <div class="h-node__desc">The source of truth, in the W3C design tokens format. Primitives, then semantic names that point at them.</div>
           </div>
         </div>
-        <span class="h-link" aria-hidden="true"></span>
+        <span class="h-link" aria-hidden="true"><i></i></span>
         <div class="h-pipe__col">
-          <div class="h-node"><div class="h-node__name"><code>aurora.css</code></div><div class="h-node__desc">Custom properties</div></div>
-          <div class="h-node"><div class="h-node__name"><code>tokens.ts</code></div><div class="h-node__desc">Typed values</div></div>
-          <div class="h-node"><div class="h-node__name"><code>figma-variables.json</code></div><div class="h-node__desc">Collections and aliases</div></div>
+          <div class="h-node" data-spot><div class="h-node__name"><code>aurora.css</code></div><div class="h-node__desc">Custom properties</div></div>
+          <div class="h-node" data-spot><div class="h-node__name"><code>tokens.ts</code></div><div class="h-node__desc">Typed values</div></div>
+          <div class="h-node" data-spot><div class="h-node__name"><code>figma-variables.json</code></div><div class="h-node__desc">Collections and aliases</div></div>
         </div>
-        <span class="h-link" aria-hidden="true"></span>
+        <span class="h-link" aria-hidden="true"><i></i></span>
         <div class="h-pipe__col">
-          <div class="h-node"><div class="h-node__name">Components</div><div class="h-node__desc">React and CSS, token-only</div></div>
-          <div class="h-node"><div class="h-node__name">This site</div><div class="h-node__desc">Built on what it documents</div></div>
-          <div class="h-node"><div class="h-node__name">Figma library</div><div class="h-node__desc">Variables, styles, components</div></div>
+          <div class="h-node" data-spot><div class="h-node__name">Components</div><div class="h-node__desc">React and CSS, token-only</div></div>
+          <div class="h-node" data-spot><div class="h-node__name">This site</div><div class="h-node__desc">Built on what it documents</div></div>
+          <div class="h-node" data-spot><div class="h-node__name">Figma library</div><div class="h-node__desc">Variables, styles, components</div></div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <section class="h-close">
+      <div class="h-close__glow" aria-hidden="true"></div>
+      <div class="h-wrap h-close__inner">
+        <span class="au-label">Start here</span>
+        <h2 class="h-close__title">Start with the principles. The rest follows from them.</h2>
+        <div class="h-ctas">
+          <a class="au-button" data-variant="primary" data-size="md" href={url('/getting-started')}><span class="au-button__label">Get started</span></a>
+          <a class="au-button" data-variant="quiet" data-size="md" href={url('/resources/case-study')}><span class="au-button__label">Read the case study</span></a>
         </div>
       </div>
     </section>
 
-    <section class="h-close">
-      <h2 class="h-close__title">Start with the principles. The rest follows from them.</h2>
-      <div class="h-ctas" style="margin-top:0">
-        <a class="au-button" data-variant="primary" data-size="md" href={url('/getting-started')}><span class="au-button__label">Get started</span></a>
-        <a class="au-button" data-variant="quiet" data-size="md" href={url('/resources/case-study')}><span class="au-button__label">Read the case study</span></a>
-      </div>
-    </section>
     <footer class="h-footer">
-      <span>Aurora Design System · v0.1 · <a href={REPO}>Source</a></span>
-      <span>Built from the <a href="https://izaias.xyz/aurora">Aurora inspiration concept</a> by Izaias Cavalcanti</span>
+      <div class="h-wrap h-footer__row">
+        <span>Aurora Design System · v0.1 · <a href={REPO}>Source</a> · <a href={url('/resources/figma')}>Figma</a></span>
+        <span>Built from the <a href="https://izaias.xyz/aurora">Aurora inspiration concept</a> by Izaias Cavalcanti</span>
+      </div>
+      <div class="h-wordmark" aria-hidden="true">Aurora</div>
     </footer>
   </main>
 </Base>

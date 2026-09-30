@@ -5,13 +5,13 @@ const { prev, next } = neighbours(Astro.props.path);
 ---
 <nav class="d-pager" aria-label="Pagination">
   {prev && (
-    <a class="d-pager__link" data-dir="prev" href={url(prev.href)}>
+    <a class="d-pager__link" data-dir="prev" data-spot href={url(prev.href)}>
       <span class="au-label">Previous</span>
       <span class="d-pager__title">{prev.title}</span>
     </a>
   )}
   {next && (
-    <a class="d-pager__link" data-dir="next" href={url(next.href)}>
+    <a class="d-pager__link" data-dir="next" data-spot href={url(next.href)}>
       <span class="au-label">Next</span>
       <span class="d-pager__title">{next.title}</span>
     </a>
