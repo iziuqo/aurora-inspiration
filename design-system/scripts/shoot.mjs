@@ -8,7 +8,7 @@ const full = args.includes('--full');
 const sel = args.find((a) => a.startsWith('--sel='))?.slice(6);
 const base = process.env.BASE ?? 'http://localhost:4321';
 mkdirSync('shots', { recursive: true });
-const browser = await chromium.launch({ executablePath: process.env.CHROME ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {});
 for (const w of widths) {
   const page = await browser.newPage({ viewport: { width: w, height: w < 600 ? 844 : 900 }, deviceScaleFactor: 1 });
   page.on('console', (m) => { if (m.type() === 'error') console.log('console error', m.text()); });

@@ -790,6 +790,118 @@
           },
           "alias": "aurora/mint",
           "description": "Focus rings and selection."
+        },
+        {
+          "name": "sky/night/hour",
+          "type": "FLOAT",
+          "value": 0,
+          "alias": null,
+          "description": "Midnight to first light. Faint, high, mostly violet."
+        },
+        {
+          "name": "sky/night/intensity",
+          "type": "FLOAT",
+          "value": 0.34,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/night/height",
+          "type": "FLOAT",
+          "value": 0.66,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/night/mint",
+          "type": "FLOAT",
+          "value": 0.22,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/dawn/hour",
+          "type": "FLOAT",
+          "value": 6.5,
+          "alias": null,
+          "description": "First light. Low on the horizon, mostly mint."
+        },
+        {
+          "name": "sky/dawn/intensity",
+          "type": "FLOAT",
+          "value": 0.62,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/dawn/height",
+          "type": "FLOAT",
+          "value": 0.3,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/dawn/mint",
+          "type": "FLOAT",
+          "value": 0.86,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/day/hour",
+          "type": "FLOAT",
+          "value": 13,
+          "alias": null,
+          "description": "The open middle of the day. The brightest the sky gets."
+        },
+        {
+          "name": "sky/day/intensity",
+          "type": "FLOAT",
+          "value": 0.78,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/day/height",
+          "type": "FLOAT",
+          "value": 0.5,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/day/mint",
+          "type": "FLOAT",
+          "value": 0.6,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/dusk/hour",
+          "type": "FLOAT",
+          "value": 19,
+          "alias": null,
+          "description": "The evening is yours. Low again, leaning violet."
+        },
+        {
+          "name": "sky/dusk/intensity",
+          "type": "FLOAT",
+          "value": 0.7,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/dusk/height",
+          "type": "FLOAT",
+          "value": 0.38,
+          "alias": null,
+          "description": ""
+        },
+        {
+          "name": "sky/dusk/mint",
+          "type": "FLOAT",
+          "value": 0.3,
+          "alias": null,
+          "description": ""
         }
       ]
     }

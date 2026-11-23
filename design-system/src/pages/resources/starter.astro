@@ -1,0 +1,96 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Callout from '../../components/docs/Callout.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import { url, FIGMA_COMMUNITY } from '../../lib/nav';
+const skies = [
+  { k: 'first-light', name: 'First light', at: '06.30' },
+  { k: 'open-day', name: 'The open day', at: '13.00' },
+  { k: 'evening', name: 'The evening', at: '19.00' },
+  { k: 'night', name: 'Night', at: '00.30' },
+];
+const site = 'https://izaias.xyz/aurora/design';
+const shareText = 'Aurora, an open-source dark design system with a sky that follows your local time. Free Figma file, tokens and code.';
+const share = {
+  x: `https://x.com/intent/post?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(site)}`,
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(site)}`,
+};
+const css = `<link rel="stylesheet" href="${site}/tokens/aurora.css">
+
+.card {
+  background: var(--au-bg-raised);
+  border: 1px solid var(--au-border-hairline);
+  color: var(--au-text-primary);
+}`;
+---
+<Doc
+  title="Starter kit"
+  eyebrow="Resources"
+  lead="Everything you need to start with Aurora, free. Duplicate the Figma file, take the tokens into code, and keep the four skies as wallpapers."
+  meta={[{ label: 'Price', value: 'Free' }, { label: 'Licence', value: 'MIT' }, { label: 'Figma', value: 'Community file', href: FIGMA_COMMUNITY }]}
+>
+  <Section id="figma" n="01" title="Duplicate the Figma file">
+    <p>The library opens on a <em>Start here</em> page: a blank day screen built only from instances, ready to edit. Variables, text styles and components arrive with it, named exactly as the code names them.</p>
+    <div class="st-actions">
+      <a class="au-button" data-variant="primary" data-size="md" href={FIGMA_COMMUNITY}><span class="au-button__label">Open in Figma Community</span></a>
+      <a class="au-button" data-variant="quiet" data-size="md" href={url('/resources/figma')}><span class="au-button__label">What’s in the file</span></a>
+    </div>
+  </Section>
+
+  <Section id="wallpapers" n="02" title="Four skies, as wallpapers">
+    <p>The Daylight moods, rendered from the same shader that paints this site. 4K for desktop, and sized for phone lock screens.</p>
+    <ul class="st-walls d-wide">
+      {skies.map((s) => (
+        <li class="st-wall">
+          <img src={url(`/wallpapers/aurora-${s.k}-desktop.jpg`)} alt="" loading="lazy" width="3840" height="2160" />
+          <div class="st-wall__row">
+            <span class="st-wall__name">{s.name}<span class="st-wall__at">{s.at}</span></span>
+            <span class="st-wall__links">
+              <a href={url(`/wallpapers/aurora-${s.k}-desktop.jpg`)} download>Desktop</a>
+              <a href={url(`/wallpapers/aurora-${s.k}-phone.jpg`)} download>Phone</a>
+            </span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section id="tokens" n="03" title="Take the tokens">
+    <p>One stylesheet carries every token as a custom property. Or download the <a href={url('/tokens/aurora.tokens.json')}>DTCG JSON</a> and build your own.</p>
+    <CodeBlock code={css} lang="css" />
+  </Section>
+
+  <Section id="share" n="04" title="If it helped">
+    <p>Aurora is made by one designer and given away. If it saved you an afternoon, the kindest things you can do are small: like the Figma file, leave a comment saying what you built, or pass it to one person who would use it.</p>
+    <div class="st-actions">
+      <a class="au-button" data-variant="quiet" data-size="md" href={FIGMA_COMMUNITY}><span class="au-button__label">Like it on Figma</span></a>
+      <a class="au-button" data-variant="quiet" data-size="md" href={share.x}><span class="au-button__label">Share on X</span></a>
+      <a class="au-button" data-variant="quiet" data-size="md" href={share.linkedin}><span class="au-button__label">Share on LinkedIn</span></a>
+      <button class="au-button" data-variant="quiet" data-size="md" type="button" data-copy={site}><span class="au-button__label" data-copy-label>Copy link</span></button>
+    </div>
+    <Callout label="Credit">Designed by <a href="https://www.linkedin.com/in/izaias/">Izaias Cavalcanti</a>, currently open to new work.</Callout>
+  </Section>
+</Doc>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    const label = b.querySelector('[data-copy-label]')!;
+    try { await navigator.clipboard.writeText(b.dataset.copy!); label.textContent = 'Link copied'; } catch { label.textContent = b.dataset.copy!; }
+    setTimeout(() => (label.textContent = 'Copy link'), 2400);
+  }));
+</script>
+
+<style>
+  .st-actions { display: flex; flex-wrap: wrap; gap: var(--au-space-3); margin-top: var(--au-space-6); }
+  .st-walls { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--au-space-5); margin-top: var(--au-space-8); }
+  .st-wall img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--au-border-hairline); border-radius: var(--au-radius-lg); transition: border-color var(--au-dur-base) var(--au-ease-soft); }
+  .st-wall:hover img { border-color: var(--au-border-strong); }
+  .st-wall__row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--au-space-4); margin-top: var(--au-space-3); }
+  .st-wall__name { font-family: var(--au-font-serif); font-size: 19px; color: var(--au-text-primary); }
+  .st-wall__at { margin-left: 10px; font-family: var(--au-font-mono); font-size: 11px; color: var(--au-text-label); }
+  .st-wall__links { display: flex; gap: var(--au-space-4); font-size: 13px; }
+  .st-wall__links a { color: var(--au-text-tertiary); text-decoration: none; border-bottom: 1px solid var(--au-border-strong); transition: color var(--au-dur-base) var(--au-ease-soft); }
+  .st-wall__links a:hover { color: var(--au-text-primary); }
+  @media (max-width: 640px) { .st-walls { grid-template-columns: 1fr; } }
+</style>

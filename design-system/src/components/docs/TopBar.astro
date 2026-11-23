@@ -26,7 +26,7 @@ const links = [
     {links.map((l) => <a class="d-top__link" href={url(l.href)} aria-current={section(l.match) ? 'page' : undefined}>{l.title}</a>)}
   </nav>
   <SearchPalette client:load pages={flatNav.map(({ title, href, summary, group }) => ({ title, href: url(href), summary, group }))} />
-  <span class="d-version">v0.1</span>
+  <span class="d-version">1.0</span>
 </header>
 <script>
   // Mobile navigation: the sidebar becomes a drawer. Closes on Escape, on choosing a link,

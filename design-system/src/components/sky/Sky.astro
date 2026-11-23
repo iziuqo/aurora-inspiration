@@ -1,0 +1,46 @@
+---
+// Daylight sky. Paints the aurora for the reader's local hour; any element can move it
+// by dispatching `aurora:hour` on window with { hour } (see the Daylight scrubber).
+interface Props { strength?: number; seed?: number; class?: string; still?: boolean; hour?: number }
+const { strength = 1, seed = 0.37, class: cls = '', still = false, hour } = Astro.props;
+---
+<div class:list={['au-sky', cls]} aria-hidden="true" data-strength={strength} data-seed={seed} data-still={still ? 'true' : undefined} data-hour={hour}>
+  <canvas class="au-sky__canvas"></canvas>
+  <i class="au-sky__fallback"></i>
+  <i class="au-sky__grain"></i>
+</div>
+
+<script>
+  import { paintSky, localHour } from '../../lib/sky';
+  type Ctl = NonNullable<ReturnType<typeof paintSky>>;
+  const skies: Ctl[] = [];
+  document.querySelectorAll<HTMLElement>('.au-sky').forEach((el) => {
+    const canvas = el.querySelector('canvas')!;
+    const ctl = paintSky(canvas, { strength: Number(el.dataset.strength ?? 1), seed: Number(el.dataset.seed ?? 0.37), still: el.dataset.still === 'true' });
+    if (!ctl) { el.dataset.fallback = 'true'; return; }
+    if (el.dataset.hour) ctl.setHour(Number(el.dataset.hour), true);
+    else skies.push(ctl);
+  });
+  let pinned = false;
+  window.addEventListener('aurora:hour', (e) => {
+    const { hour, instant } = (e as CustomEvent<{ hour: number; instant?: boolean }>).detail;
+    pinned = true;
+    skies.forEach((s) => s.setHour(hour, instant));
+  });
+  // The real sky moves too: check the clock once a minute unless a reader has taken the dial.
+  setInterval(() => { if (!pinned) skies.forEach((s) => s.setHour(localHour())); }, 60_000);
+</script>
+
+<style>
+  .au-sky { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .au-sky__canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 2400ms var(--au-ease-soft); filter: saturate(1.05); }
+  .au-sky__canvas[data-ready] { opacity: 1; }
+  .au-sky__fallback { position: absolute; inset: 0; opacity: 0; background:
+    radial-gradient(60% 50% at 70% 70%, color-mix(in srgb, var(--au-light-lo) 9%, transparent), transparent),
+    radial-gradient(50% 40% at 30% 55%, color-mix(in srgb, var(--au-light-hi) 7%, transparent), transparent); }
+  .au-sky[data-fallback] .au-sky__fallback { opacity: 1; }
+  .au-sky__grain {
+    position: absolute; inset: 0; opacity: 0.04; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>

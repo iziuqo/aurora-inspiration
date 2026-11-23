@@ -49,3 +49,22 @@ a { color: inherit; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Movement between pages. Cross-document view transitions: the chrome stays put,
+   the page settles in like the rest of Aurora, on a decelerating curve.
+--------------------------------------------------------------------------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 280ms var(--au-ease-soft) both au-vt-out; }
+::view-transition-new(root) { animation: 620ms 60ms var(--au-ease-out) both au-vt-in; }
+@keyframes au-vt-out { to { opacity: 0; } }
+@keyframes au-vt-in { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+
+/* Reveal on scroll, driven by the scroll itself where the browser can. No script, no layout shift. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .au-reveal { animation: au-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    @keyframes au-reveal { from { opacity: 0; transform: translate3d(0, 18px, 0); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+  }
+}

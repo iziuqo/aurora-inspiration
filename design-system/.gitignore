@@ -4,3 +4,4 @@ dist
 .vercel
 shots
 dist-preview
+*.local.mjs

@@ -41,6 +41,7 @@ export const nav: NavGroup[] = [
       { title: 'Hairlines and radius', href: '/foundations/hairlines', summary: 'Structure from 1px rules, never from shadows.' },
       { title: 'Motion', href: '/foundations/motion', summary: 'Three curves, one rule: nothing overshoots.' },
       { title: 'Light', href: '/foundations/light', summary: 'The aurora gradient, and the only places it may appear.' },
+      { title: 'Daylight', href: '/foundations/daylight', summary: 'A sky that keeps the reader’s hours: four moods, blended by local time.', status: 'new' },
       { title: 'Voice and writing', href: '/foundations/voice', summary: 'How Aurora speaks: the reason first, specific, never urgent.' },
       { title: 'Accessibility', href: '/foundations/accessibility', summary: 'Contrast, keyboard, reduced motion and screen readers.' },
     ],
@@ -77,6 +78,7 @@ export const nav: NavGroup[] = [
   {
     title: 'Resources',
     items: [
+      { title: 'Starter kit', href: '/resources/starter', summary: 'Duplicate the Figma file, take the tokens, and four skies as wallpapers.', status: 'new' },
       { title: 'Tokens', href: '/resources/tokens', summary: 'Every token, its value and its CSS variable. Download as CSS or JSON.' },
       { title: 'Figma library', href: '/resources/figma', summary: 'Variables, text styles and components, mirrored from code.' },
       { title: 'Case study', href: '/resources/case-study', summary: 'How the system was extracted, decided and built.' },
@@ -93,7 +95,9 @@ export function neighbours(href: string) {
 }
 
 export const REPO = 'https://github.com/iziuqo/aurora-inspiration/tree/main/design-system';
-export const FIGMA = 'https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System';
+export const FIGMA = 'https://www.figma.com/community/file/1687113018428359308';
+/** The public Community listing: the one place to duplicate, like and comment. */
+export const FIGMA_COMMUNITY = FIGMA;
 
 /** Header meta for a component page. */
 export const componentMeta = (file: string, extra: { label: string; value: string }[] = []) => [

@@ -716,5 +716,83 @@
       },
       "$description": "A box changing into another box."
     }
+  },
+  "sky": {
+    "night": {
+      "hour": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "Midnight to first light. Faint, high, mostly violet."
+      },
+      "intensity": {
+        "$type": "number",
+        "$value": 0.34
+      },
+      "height": {
+        "$type": "number",
+        "$value": 0.66
+      },
+      "mint": {
+        "$type": "number",
+        "$value": 0.22
+      }
+    },
+    "dawn": {
+      "hour": {
+        "$type": "number",
+        "$value": 6.5,
+        "$description": "First light. Low on the horizon, mostly mint."
+      },
+      "intensity": {
+        "$type": "number",
+        "$value": 0.62
+      },
+      "height": {
+        "$type": "number",
+        "$value": 0.3
+      },
+      "mint": {
+        "$type": "number",
+        "$value": 0.86
+      }
+    },
+    "day": {
+      "hour": {
+        "$type": "number",
+        "$value": 13,
+        "$description": "The open middle of the day. The brightest the sky gets."
+      },
+      "intensity": {
+        "$type": "number",
+        "$value": 0.78
+      },
+      "height": {
+        "$type": "number",
+        "$value": 0.5
+      },
+      "mint": {
+        "$type": "number",
+        "$value": 0.6
+      }
+    },
+    "dusk": {
+      "hour": {
+        "$type": "number",
+        "$value": 19,
+        "$description": "The evening is yours. Low again, leaning violet."
+      },
+      "intensity": {
+        "$type": "number",
+        "$value": 0.7
+      },
+      "height": {
+        "$type": "number",
+        "$value": 0.38
+      },
+      "mint": {
+        "$type": "number",
+        "$value": 0.3
+      }
+    }
   }
 }

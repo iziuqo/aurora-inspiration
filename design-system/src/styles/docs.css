@@ -181,12 +181,13 @@ body[data-menu='open'] .d-menu__icon i:last-child { top: 3.5px; transform: rotat
   max-width: 16ch;
 }
 .d-head { position: relative; isolation: isolate; }
-.d-head::before {
-  /* first light: a low glow behind the title, the only colour in the page chrome */
-  content: ''; position: absolute; z-index: -1; pointer-events: none;
-  left: -160px; top: -200px; width: 720px; height: 420px; border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--au-stone-50) 3%, transparent), transparent);
-  filter: blur(20px);
+.d-head__sky {
+  /* Daylight, quietly: the same sky as the home page, set low behind the title */
+  position: absolute; z-index: -1; pointer-events: none;
+  left: calc(-1 * var(--d-pad)); right: calc(-1 * var(--d-pad)); top: calc(-1 * var(--au-space-16)); height: 440px;
+  -webkit-mask-image: radial-gradient(ellipse 50% 58% at 42% 36%, #000 30%, transparent 100%); /* token-exempt: mask alpha */
+  mask-image: radial-gradient(ellipse 50% 58% at 42% 36%, #000 30%, transparent 100%); /* token-exempt: mask alpha */
+  opacity: 0.85;
 }
 .d-head::after {
   content: ''; position: absolute; left: 0; bottom: -1px; width: 48px; height: 1px;

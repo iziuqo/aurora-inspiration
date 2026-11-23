@@ -149,6 +149,7 @@ const figmaVar = (t) => {
   if (t.type === 'color') return { name, type: 'COLOR', value: hexToRgb(t.resolved), alias: t.alias ? t.alias.split('.').slice(1).join('/') : null, description: t.description ?? '' };
   if (t.type === 'dimension') return { name, type: 'FLOAT', value: parseFloat(t.resolved), alias: null, description: t.description ?? '', scopes: t.path[0] === 'radius' ? ['CORNER_RADIUS'] : t.path[0] === 'space' ? ['GAP', 'WIDTH_HEIGHT'] : ['STROKE_FLOAT'] };
   if (t.type === 'duration') return { name, type: 'FLOAT', value: parseFloat(t.resolved), alias: null, description: t.description ?? '' };
+  if (t.type === 'number') return { name, type: 'FLOAT', value: t.resolved, alias: null, description: t.description ?? '' };
   if (t.type === 'fontWeight') return { name, type: 'FLOAT', value: t.resolved, alias: null, description: '', scopes: ['FONT_WEIGHT'] };
   return null;
 };
