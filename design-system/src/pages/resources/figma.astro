@@ -2,7 +2,7 @@
 import Doc from '../../layouts/Doc.astro';
 import Section from '../../components/docs/Section.astro';
 import Callout from '../../components/docs/Callout.astro';
-import { FIGMA } from '../../lib/nav';
+import { FIGMA, REPO } from '../../lib/nav';
 import figma from '../../lib/figma-variables.json';
 const [prim, sem] = figma.collections;
 const pages = [
@@ -21,7 +21,7 @@ const pages = [
 >
   <Section id="open" n="01" title="Open the file">
     {FIGMA ? (
-      <p><a href={FIGMA}>Open the Aurora library in Figma</a>. Duplicate it to your drafts, or publish it as a team library and enable it from the Assets panel.</p>
+      <p><a href={FIGMA}>Open the Aurora library in Figma</a>. Duplicate it to your drafts, or publish it as a team library and enable it from the Assets panel. The variables match the tokens in the <a href={REPO}>source code on GitHub</a>, so changes round-trip between Figma and code.</p>
     ) : (
       <p>The Figma library is being built from the same token source. This page will link to it once it’s published.</p>
     )}

@@ -1,15 +1,21 @@
 # Aurora
 
-A design concept for Aurora's in-app inspiration surface, and the open-source design system extracted from it.
+**A design system whose sky follows your clock.** Aurora is a calm, dark system for high-trust products. In 1.0 "Daylight", the soft aurora behind every screen moves with the reader's local time, and the same four moods ship as design tokens in code and as variable modes in Figma.
+
+This repository holds the design system and the concept that started it.
 
 | | |
 |---|---|
-| **Design system docs** | [izaias.xyz/aurora/design](https://izaias.xyz/aurora/design) |
-| **Figma library** | [Aurora Design System](https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System) |
-| **Concept** | [izaias.xyz/aurora](https://izaias.xyz/aurora) |
+| **Docs site** | [izaias.xyz/aurora/design](https://izaias.xyz/aurora/design) |
+| **Figma Community** | [Aurora Design System 1.0](https://www.figma.com/community/file/1706693572283633614), free to duplicate |
+| **Code** | [`design-system/`](design-system/): tokens, React components and the docs site |
+| **Concept** | [izaias.xyz/aurora](https://izaias.xyz/aurora), and [`index.html`](index.html) here |
+| **Launch post** | [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7530637292387090432/) |
 | **License** | [MIT](LICENSE) |
 
-The design system (tokens, 14 React components, patterns and the docs site) lives in [`design-system/`](design-system/). Its README covers how to run it and how the pieces fit. The rest of this page is about the concept that started it.
+The docs site, the Figma file and this repository all link to each other, so you can start from any of them. The design system's own README in [`design-system/`](design-system/) covers how to run it and how the pieces fit. The rest of this page is about the concept.
+
+Designed by Izaias Cavalcanti, currently open to new work. Say hello on [LinkedIn](https://www.linkedin.com/in/izaias/).
 
 ## The idea
 
