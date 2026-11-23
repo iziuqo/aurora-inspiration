@@ -785,3 +785,8 @@ body[data-menu='open'] .d-menu__icon i:last-child { top: 3.5px; transform: rotat
 .ld__beam[data-charging] { opacity: 1; box-shadow: 0 0 18px 1px color-mix(in srgb, var(--au-light-lo) 45%, transparent); }
 @media (max-width: 900px) { .ld { grid-template-columns: 1fr; } }
 .d-anatomy__specimen { position: relative; }
+
+/* hold demo: messages stack in one cell so swapping them never changes the block's height */
+.d-hold-msg { grid-area: 1 / 1; align-self: start; opacity: 0; }
+/* only the incoming line fades, so two lines never overlap */
+.d-hold-msg[data-on] { opacity: 1; transition: opacity var(--au-dur-base) var(--au-ease-soft); }
