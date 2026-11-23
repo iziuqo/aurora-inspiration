@@ -2,15 +2,18 @@
 
 A design system for calm, high-trust products. Aurora uses a black ground, draws its structure in hairlines, and uses light only where something deserves attention.
 
+Version 1.0, "Daylight", adds a sky that follows the hour. Four moods (night, first light, the open day, the evening) live in the tokens, are blended by the reader's local time and painted by a small WebGL shader. In Figma the same moods are variable modes, so one switch relights the whole file.
+
 This design system was extracted from the [Aurora inspiration concept](https://izaias.xyz/aurora) at the root of this repository, which was designed by Izaias Cavalcanti.
 
 | | |
 |---|---|
 | **Docs site** | [izaias.xyz/aurora/design](https://izaias.xyz/aurora/design) |
-| **Figma library** | [Aurora Design System](https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System) |
-| **Tokens** | 96, in W3C DTCG format under `tokens/` |
+| **Figma Community** | [Aurora Design System 1.0](https://www.figma.com/community/file/1706693572283633614): 76 variables, 22 text styles, 17 components |
+| **Tokens** | 112, in W3C DTCG format under `tokens/` |
 | **Components** | 14 in React, each paired with a CSS file that uses tokens only |
 | **Patterns** | Hold to confirm, morph, leave it open, the quiet day, and a full showcase |
+| **Free extras** | A Start here page in Figma and four Daylight wallpapers on the [starter page](https://izaias.xyz/aurora/design/resources/starter) |
 
 ## Principles
 
@@ -43,7 +46,7 @@ The system is not published to npm yet. To use it in your own project, copy what
 
 - **Just the look:** `public/tokens/aurora.css` defines every token as a CSS custom property, plus a class for each type style.
 - **Components:** each one in `src/components/aurora/` is a `.tsx` file paired with a `.css` file. Copy the pair along with `src/styles/tokens.css`. The only runtime dependency is React.
-- **Design tools:** `public/tokens/aurora.tokens.json` is W3C DTCG, and `public/tokens/figma-variables.json` imports as Figma variables. The [Figma library](https://www.figma.com/design/8yACQWbJrGKKR9o2Igqubw/Aurora-Design-System) has every component built on those variables.
+- **Design tools:** `public/tokens/aurora.tokens.json` is W3C DTCG, and `public/tokens/figma-variables.json` imports as Figma variables. The [Figma Community file](https://www.figma.com/community/file/1706693572283633614) has every component built on those variables.
 
 ## Develop
 
@@ -75,5 +78,7 @@ design-system/
 ```
 
 ## License
+
+Designed by Izaias Cavalcanti, currently open to new work: [LinkedIn](https://www.linkedin.com/in/izaias/).
 
 [MIT](../LICENSE). The fonts are Newsreader, Nunito Sans and JetBrains Mono, which are licensed separately under the SIL Open Font License.
