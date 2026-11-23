@@ -95,7 +95,7 @@ export function neighbours(href: string) {
 }
 
 export const REPO = 'https://github.com/iziuqo/aurora-inspiration/tree/main/design-system';
-export const FIGMA = 'https://www.figma.com/community/file/1687113018428359308';
+export const FIGMA = 'https://www.figma.com/community/file/1706693572283633614';
 /** The public Community listing: the one place to duplicate, like and comment. */
 export const FIGMA_COMMUNITY = FIGMA;
 
