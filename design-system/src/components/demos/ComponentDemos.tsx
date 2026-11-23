@@ -14,18 +14,32 @@ import { DAY } from './day-data';
 const recovery = DAY.find((d) => d.kind === 'open')!;
 const dinner = DAY.filter((d) => d.kind === 'open')[1]!;
 
+const HOLD_MSGS = {
+  idle: 'Press and hold. Let go early to cancel.',
+  holding: 'Keep holding…',
+  done: 'Confirmed. Resetting in a moment.',
+} as const;
+
 export function HoldDemo() {
   const [n, setN] = useState(0);
-  const [msg, setMsg] = useState('Press and hold. Let go early to cancel.');
+  const [msg, setMsg] = useState<keyof typeof HOLD_MSGS>('idle');
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, width: 280, maxWidth: '100%', textAlign: 'center', textWrap: 'balance' }}>
       <HoldButton
         key={n}
         block
-        onChargeChange={(c) => c && setMsg('Keep holding…')}
-        onConfirm={() => { setMsg('Confirmed. Resetting in a moment.'); window.setTimeout(() => { setN((k) => k + 1); setMsg('Press and hold. Let go early to cancel.'); }, 1600); }}
+        onChargeChange={(c) => c && setMsg('holding')}
+        onConfirm={() => { setMsg('done'); window.setTimeout(() => { setN((k) => k + 1); setMsg('idle'); }, 1600); }}
       />
-      <Label as="div">{msg}</Label>
+      {/* every message shares one grid cell, so the block is always as tall as the longest
+          and the button never shifts when a shorter line replaces a wrapped one */}
+      <div style={{ display: 'grid', width: '100%' }} aria-live="polite">
+        {(Object.keys(HOLD_MSGS) as (keyof typeof HOLD_MSGS)[]).map((k) => (
+          <div key={k} className="d-hold-msg" data-on={k === msg || undefined} aria-hidden={k !== msg || undefined}>
+            <Label as="div">{HOLD_MSGS[k]}</Label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
