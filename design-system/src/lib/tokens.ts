@@ -551,6 +551,80 @@ export const tokens = {
       "value": "660ms cubic-bezier(0.32, 0.72, 0, 1)",
       "cssVar": "--au-motion-morph"
     }
+  },
+  "sky": {
+    "night": {
+      "hour": {
+        "value": "0",
+        "cssVar": "--au-sky-night-hour"
+      },
+      "intensity": {
+        "value": "0.34",
+        "cssVar": "--au-sky-night-intensity"
+      },
+      "height": {
+        "value": "0.66",
+        "cssVar": "--au-sky-night-height"
+      },
+      "mint": {
+        "value": "0.22",
+        "cssVar": "--au-sky-night-mint"
+      }
+    },
+    "dawn": {
+      "hour": {
+        "value": "6.5",
+        "cssVar": "--au-sky-dawn-hour"
+      },
+      "intensity": {
+        "value": "0.62",
+        "cssVar": "--au-sky-dawn-intensity"
+      },
+      "height": {
+        "value": "0.3",
+        "cssVar": "--au-sky-dawn-height"
+      },
+      "mint": {
+        "value": "0.86",
+        "cssVar": "--au-sky-dawn-mint"
+      }
+    },
+    "day": {
+      "hour": {
+        "value": "13",
+        "cssVar": "--au-sky-day-hour"
+      },
+      "intensity": {
+        "value": "0.78",
+        "cssVar": "--au-sky-day-intensity"
+      },
+      "height": {
+        "value": "0.5",
+        "cssVar": "--au-sky-day-height"
+      },
+      "mint": {
+        "value": "0.6",
+        "cssVar": "--au-sky-day-mint"
+      }
+    },
+    "dusk": {
+      "hour": {
+        "value": "19",
+        "cssVar": "--au-sky-dusk-hour"
+      },
+      "intensity": {
+        "value": "0.7",
+        "cssVar": "--au-sky-dusk-intensity"
+      },
+      "height": {
+        "value": "0.38",
+        "cssVar": "--au-sky-dusk-height"
+      },
+      "mint": {
+        "value": "0.3",
+        "cssVar": "--au-sky-dusk-mint"
+      }
+    }
   }
 } as const;
 
@@ -1590,5 +1664,149 @@ export const tokenList = [
     "value": "660ms cubic-bezier(0.32, 0.72, 0, 1)",
     "alias": null,
     "description": "A box changing into another box."
+  },
+  {
+    "path": "sky.night.hour",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-night-hour",
+    "value": "0",
+    "alias": null,
+    "description": "Midnight to first light. Faint, high, mostly violet."
+  },
+  {
+    "path": "sky.night.intensity",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-night-intensity",
+    "value": "0.34",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.night.height",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-night-height",
+    "value": "0.66",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.night.mint",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-night-mint",
+    "value": "0.22",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.dawn.hour",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dawn-hour",
+    "value": "6.5",
+    "alias": null,
+    "description": "First light. Low on the horizon, mostly mint."
+  },
+  {
+    "path": "sky.dawn.intensity",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dawn-intensity",
+    "value": "0.62",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.dawn.height",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dawn-height",
+    "value": "0.3",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.dawn.mint",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dawn-mint",
+    "value": "0.86",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.day.hour",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-day-hour",
+    "value": "13",
+    "alias": null,
+    "description": "The open middle of the day. The brightest the sky gets."
+  },
+  {
+    "path": "sky.day.intensity",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-day-intensity",
+    "value": "0.78",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.day.height",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-day-height",
+    "value": "0.5",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.day.mint",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-day-mint",
+    "value": "0.6",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.dusk.hour",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dusk-hour",
+    "value": "19",
+    "alias": null,
+    "description": "The evening is yours. Low again, leaning violet."
+  },
+  {
+    "path": "sky.dusk.intensity",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dusk-intensity",
+    "value": "0.7",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.dusk.height",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dusk-height",
+    "value": "0.38",
+    "alias": null,
+    "description": null
+  },
+  {
+    "path": "sky.dusk.mint",
+    "layer": "semantic",
+    "type": "number",
+    "cssVar": "--au-sky-dusk-mint",
+    "value": "0.3",
+    "alias": null,
+    "description": null
   }
 ] as const;

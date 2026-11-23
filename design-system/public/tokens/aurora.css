@@ -204,6 +204,24 @@
   --au-motion-enter: 900ms cubic-bezier(0.25, 1, 0.5, 1);  /* Content arriving. */
   --au-motion-morph: 660ms cubic-bezier(0.32, 0.72, 0, 1);  /* A box changing into another box. */
 
+  /* semantic · sky */
+  --au-sky-night-hour: 0;  /* Midnight to first light. Faint, high, mostly violet. */
+  --au-sky-night-intensity: 0.34;
+  --au-sky-night-height: 0.66;
+  --au-sky-night-mint: 0.22;
+  --au-sky-dawn-hour: 6.5;  /* First light. Low on the horizon, mostly mint. */
+  --au-sky-dawn-intensity: 0.62;
+  --au-sky-dawn-height: 0.3;
+  --au-sky-dawn-mint: 0.86;
+  --au-sky-day-hour: 13;  /* The open middle of the day. The brightest the sky gets. */
+  --au-sky-day-intensity: 0.78;
+  --au-sky-day-height: 0.5;
+  --au-sky-day-mint: 0.6;
+  --au-sky-dusk-hour: 19;  /* The evening is yours. Low again, leaning violet. */
+  --au-sky-dusk-intensity: 0.7;
+  --au-sky-dusk-height: 0.38;
+  --au-sky-dusk-mint: 0.3;
+
   /* the aurora, as one gradient */
   --au-light: linear-gradient(90deg, var(--au-light-lo), var(--au-light-hi));
 }

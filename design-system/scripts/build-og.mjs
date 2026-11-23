@@ -34,7 +34,9 @@ const css = `
   .og { position: relative; box-sizing: border-box; width: 1200px; height: 630px; padding: 76px 80px 72px; display: flex; flex-direction: column;
         color: var(--au-text-primary); font-family: var(--au-font-sans);
         background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--au-text-primary) 9%, transparent) 1px, transparent 0);
-        background-size: 24px 24px; background-position: 12px 12px; }
+        background-size: 24px 24px; background-position: 12px 12px; isolation: isolate; }
+  .og::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--sky) center 30% / cover no-repeat;
+                -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 92%); }
   .og__top { display: flex; align-items: center; gap: 22px; }
   .og__mark { font-size: 15px; letter-spacing: 0.42em; font-weight: 600; margin-right: -0.42em; }
   .og__sep { width: 1px; height: 28px; background: var(--au-border-strong); }
@@ -55,7 +57,7 @@ const css = `
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-const browser = await chromium.launch({ executablePath: process.env.CHROME ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const browser = await chromium.launch({ ...(process.env.CHROME ? { executablePath: process.env.CHROME } : {}) });
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
 
 async function draw(card) {
@@ -66,7 +68,7 @@ async function draw(card) {
     document.head.append(style);
     document.body.className = '';
     document.body.innerHTML = `
-      <div class="og">
+      <div class="og" style="--sky: url(${card.sky})">
         <div class="og__top"><span class="og__mark">AURORA</span><i class="og__sep"></i><span class="og__eyebrow">${card.eyebrow}</span></div>
         <div class="og__body">
           <h1 class="og__title"${card.long ? ' data-long' : ''}>${card.title}</h1>
@@ -105,7 +107,9 @@ for (const route of pages) {
     title: document.querySelector('h1')?.textContent?.trim() ?? document.title,
     lead: document.querySelector('.d-head__lead')?.textContent?.trim() ?? '',
   }));
+  const skies = ['first-light', 'open-day', 'evening', 'night'];
   await draw({
+    sky: `${base}/wallpapers/aurora-${skies[route.length % 4]}-desktop.jpg`,
     file: route.slice(1),
     eyebrow: esc(['Design system', meta.eyebrow].filter(Boolean).join(' · ')),
     title: esc(meta.title),
@@ -116,6 +120,12 @@ for (const route of pages) {
 }
 
 await page.goto(base + '/principles', { waitUntil: 'networkidle' });
-await draw(concept);
+await draw({ ...concept, sky: `${base}/wallpapers/aurora-evening-desktop.jpg` });
+await draw({
+  file: '../og', sky: `${base}/wallpapers/aurora-open-day-desktop.jpg`, eyebrow: 'Design system · 1.0 · Daylight',
+  title: 'Interfaces that know when to stay <em>quiet.</em>', long: true,
+  lead: 'A calm, open-source design system with a sky that keeps your hours. Figma file, tokens and code, free.',
+  url: 'izaias.xyz/aurora/design', tag: 'Designed by Izaias Cavalcanti',
+});
 
 await browser.close();

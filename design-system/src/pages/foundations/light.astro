@@ -5,6 +5,7 @@ import DoDont from '../../components/docs/DoDont.astro';
 import Callout from '../../components/docs/Callout.astro';
 import TokenTable from '../../components/docs/TokenTable.astro';
 import LightDemos from '../../components/demos/LightDemos';
+import { url } from '../../lib/nav';
 ---
 <Doc
   title="Light"
@@ -21,6 +22,7 @@ import LightDemos from '../../components/demos/LightDemos';
   </Section>
 
   <Section id="behaviour" n="03" title="How light behaves">
+    <Callout label="At landscape scale">Outside the product, on brand surfaces like this site's headers, the same two colours become <a href={url('/foundations/daylight')}>Daylight</a>: a sky that follows the reader's local time. Inside the product, only the four uses above apply.</Callout>
     <ul class="d-list">
       <li><strong>It drifts.</strong> The beam in open time moves its gradient over 12 seconds. Slow enough to feel ambient, fast enough to feel alive.</li>
       <li><strong>It brightens under attention.</strong> Hover or focus on a gap lifts the beam from 40% to 72% opacity.</li>

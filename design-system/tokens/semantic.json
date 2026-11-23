@@ -85,5 +85,33 @@
     "fade":    { "$type": "transition", "$value": { "duration": "{duration.base}", "timingFunction": "{easing.soft}", "delay": "0ms" }, "$description": "Colour and opacity." },
     "enter":   { "$type": "transition", "$value": { "duration": "{duration.slow}", "timingFunction": "{easing.out}", "delay": "0ms" }, "$description": "Content arriving." },
     "morph":   { "$type": "transition", "$value": { "duration": "660ms", "timingFunction": "{easing.glide}", "delay": "0ms" }, "$description": "A box changing into another box." }
+  },
+  "sky": {
+    "$type": "number",
+    "$description": "Daylight. The sky above every Aurora page follows the reader's local time: four moods, blended by the hour.",
+    "night": {
+      "hour":      { "$value": 0, "$description": "Midnight to first light. Faint, high, mostly violet." },
+      "intensity": { "$value": 0.34 },
+      "height":    { "$value": 0.66 },
+      "mint":      { "$value": 0.22 }
+    },
+    "dawn": {
+      "hour":      { "$value": 6.5, "$description": "First light. Low on the horizon, mostly mint." },
+      "intensity": { "$value": 0.62 },
+      "height":    { "$value": 0.3 },
+      "mint":      { "$value": 0.86 }
+    },
+    "day": {
+      "hour":      { "$value": 13, "$description": "The open middle of the day. The brightest the sky gets." },
+      "intensity": { "$value": 0.78 },
+      "height":    { "$value": 0.5 },
+      "mint":      { "$value": 0.6 }
+    },
+    "dusk": {
+      "hour":      { "$value": 19, "$description": "The evening is yours. Low again, leaning violet." },
+      "intensity": { "$value": 0.7 },
+      "height":    { "$value": 0.38 },
+      "mint":      { "$value": 0.3 }
+    }
   }
 }

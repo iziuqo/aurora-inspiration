@@ -1,0 +1,71 @@
+---
+import Doc from '../../layouts/Doc.astro';
+import Section from '../../components/docs/Section.astro';
+import Callout from '../../components/docs/Callout.astro';
+import CodeBlock from '../../components/docs/CodeBlock.astro';
+import Daylight from '../../components/sky/Daylight.astro';
+import { tokenList } from '../../lib/tokens';
+import { url } from '../../lib/nav';
+import { clock } from '../../lib/sky';
+const sky = tokenList.filter((t) => t.path.startsWith('sky.'));
+const moods = ['night', 'dawn', 'day', 'dusk'].map((m) => ({
+  m,
+  name: { night: 'Night', dawn: 'First light', day: 'The open day', dusk: 'The evening' }[m]!,
+  v: Object.fromEntries(sky.filter((t) => t.path.startsWith(`sky.${m}.`)).map((t) => [t.path.split('.').pop(), t.value])),
+  d: sky.find((t) => t.path === `sky.${m}.hour`)?.description,
+}));
+const code = `import { paintSky, skyAt, localHour } from './lib/sky'; // design-system/src/lib/sky.ts
+
+// Paint the sky for the reader's own hour
+const sky = paintSky(canvas, { strength: 0.7 });
+
+// Or pin it to a moment, gliding there without a jump
+sky.setHour(19);
+
+skyAt(localHour()); // { intensity, height, mint, name: 'dusk' }`;
+---
+<Doc
+  title="Daylight"
+  eyebrow="Foundations"
+  lead="Aurora is a product about your day, so its light keeps your hours. Four moods live in the tokens and every page blends them for the reader's local time: low and mint at first light, violet as the evening opens, faint and high at night."
+  meta={[{ label: 'Moods', value: '4' }, { label: 'Tokens', value: String(sky.length) }, { label: 'Lives on', value: 'Brand surfaces only' }]}
+>
+  <Section id="dial" n="01" title="Move the day">
+    <p>Drag through twenty-four hours. The sky behind this page's title follows the dial, because every sky on a page listens to the same clock.</p>
+    <div class="d-wide" style="margin-top:28px"><Daylight /></div>
+  </Section>
+
+  <Section id="moods" n="02" title="Four moods">
+    <p>Each mood is four numbers. The hour it peaks, how bright it gets, how high the light hangs, and how much of it is mint. Between two moods the values blend on a smoothstep, so the sky never jumps.</p>
+    <div class="d-table-wrap d-wide">
+      <table class="d-table">
+        <thead><tr><th>Mood</th><th>Peaks at</th><th>Intensity</th><th>Height</th><th>Mint share</th><th>Character</th></tr></thead>
+        <tbody>
+          {moods.map((x) => (
+            <tr><td>{x.name}</td><td class="d-mono">{clock(Number(x.v.hour))}</td><td class="d-mono">{x.v.intensity}</td><td class="d-mono">{x.v.height}</td><td class="d-mono">{x.v.mint}</td><td>{x.d}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="rules" n="03" title="Where the sky belongs">
+    <ul class="d-list">
+      <li><strong>Brand surfaces only.</strong> The home page, page headers, covers, launch images and wallpapers. Never inside a component, and never behind a control.</li>
+      <li><strong>Below a fifth of full strength.</strong> Text set over the sky keeps its contrast. The brightest mood still sits under 20% luminance.</li>
+      <li><strong>It folds, it never streaks.</strong> Low-frequency noise only. No rays, no glints, no glow around type.</li>
+      <li><strong>It moves like weather.</strong> One drift every few minutes, imperceptible from second to second. With reduced motion it paints once and holds still.</li>
+      <li><strong>It sleeps off screen.</strong> A sky outside the viewport stops drawing. A whole page of skies costs one small shader.</li>
+    </ul>
+    <Callout label="Relation to light">The four uses on the <a href={url('/foundations/light')}>Light</a> page still hold inside the product. Daylight is the same mint and violet at landscape scale: the atmosphere a product sits in, not a signal inside it.</Callout>
+  </Section>
+
+  <Section id="code" n="04" title="In code">
+    <p>The sky is one WebGL shader, about a hundred lines, painted at half resolution and upscaled so the browser's own resampling does the softening. If WebGL is unavailable, two radial gradients stand in.</p>
+    <CodeBlock code={code} lang="ts" />
+  </Section>
+
+  <Section id="take" n="05" title="Take it with you">
+    <p>The four moods are rendered as wallpapers for desktop and phone in the <a href={url('/resources/starter')}>Starter kit</a>, and as image fills on the Figma cover, so the file and the site share one sky.</p>
+  </Section>
+</Doc>

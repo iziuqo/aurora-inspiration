@@ -1,0 +1,116 @@
+---
+// The Daylight dial: drag through a day and every sky on the page follows.
+import Sky from './Sky.astro';
+import { moods } from '../../lib/sky';
+import { url } from '../../lib/nav';
+const stops = [
+  { k: 'night', label: 'Night', hour: 0 },
+  { k: 'dawn', label: 'First light', hour: moods.dawn.hour },
+  { k: 'day', label: 'The open day', hour: moods.day.hour },
+  { k: 'dusk', label: 'The evening', hour: moods.dusk.hour },
+];
+---
+<div class="dl" data-daylight>
+  <div class="dl__stage">
+    <Sky strength={1.15} seed={0.61} />
+    <div class="dl__read">
+      <span class="dl__clock" data-dl-clock>13.00</span>
+      <span class="dl__mood" data-dl-mood>the open day</span>
+    </div>
+    <dl class="dl__values" aria-label="Sky tokens at this hour">
+      <div><dt class="au-label">Intensity</dt><dd data-dl-v="intensity">0.78</dd></div>
+      <div><dt class="au-label">Height</dt><dd data-dl-v="height">0.50</dd></div>
+      <div><dt class="au-label">Mint share</dt><dd data-dl-v="mint">0.60</dd></div>
+    </dl>
+  </div>
+  <div class="dl__dial">
+    <input class="dl__range" type="range" min="0" max="24" step="0.05" value="13" aria-label="Hour of the day" data-dl-range />
+    <div class="dl__track" aria-hidden="true"><i class="dl__fill" data-dl-fill></i></div>
+    <ol class="dl__stops">
+      {stops.map((s) => (
+        <li style={`--at:${(s.hour / 24) * 100}%`}><button type="button" data-dl-hour={s.hour}><span class="dl__stop-t">{String(Math.floor(s.hour)).padStart(2, '0')}.{s.hour % 1 ? '30' : '00'}</span><span class="dl__stop-l">{s.label}</span></button></li>
+      ))}
+    </ol>
+  </div>
+  <div class="dl__foot">
+    <button type="button" class="dl__now" data-dl-now>Back to my time</button>
+    <a class="dl__get" href={url('/resources/starter')}>Take the four skies as wallpapers →</a>
+  </div>
+</div>
+
+<script>
+  import { skyAt, clock, localHour, moodLabel } from '../../lib/sky';
+  const root = document.querySelector<HTMLElement>('[data-daylight]');
+  if (root) {
+    const range = root.querySelector<HTMLInputElement>('[data-dl-range]')!;
+    const fill = root.querySelector<HTMLElement>('[data-dl-fill]')!;
+    const clk = root.querySelector<HTMLElement>('[data-dl-clock]')!;
+    const mood = root.querySelector<HTMLElement>('[data-dl-mood]')!;
+    const vals = root.querySelectorAll<HTMLElement>('[data-dl-v]');
+    let anim = 0;
+    const render = (h: number, broadcast = true) => {
+      const s = skyAt(h);
+      range.value = String(h);
+      fill.style.setProperty('--p', String(h / 24));
+      clk.textContent = clock(h);
+      mood.textContent = moodLabel[s.name];
+      vals.forEach((v) => { v.textContent = (s as any)[v.dataset.dlV!].toFixed(2); });
+      if (broadcast) window.dispatchEvent(new CustomEvent('aurora:hour', { detail: { hour: h } }));
+    };
+    // Glide the dial to an hour on the motion system's own curve, never a jump.
+    const glide = (to: number) => {
+      cancelAnimationFrame(anim);
+      const from = Number(range.value), t0 = performance.now(), dur = 1100;
+      const ease = (x: number) => 1 - Math.pow(1 - x, 4);
+      const step = (now: number) => {
+        const k = Math.min(1, (now - t0) / dur);
+        render(from + (to - from) * ease(k));
+        if (k < 1) anim = requestAnimationFrame(step);
+      };
+      anim = requestAnimationFrame(step);
+    };
+    range.addEventListener('input', () => { cancelAnimationFrame(anim); render(Number(range.value)); });
+    root.querySelectorAll<HTMLButtonElement>('[data-dl-hour]').forEach((b) => b.addEventListener('click', () => glide(Number(b.dataset.dlHour))));
+    root.querySelector('[data-dl-now]')!.addEventListener('click', () => glide(localHour()));
+    render(localHour(), false);
+  }
+</script>
+
+<style>
+  .dl { position: relative; }
+  .dl__stage { position: relative; isolation: isolate; height: clamp(360px, 46vw, 560px); border: 1px solid var(--au-border-hairline); border-radius: var(--au-radius-lg); overflow: hidden; background: var(--au-bg-ground); }
+  .dl__read { position: absolute; left: var(--au-space-10); bottom: var(--au-space-10); display: flex; flex-direction: column; gap: 6px; }
+  .dl__clock { font-family: var(--au-font-serif); font-size: clamp(64px, 9vw, 128px); line-height: 0.9; letter-spacing: -0.04em; font-variant-numeric: lining-nums tabular-nums; color: var(--au-text-primary); font-variation-settings: 'opsz' 72; }
+  .dl__mood { font-family: var(--au-font-serif); font-style: italic; font-size: clamp(20px, 2vw, 26px); color: var(--au-text-secondary); }
+  .dl__values { position: absolute; right: var(--au-space-10); bottom: var(--au-space-10); display: grid; grid-template-columns: repeat(3, auto); gap: var(--au-space-8); }
+  .dl__values dd { margin-top: 6px; font-family: var(--au-font-mono); font-size: 13px; color: var(--au-text-primary); font-variant-numeric: tabular-nums; }
+
+  .dl__dial { position: relative; margin-top: var(--au-space-8); padding-bottom: var(--au-space-12); }
+  .dl__range { position: absolute; inset: -14px 0 auto; width: 100%; height: 30px; opacity: 0; cursor: ew-resize; z-index: 2; margin: 0; }
+  .dl__track { position: relative; height: 1px; background: var(--au-border-strong); }
+  .dl__fill { position: absolute; left: 0; top: 0; height: 1px; width: calc(var(--p, 0.54) * 100%); background: linear-gradient(90deg, var(--au-light-lo), var(--au-light-hi)); }
+  .dl__fill::after { content: ''; position: absolute; right: -6px; top: -6px; width: 13px; height: 13px; border-radius: 50%; background: var(--au-bg-inverse); box-shadow: 0 0 0 6px color-mix(in srgb, var(--au-bg-ground) 80%, transparent); /* token-exempt: halo separating the handle from the rule */ transition: transform var(--au-dur-quick) var(--au-ease-glide); }
+  .dl__range:hover ~ .dl__track .dl__fill::after, .dl__range:focus-visible ~ .dl__track .dl__fill::after { transform: scale(1.25); }
+  .dl__range:focus-visible ~ .dl__track { outline: 1px solid var(--au-light-focus); outline-offset: 10px; }
+  .dl__stops { list-style: none; position: relative; height: 40px; margin-top: var(--au-space-5); }
+  .dl__stops li { position: absolute; left: var(--at); transform: translateX(-2px); }
+  .dl__stops li:first-child { transform: none; }
+  .dl__stops button { all: unset; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding-left: 10px; border-left: 1px solid var(--au-border-strong); }
+  .dl__stops button:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 4px; }
+  .dl__stop-t { font-family: var(--au-font-mono); font-size: 11px; color: var(--au-text-label); }
+  .dl__stop-l { font-family: var(--au-font-serif); font-size: 16px; color: var(--au-text-tertiary); transition: color var(--au-dur-base) var(--au-ease-soft); white-space: nowrap; }
+  .dl__stops button:hover .dl__stop-l { color: var(--au-text-primary); }
+  .dl__foot { display: flex; justify-content: space-between; align-items: center; gap: var(--au-space-6); }
+  .dl__now { all: unset; cursor: pointer; font-size: 13px; color: var(--au-text-tertiary); border-bottom: 1px solid var(--au-border-strong); padding-bottom: 2px; transition: color var(--au-dur-base) var(--au-ease-soft); }
+  .dl__now:hover, .dl__get:hover { color: var(--au-text-primary); }
+  .dl__now:focus-visible { outline: 1px solid var(--au-light-focus); outline-offset: 4px; }
+  .dl__get { font-family: var(--au-font-serif); font-style: italic; font-size: 17px; color: var(--au-text-secondary); text-decoration: none; transition: color var(--au-dur-base) var(--au-ease-soft); }
+  @media (max-width: 760px) {
+    .dl__read { left: var(--au-space-6); bottom: auto; top: var(--au-space-6); }
+    .dl__values { left: var(--au-space-6); right: auto; bottom: var(--au-space-6); gap: var(--au-space-5); }
+    .dl__stop-l { font-size: 13px; }
+    .dl__stops li:nth-child(odd) .dl__stop-l { display: none; }
+    .dl__stops li:last-child { left: auto; right: 0; transform: none; }
+    .dl__foot { flex-direction: column; align-items: flex-start; }
+  }
+</style>
